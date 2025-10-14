@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TxtRPG
+namespace TxtRPG.TxtRPG.Data
 {
     public class Player
     {
@@ -18,9 +18,9 @@ namespace TxtRPG
         public int maxMp;
         public int damage;
         public int gold;
-        public Inven inventory = new Inven();
-        public Item equipWeapon;
-        public Item equipArmor;
+        //public Inven inventory = new Inven();
+        //public Item equipWeapon;
+        //public Item equipArmor;
 
         public Player(string Name)
         {
@@ -32,6 +32,7 @@ namespace TxtRPG
             maxMp = 10;
             hp = maxHp;
             mp = maxMp;
+            damage = 10;
             gold = 1000;
         }
     }
