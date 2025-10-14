@@ -1,106 +1,22 @@
-# =========================
-# Visual Studio & .NET ignore
-# =========================
 
-# Build results
+﻿## Visual Studio 관련 파일
+# 빌드 출력 및 임시 폴더
 [Bb]in/
 [Oo]bj/
-[Ll]og/
-[Tt]emp/
-*.obj
-*.exe
-*.dll
 *.pdb
-*.cache
-*.so
-*.dylib
-*.lib
-
-# User-specific files
-*.user
-*.userosscache
 *.suo
-*.sln.docstates
+*.user
 
-# Visual Studio generated files
+# 사용자별 설정 폴더
 .vs/
-.vscode/
-*.sln.iml
 
-# Test results
-[Tt]est[Rr]esult*/
-*.VisualState.xml
-*.coverage
-*.coveragexml
-
-# NuGet packages
-*.nupkg
-*.snupkg
-# The packages folder can be ignored except for build targets.
-**/[Pp]ackages/*
-!**/[Pp]ackages/build/
-!**/[Pp]ackages/repositories.config
-
-# Build logs
+# 기타 불필요한 파일
 *.tlog
 *.log
-*.wrn
-*.err
-
-# Backup & autosave
-*~*
+*.ncb
+*.aps
+*.plg
 *.bak
-*.swp
-*.tmp
-*.temp
-*.old
+*.opensdf
+*.*.log
 
-# IDE config
-.idea/
-*.DotSettings
-*.DotSettings.user
-
-# OS generated files
-.DS_Store
-Thumbs.db
-ehthumbs.db
-Desktop.ini
-
-# Rider / JetBrains
-.idea/
-*.sln.iml
-
-# Publish output
-publish/
-*.Publish.xml
-
-# ReSharper
-_ReSharper*/
-*.DotSettings.user
-
-# Entity Framework
-*_MigrationHistory/
-*.dbmdl
-
-# NCrunch
-_NCrunch_*
-.*crunch*.local.xml
-
-# Azure
-*.azurePubxml
-*.pubxml.user
-
-# dotenv / secrets
-.env
-.env.*
-
-# Cache files
-*.cache
-*.config.user
-*.db
-
-# Custom
-*.zip
-*.7z
-*.rar
-*.bak
