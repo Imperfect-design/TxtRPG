@@ -1,10 +1,11 @@
 ﻿using System;
 using TxtRPG.Scene;
 using TxtRPG.TxtRPG.Data;
+using TxtRPG.TxtRPG.Data.Scene;
 using TxtRPG.TxtRPG.Game;
-using TxtRPG.TxtRPG.Scene;
+using TxtRPG.TxtRPG.Game.Scene;
 
-namespace TxtRPG.TxtRPG.Game.Scene
+namespace TxtRPG.TxtRPG.Scene
 {
     public class BattleScene : Iscene
     {

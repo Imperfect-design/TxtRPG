@@ -7,11 +7,12 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using TxtRPG.Scene;
 using TxtRPG.TxtRPG.Data;
+using TxtRPG.TxtRPG.Data.Scene;
 using TxtRPG.TxtRPG.Game;
-using TxtRPG.TxtRPG.Scene;
+using TxtRPG.TxtRPG.Game.Scene;
 using static System.Net.Mime.MediaTypeNames;
 
-namespace TxtRPG.TxtRPG.Game.Scene
+namespace TxtRPG.TxtRPG.Scene
 {
     public class StatusScene : Iscene
     {
