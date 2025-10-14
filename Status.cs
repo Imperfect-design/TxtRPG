@@ -9,7 +9,7 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace TxtRPG
 {
-    internal class Status
+    public class Status
     {
         public void Run(Player player)
         {
@@ -37,6 +37,7 @@ EXP  {player.exp} / {player.maxExp}");
                         break;
                     default:
                         Console.WriteLine("잘못된 입력값입니다. 다시 입력해주세요");
+                        Console.ReadKey();
                         break;
                 }
             }
