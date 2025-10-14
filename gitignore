@@ -23,6 +23,7 @@
 *.sln.docstates
 
 # Visual Studio generated files
+.vs
 .vs/
 .vscode/
 *.sln.iml
