@@ -9,7 +9,7 @@ class TitleScene
         Console.WriteLine(" 1. 상태보기");
         Console.WriteLine(" 2. 전투시작");
         Status status = new Status();
-        status.warrior();
+        
         while (true)
         {
             int input = int.Parse(Console.ReadLine());

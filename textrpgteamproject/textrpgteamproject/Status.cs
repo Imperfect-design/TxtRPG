@@ -10,10 +10,15 @@ class Status
         int hp;
         int mp;
         int gold;
-    public Status
-        {
-
-        }
+   public Status()
+    {
+        Level = 1;
+        Name = "chad";
+        Str = 1000;
+        Hp = 100;
+        Mp = 10;
+        Gold = 1000;
+    }
 
     public int Level
     {
@@ -46,15 +51,7 @@ class Status
         set { gold = value; }
     }
 
-    public void warrior()
-    {
-        Level = 1;
-        Name = "chad";
-        Str = 1000;
-        Hp = 100;
-        Mp = 10;
-        Gold = 1000;
-    }
+   
     public void view()
     {
         Console.Clear();
