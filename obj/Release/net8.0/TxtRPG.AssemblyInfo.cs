@@ -11,12 +11,12 @@
 using System;
 using System.Reflection;
 
-[assembly: System.Reflection.AssemblyCompanyAttribute("textrpgteamproject")]
-[assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
+[assembly: System.Reflection.AssemblyCompanyAttribute("TxtRPG")]
+[assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
 [assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f7175eaa6f2d8c5319a342afa277b810252829e5")]
-[assembly: System.Reflection.AssemblyProductAttribute("textrpgteamproject")]
-[assembly: System.Reflection.AssemblyTitleAttribute("textrpgteamproject")]
+[assembly: System.Reflection.AssemblyProductAttribute("TxtRPG")]
+[assembly: System.Reflection.AssemblyTitleAttribute("TxtRPG")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
 
 // MSBuild WriteCodeFragment 클래스에서 생성되었습니다.

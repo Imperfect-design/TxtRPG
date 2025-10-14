@@ -1,17 +1,22 @@
-﻿class TitleScene
+﻿using System;
+
+
+class TitleScene
 {
     public void Mainmenu()
     {
         Console.Clear();
         Console.WriteLine(" 1. 상태보기");
         Console.WriteLine(" 2. 전투시작");
+        Status status = new Status();
+        status.warrior();
         while (true)
         {
             int input = int.Parse(Console.ReadLine());
             
             if (input == 1)
             {
-
+                status.view();
             }
             
             else if (input == 2)

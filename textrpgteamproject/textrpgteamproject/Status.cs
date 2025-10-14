@@ -1,4 +1,5 @@
 ﻿using System.Xml;
+using System;
 
 class Status
 {
@@ -9,6 +10,10 @@ class Status
         int hp;
         int mp;
         int gold;
+    public Status
+        {
+
+        }
 
     public int Level
     {
@@ -41,22 +46,23 @@ class Status
         set { gold = value; }
     }
 
-    public void warrior(int level, string name, int str, int hp, int mp, int gold)
+    public void warrior()
     {
-        level = 1;
-        name = "chad";
-        str = 1000;
-        hp = 100;
-        mp = 10;
-        gold = 1000;
+        Level = 1;
+        Name = "chad";
+        Str = 1000;
+        Hp = 100;
+        Mp = 10;
+        Gold = 1000;
     }
-    public void view(int level, string name, int str, int hp, int mp, int gold)
+    public void view()
     {
-        Console.WriteLine(Level);
-        Console.WriteLine(Name);
-        Console.WriteLine(Str);
-        Console.WriteLine(Hp);
-        Console.WriteLine(Mp);
-        Console.WriteLine(Gold);
+        Console.Clear();
+        Console.WriteLine($"레벨: {Level}");
+        Console.WriteLine($"이름:{Name}");
+        Console.WriteLine($"공격력:{Str}");
+        Console.WriteLine($"체력:{Hp}");
+        Console.WriteLine($"마력{Mp}");
+        Console.WriteLine($"골드{Gold}");
     }
 }
