@@ -1,1 +1,20 @@
-﻿.vs
+﻿## Visual Studio 관련 파일
+# 빌드 출력 및 임시 폴더
+[Bb]in/
+[Oo]bj/
+*.pdb
+*.suo
+*.user
+
+# 사용자별 설정 폴더
+.vs/
+
+# 기타 불필요한 파일
+*.tlog
+*.log
+*.ncb
+*.aps
+*.plg
+*.bak
+*.opensdf
+*.*.log
