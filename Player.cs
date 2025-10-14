@@ -34,30 +34,5 @@ namespace TxtRPG
             mp = maxMp;
             gold = 1000;
         }
-        public void Run()
-        {
-            Console.WriteLine(@$"
-{name} {level}.Lv
-HP {hp}/{maxHp}   MP {mp}/{maxMp}
-DMG {damage}      {gold}G
-EXP  {exp} / {maxExp}");
-            Console.WriteLine("\n\n\n1.인벤토리 2.스킬보기 3.나가기");
-            Console.Write(">>>");
-            int input = int.Parse(Console.ReadLine());
-            switch (input)
-            {
-                case 1:
-                    //인벤토리
-                    break;
-                case 2:
-                    //스킬보기
-                    break;
-                case 3:
-                    //나가기
-                    break;
-                default:
-                    Console.WriteLine("잘못된 입력값입니다. 다시 입력해주세요");
-            }
-        }
     }
 }
