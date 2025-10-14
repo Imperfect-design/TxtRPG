@@ -1,0 +1,5 @@
+C:\Users\dpdlt\OneDrive\바탕 화면\TxtRPG\TxtRPG\obj\Debug\net8.0\TxtRPG.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\dpdlt\OneDrive\바탕 화면\TxtRPG\TxtRPG\obj\Debug\net8.0\TxtRPG.AssemblyInfoInputs.cache
+C:\Users\dpdlt\OneDrive\바탕 화면\TxtRPG\TxtRPG\obj\Debug\net8.0\TxtRPG.AssemblyInfo.cs
+C:\Users\dpdlt\OneDrive\바탕 화면\TxtRPG\TxtRPG\obj\Debug\net8.0\TxtRPG.csproj.CoreCompileInputs.cache
+C:\Users\dpdlt\OneDrive\바탕 화면\TxtRPG\TxtRPG\obj\Debug\net8.0\TxtRPG.sourcelink.json
