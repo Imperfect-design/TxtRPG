@@ -2,6 +2,10 @@
 
 namespace TxtRPG.Data
 {
+
+
+
+
     public class Player
     {
         public string name;
