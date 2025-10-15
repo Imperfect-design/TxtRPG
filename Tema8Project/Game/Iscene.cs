@@ -1,6 +1,5 @@
 ﻿using System;
 using TxtRPG.Data;
-using TxtRPG.Scene;
 
 namespace TxtRPG.Game
 {
