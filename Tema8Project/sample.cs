@@ -58,7 +58,10 @@ using TxtRPG.Scene;
 //player
 
 //public int doge;
+//public int critical;
 //doge = 30;
+//critical = 50;
 
 
 //Dodge {player.doge}
+//CRITICAL {player.critical}
