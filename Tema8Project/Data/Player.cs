@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace TxtRPG.Data
 {
@@ -15,9 +15,9 @@ namespace TxtRPG.Data
         public int damage;
         public int gold;
         public string job;
-        //public Inven inventory = new Inven();
-        //public Item equipWeapon;
-        //public Item equipArmor;
+        public Inven inventory = new Inven();
+        public Item equipWeapon;
+        public Item equipArmor;
 
         public Player(string Name)
         {
