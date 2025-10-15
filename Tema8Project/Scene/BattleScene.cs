@@ -42,7 +42,6 @@ namespace TxtRPG.Scene
 
             Console.WriteLine("Battle!!");
 
-            
 
 
             for (int i = 0; i < showMonsterCount; i++)
@@ -57,9 +56,10 @@ namespace TxtRPG.Scene
             //player Class에 접근해서 플레이어 정보 출력
 
             Console.WriteLine("\r\n1. 공격\r\n\r\n원하시는 행동을 입력해주세요.!");
+
            
 
-            
+
 
             string input = Console.ReadLine();
 
@@ -85,26 +85,55 @@ namespace TxtRPG.Scene
 
         private void AttackScene()
         {
+
             Console.WriteLine("공격할 몬스터를 선택하세요:");
 
-       
+            List<int> monsterIndexes = new List<int>();
+
             for (int i = 0; i < showMonsterCount; i++)
             {
-                Monster willAtkM = showMonsters[i];
-                Console.WriteLine($"\n\n{willAtkM.indexmonster}] LV.{willAtkM.monsterLevel} {willAtkM.monsterName} HP {willAtkM.monsterHp}");
-
-                
-
-
+                Monster willAtkMonster = showMonsters[i];
+                Console.WriteLine($"\n\n[{willAtkMonster.indexmonster}] LV.{willAtkMonster.monsterLevel} {willAtkMonster.monsterName} HP {willAtkMonster.monsterHp}");
+                monsterIndexes.Add(willAtkMonster.indexmonster);
             }
 
-
-
+            Console.Write("\n>> ");
             string input = Console.ReadLine();
 
 
+            if (int.TryParse(input, out int selectedIndex)) 
+            {
+                if (monsterIndexes.Contains(selectedIndex))
+                {
+                    Monster target = showMonsters.Find(m => m.indexmonster == selectedIndex);
+
+                    if (target.monsterIsAlive)
+                    {
+                        Console.WriteLine($"\n{target.monsterName}을(를) 공격합니다!");
+                        
+                        target.TakeDamage(10);
+                        Console.WriteLine($"{target.monsterName} HP: {target.monsterHp}");
+
+                        if (!target.monsterIsAlive)
+                            Console.WriteLine($"{target.monsterName}을(를) 처치했습니다!");
+                    }
+                    else
+                    {
+                        Console.WriteLine($"{target.monsterName}은(는) 이미 쓰러졌습니다.");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("잘못된 입력입니다. 존재하지 않는 몬스터 번호입니다.");
+                }
+            }
+            else
+            {
+                Console.WriteLine("잘못된 입력입니다. 숫자를 입력하세요.");
+            }
         }
     }
+}
 
 
     public class Monster
@@ -136,4 +165,3 @@ namespace TxtRPG.Scene
         }
 
     }
-}
