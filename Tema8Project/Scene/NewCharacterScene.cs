@@ -48,14 +48,17 @@ namespace TxtRPG.Scene
                     case 1:
                         job = "전사";
                         Console.WriteLine("1. 전사 : \"전사를 고르셨습니다.\"");
+                        isChoosed = true;
                         break;
                     case 2:
                         job = "궁수";
                         Console.WriteLine("2. 궁수 : \"궁수를 고르셨습니다.\"");
+                        isChoosed = true;
                         break;
                     case 3:
                         job = "마법사";
                         Console.WriteLine("3. 마법사 : \"마법사를 고르셨습니다.\"");
+                        isChoosed = true;
                         break;
                     default:
                         Console.WriteLine("잘못된 입력입니다.");
