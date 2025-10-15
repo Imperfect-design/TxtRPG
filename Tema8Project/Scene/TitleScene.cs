@@ -24,7 +24,7 @@ namespace TxtRPG.Scene
                     case "1":
                         return new StatusScene();
                     case "2":
-                        return new BattleScene();
+                        return new BattleStartScene();
                     default:
                         Console.WriteLine("잘못된 입력입니다.");
                         Console.ReadKey();
