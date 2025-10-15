@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Security.Cryptography;
 using System.Threading;
+using System.Xml.Linq;
 using TxtRPG.Data;
 using TxtRPG.Game;
+using TxtRPG;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace TxtRPG.Scene
 {
@@ -18,11 +21,6 @@ namespace TxtRPG.Scene
             ShowBattle(player,monster);
             return new TitleScene();
         }
-
-        List<Monster> showMonsters = new List<Monster>()
-        {
-            //반복문 안에서 선택된 몬스터 정보 저장하기 위한 저장소
-        };
 
         List<Monster> monsters = new List<Monster>();
 
@@ -102,6 +100,9 @@ namespace TxtRPG.Scene
             string inputStr = Console.ReadLine();
             int inputInt = int.Parse(inputStr);
 
+           
+
+
             for (int i = 0; i < monsters.Count; i++)
                 if (inputInt-1 == monsters[i].monsterIndex)
             {
@@ -112,15 +113,16 @@ namespace TxtRPG.Scene
 
                         while (monster.monsterIsAlive = false)
                         {
-                            monster.totalMonsterHP = monster.monsterHp;
+                            beforeMonsterHP = monster.monsterHp;
 
                             if ()
                             {
-                                moster.currentMonsterHP = monster.monsterHp;
+                                currentMonsterHP = monster.monsterHp;
                             }
                         }
 
-                        Console.WriteLine($"{player.name} 의 공격!\nLv.{monsters[i].monsterLevel} {monsters[i].monsterName} 을(를) 맞췄습니다. [데미지 : monster.playerFinalDamge]\n/n/nLv.{monsters[i].monsterLevel} {monsters[i].monsterName}\nHP {}"); //밑에 클래스 정보 수정하고 playerFinalDamge 넣고 실행되게 수정
+                        Console.WriteLine($"{player.name} 의 공격!\nLv.{monsters[i].monsterLevel} {monsters[i].monsterName} 을(를) 맞췄습니다. [데미지 : monster.playerFinalDamge]\n/n/nLv.{monsters[i].monsterLevel} {monsters[i].monsterName}\nHP{monster[i].beforeMonsterHP}"); 
+                        //밑에 클래스 정보 수정하고 playerFinalDamge 넣고 실행되게 수정
 
                     }
                     else if (!monsters[i].monsterIsAlive)
@@ -156,8 +158,7 @@ namespace TxtRPG.Scene
 
         public string[] names=new string[] {"마왕", "사천왕", "쫄따구"};
 
-        int totalMonsterHP;
-        int currentMonsterHP;
+       
 
         public Monster(Player player)
         {
@@ -187,18 +188,24 @@ namespace TxtRPG.Scene
 
 
             Random randomPlayerDamge = new Random();
-            int playerFinalDamge= randomPlayerDamge.Next(playerDamage-plusMinusInt, playerDamage+plusMinusInt);//Player가 가지는 계산식은 플레이어 클래스에 넣는게? 매서드 밖에 선언하고 클래스 받아서 가져오기
+            int playerFinalDamage = randomPlayerDamge.Next(playerDamage-plusMinusInt, playerDamage+plusMinusInt);//Player가 가지는 계산식은 플레이어 클래스에 넣는게? 매서드 밖에 선언하고 클래스 받아서 가져오기
 
 
-           
+            int beforeMonsterHP= monster.monsterHp;
+            int currentMonsterHP;
 
-           
 
-            monster.monsterHp -= playerFinalDamge;
+            monster.monsterHp -= playerFinalDamage;
             if (monster.monsterHp <= 0)
             {
                 monster.monsterIsAlive = false;
+                //인벤토리 뭐 추가해달라고 했었죠.... 죄송합니다 까먹었어요..
             }
+
+            currentMonsterHP = monster.monsterHp;
+
+            
+            
         }
 
     }
