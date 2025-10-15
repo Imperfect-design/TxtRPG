@@ -24,37 +24,30 @@ namespace TxtRPG.Scene
             //반복문 안에서 선택된 몬스터 정보 저장하기 위한 저장소
         };
 
-        List<Monster> monsters = new List<Monster>()
-            {
-            new Monster("마왕", 99, 99, 99),//몬스터의 이름. 레벨, 체력, 공격력
-            new Monster("사천왕", 4, 25, 40),
-            new Monster("쫄따구", 1, 10, 10) //몬스터 종류를 추가하려면 여기에
-            };
+        List<Monster> monsters = new List<Monster>();
 
-        int showMonsterCount;
-       
+
+        int showMonstersCount;
+
 
         private void ShowBattle(Player player, Monster monster)
         {
             Console.Clear();
 
             Random randomMonsterChoice = new Random();
-
-            showMonsterCount = randomMonsterChoice.Next(1, 5);
+            showMonstersCount = randomMonsterChoice.Next(1, 5);
 
             Console.WriteLine("Battle!!");
 
 
 
-            for (int i = 0; i < showMonsterCount; i++)
+            for (int i = 0; i < showMonstersCount; i++)
             {
-                Monster enemy = monsters[randomMonsterChoice.Next(monsters.Count)];
+                monster = new Monster(player);
+                monsters.Add(monster);
 
-                showMonsters.Add(new Monster(enemy.monsterName, enemy.monsterLevel, enemy.monsterHp, enemy.monsterAttackPower, i + 1));// 마지막은 순서
-
-                Console.WriteLine($"\n\nLV.{enemy.monsterLevel} {enemy.monsterName} HP {enemy.monsterHp}");
+                Console.WriteLine($"\n\nLV.{monsters[i].monsterLevel} {monsters[i].monsterName} HP {monsters[i].monsterHp}");
             }
-
 
 
             Console.WriteLine($"\\n[내정보]\nLv.{player.level}    {player.name} ({player.job})\nHP {player.hp}/{player.maxHp} ");
@@ -89,41 +82,55 @@ namespace TxtRPG.Scene
             Console.Clear();
             Console.WriteLine("공격할 몬스터를 선택하세요:");
 
-              for (int i = 0; i < showMonsterCount; i++)
-              {
+            for (int i = 0; i < showMonstersCount; i++)
+            {
                 monster.monsterIndex = i + 1;
-                Console.WriteLine($"\n\n[{monster.monsterIndex}] LV.{monster.monsterLevel} {monster.monsterName} HP {monster.monsterHp}");
-              }
+
+                // monster.monsterIsAlive? monster.monsterHp.ToString() : "Dead";
+                string MonsterInfo = ($"\n\n[{monster.monsterIndex}] LV.{monster.monsterLevel} {monster.monsterName} HP {monster.monsterHp}");
+
+                if (!monster.monsterIsAlive)
+                {
+                    string deadMonsterInfo = MonsterInfo.Replace($"HP {monster.monsterHp}", "Dead");
+                    Console.ForegroundColor = ConsoleColor.DarkGray;
+                    MonsterInfo = deadMonsterInfo;
+                }
+                Console.WriteLine(MonsterInfo);
+            }
 
             Console.Write("\n>> ");
-            string input = Console.ReadLine();
+            string inputStr = Console.ReadLine();
+            int inputInt = int.Parse(inputStr);
 
-
-            if (int.TryParse(input, out int selectIndex))
+            for (int i = 0; i < monsters.Count; i++)
+                if (inputInt-1 == monsters[i].monsterIndex)
             {
-                if (selectIndex-1== 1)
-                {
-                    monster.TakeDamage(player, monster);
-                    
-                    if (monster.monsterIsAlive)
+                    if (monsters[i].monsterIsAlive)
                     {
-                        Console.WriteLine($"\n{target.monsterName}을(를) 공격합니다!");
+                        monster.TakeDamage(player, monster);
+                        Console.Clear();
 
-                        target.TakeDamage(player.damage);
+                        while (monster.monsterIsAlive = false)
+                        {
+                            monster.totalMonsterHP = monster.monsterHp;
 
-                        Console.WriteLine($"{target.monsterName} HP: {target.monsterHp}");
+                            if ()
+                            {
+                                moster.currentMonsterHP = monster.monsterHp;
+                            }
+                        }
 
-                        if (!target.monsterIsAlive)
-                            Console.WriteLine($"{target.monsterName}을(를) 처치했습니다!");
+                        Console.WriteLine($"{player.name} 의 공격!\nLv.{monsters[i].monsterLevel} {monsters[i].monsterName} 을(를) 맞췄습니다. [데미지 : monster.playerFinalDamge]\n/n/nLv.{monsters[i].monsterLevel} {monsters[i].monsterName}\nHP {}"); //밑에 클래스 정보 수정하고 playerFinalDamge 넣고 실행되게 수정
+
                     }
-                    else
+                    else if (!monsters[i].monsterIsAlive)
                     {
-                        Console.WriteLine($"{target.monsterName}은(는) 이미 쓰러졌습니다.");
+                        Console.WriteLine($"잘못된 입력입니다.");
                     }
-                }
+                
                 else
                 {
-                    Console.WriteLine("잘못된 입력입니다. 존재하지 않는 몬스터 번호입니다.");
+                    Console.WriteLine("잘못된 입력입니다.");
                 }
             }
             else
@@ -132,17 +139,7 @@ namespace TxtRPG.Scene
             }
         }
 
-        public void TakeDamage(Player player, Monster monster, intmonsterIndex )//플레이어가 입힌 피해에 따라 몬스터의 체력이 감소하며 사망하는 메서드
-        {
-
-            monster -= player.damage;
-            if (monster.monsterHp <= 0)
-            {
-                monster.monsterIsAlive = false;
-
-            }
-        }
-
+        
 
     }
 
@@ -159,15 +156,19 @@ namespace TxtRPG.Scene
 
         public string[] names=new string[] {"마왕", "사천왕", "쫄따구"};
 
+        int totalMonsterHP;
+        int currentMonsterHP;
+
         public Monster(Player player)
         {
-
+            
             monsterName = names[random.Next(names.Length)];
             monsterLevel = random.Next(Math.Max(1, player.level - 5), player.level + 6);
             monsterHp = monsterLevel*100;//밸런스 조절은 if문 써서
             monsterAttackPower = monsterLevel*20;
             monsterIsAlive = true;
-            monsterIndex=0; 
+            monsterIndex=0;
+            
         }
 
         public void EnemyPhase()
@@ -175,7 +176,30 @@ namespace TxtRPG.Scene
 
         }
 
-        
+
+        public void TakeDamage(Player player, Monster monster)//플레이어가 입힌 피해에 따라 몬스터의 체력이 감소하며 사망하는 메서드
+        {
+            double plusMinusDouble = player.damage * 0.1f;
+            
+           
+            int playerDamage = (int)player.damage;//Player 클래스 데미지 자체를 int로 수정해야 할 것 같음
+            int plusMinusInt = (int)Math.Round(plusMinusDouble);
+
+
+            Random randomPlayerDamge = new Random();
+            int playerFinalDamge= randomPlayerDamge.Next(playerDamage-plusMinusInt, playerDamage+plusMinusInt);//Player가 가지는 계산식은 플레이어 클래스에 넣는게? 매서드 밖에 선언하고 클래스 받아서 가져오기
+
+
+           
+
+           
+
+            monster.monsterHp -= playerFinalDamge;
+            if (monster.monsterHp <= 0)
+            {
+                monster.monsterIsAlive = false;
+            }
+        }
 
     }
 }
