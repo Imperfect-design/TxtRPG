@@ -14,6 +14,7 @@ namespace TxtRPG.Data
         public int maxMp;
         public int damage;
         public int gold;
+        public string job;
         //public Inven inventory = new Inven();
         //public Item equipWeapon;
         //public Item equipArmor;
