@@ -126,6 +126,8 @@ namespace TxtRPG.UI
             string input = "";
             bool firstDraw = true;
 
+            Console.CursorVisible = false;
+
             while(true)
             {
                 if ( Console.WindowWidth != lastwidth || firstDraw)
