@@ -16,6 +16,7 @@ namespace TxtRPG.Scene
             string job = jobSelect();
 
             player.name = name;
+            player.job = job;
 
             return new TitleScene();
         }

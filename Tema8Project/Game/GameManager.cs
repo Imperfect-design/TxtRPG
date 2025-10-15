@@ -11,11 +11,8 @@ namespace TxtRPG.Game
 
         public void Run()
         {
-            Console.Write("플레이어의 이름을 입력하시오: ");
-            string name = Console.ReadLine();
-            player = new Player(name);
-
-            currentScene = new TitleScene();
+            player = new Player("");
+            currentScene = new NewCharacterScene();
 
             while (currentScene != null)
             {
