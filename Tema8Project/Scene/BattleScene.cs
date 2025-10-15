@@ -94,15 +94,11 @@ namespace TxtRPG.Scene
             Console.Clear();
             Console.WriteLine("공격할 몬스터를 선택하세요:");
 
-            List<int> monsterIndexes = new List<int>();
-
-            for (int i = 0; i < showMonsterCount; i++)
-            {
-                Monster willAtkMonster = showMonsters[i];
-                Console.WriteLine($"\n\n[{willAtkMonster.indexmonster}] LV.{willAtkMonster.monsterLevel} {willAtkMonster.monsterName} HP {willAtkMonster.monsterHp}");
-                monsterIndexes.Add(willAtkMonster.indexmonster);
-
-            }
+              for (int i = 0; i < showMonsterCount; i++)
+              {
+                monster.monsterIndex = i + 1;
+                Console.WriteLine($"\n\n[{monster.monsterIndex}] LV.{monster.monsterLevel} {monster.monsterName} HP {monster.monsterHp}");
+              }
 
             Console.Write("\n>> ");
             string input = Console.ReadLine();
@@ -110,9 +106,9 @@ namespace TxtRPG.Scene
 
             if (int.TryParse(input, out int selectIndex))
             {
-                if (selectIndex== monster.indexmonster)
+                if (selectIndex-1== 1)
                 {
-                    Monster target = showMonsters.);
+                    
 
                     if (target.monsterIsAlive)
                     {
@@ -149,21 +145,30 @@ namespace TxtRPG.Scene
 
     public class Monster
     {
-        public string monsterName { get; private set; }
-        public int monsterLevel { get; private set; }
-        public int monsterHp { get; private set; }
-        public int monsterAttackPower { get; private set; }
-        public int indexmonster { get; private set; }
-        public bool monsterIsAlive { get; private set; }
+        Random random = new Random();
+        public string monsterName { get;  set; }
+        public int monsterLevel { get; set; }
+        public int monsterHp { get; set; }
+        public int monsterAttackPower { get; set; }
+        public int monsterIndex { get; set; }
+        public bool monsterIsAlive { get; set; }
 
-        public Monster(string name, int level, int hp, int attackPower, int indexShowMonster = 0)
+        public string[] names=new string[] {"마왕", "사천왕", "쫄따구"};
+
+        public Monster(Player player)
         {
-            monsterName = name;
-            monsterLevel = level;
-            monsterHp = hp;
-            monsterAttackPower = attackPower;
+
+            monsterName = names[random.Next(names.Length)];
+            monsterLevel = random.Next(Math.Max(1, player.level - 5), player.level + 6);
+            int monsterHp = monsterLevel*100;//밸런스 조절은 if문 써서
+            monsterAttackPower = monsterLevel*20;
             monsterIsAlive = true;
-            indexmonster = indexShowMonster;
+            monsterIndex=0; 
+        }
+
+        public void EnemyPhase()
+        {
+
         }
 
         public void TakeDamage(int playerDamege)//플레이어가 입힌 피해에 따라 몬스터의 체력이 감소하며 사망하는 메서드
