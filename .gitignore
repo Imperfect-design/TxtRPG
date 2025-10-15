@@ -1,3 +1,4 @@
+
 ﻿## Visual Studio 관련 파일
 # 빌드 출력 및 임시 폴더
 [Bb]in/
@@ -18,3 +19,4 @@
 *.bak
 *.opensdf
 *.*.log
+
