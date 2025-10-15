@@ -33,7 +33,7 @@ class BattleStartScene
             Monster enemy = monsters[randomMonsterChoice.Next(monsters.Count)];
             Console.WriteLine($"\n\nLV.{enemy.monsterLevel} {enemy.monsterName} HP {enemy.monsterHp}");
         }
-        Console.WriteLine("\r\n1. 공격\r\n\r\n원하시는 행동을 입력해주세요.!");
+        Console.WriteLine("\n\n1. 공격\r\n\r\n원하시는 행동을 입력해주세요.!");
 
         //player Class에 접근해서 플레이어 정보 출력
 
@@ -52,14 +52,14 @@ class BattleStartScene
                 input = Console.ReadLine();
                 if (input == "1")
                 {
-                    Attack();//디버그용 메서드
+                    Run();//공격화면 창
                 }
 
             }
         }
     }
 
-    private void Attack()//디버그용 메서드
+    private void Run()//공격화면 창
     {
         Console.WriteLine("공격화면 창")
     }
