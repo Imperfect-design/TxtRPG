@@ -9,51 +9,131 @@ namespace TxtRPG.UI
         public static void PrintCenter(string text)
         {
             int width = Console.WindowWidth;
-            int padding = Math.Max((width - text.Length) / 2, 0);
+            int displayLength = 0;
+
+            foreach (char c in text)
+            {
+                
+                if(( c >= 0xAC00 && c <= 0x07A3) || ( c > 127))
+                {
+                    displayLength += 2;
+                }
+                else
+                {
+                    displayLength += 1;
+                }
+            }
+            int padding = Math.Max((width - displayLength) / 2, 0);
             Console.SetCursorPosition(padding, Console.CursorTop);
             Console.WriteLine(text);
         }
-        public static void PrintText(string text)
+        public static void PrintCenterLine(string text)
         {
-            Console.ForegroundColor = ConsoleColor.Gray;
-            PrintCenter(text);
-            Console.ResetColor();
+            int width = Console.WindowWidth;
+            int displayLength = 0;
+
+            foreach (char c in text)
+            {
+
+                if ((c >= 0xAC00 && c <= 0x07A3) || (c > 127))
+                {
+                    displayLength += 2;
+                }
+                else
+                {
+                    displayLength += 1;
+                }
+            }
+            int padding = Math.Max((width - displayLength) / 2, 0);
+            Console.SetCursorPosition(padding, Console.CursorTop);
+            Console.Write(text);
         }
+
         public static void PrintYellow(string text)
         {
             Console.ForegroundColor = ConsoleColor.Yellow;
             PrintCenter(text);
             Console.ResetColor();
         }
+        public static void PrintDarkYellow(string text)
+        {
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            PrintCenter(text);
+            Console.ResetColor();
+        }
+        public static void PrintRed(string text)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            PrintCenter(text);
+            Console.ResetColor();
+        }
+        public static void PrintDarkRed(string text)
+        {
+            Console.ForegroundColor = ConsoleColor.DarkRed;
+            PrintCenter(text);
+            Console.ResetColor();
+        }
+        public static void PrintBlue(string text)
+        {
+            Console.ForegroundColor = ConsoleColor.Blue;
+            PrintCenter(text);
+            Console.ResetColor();
+        }
+        public static void PrintCyan(string text)
+        {
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            PrintCenter(text);
+            Console.ResetColor();
+        }
         public static void PrintDivider(string style = "brick")
         {
-            if (style == "brick")
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+
+            switch (style)
             {
-                Console.ForegroundColor = ConsoleColor.DarkYellow;
-                PrintCenter("🟫🟫🟫🟫🟫🟫🟫🟫🟫🟫🟫🟫🟫🟫🟫🟫");
-            }
-            else
-            {
-                Console.ForegroundColor = ConsoleColor.DarkYellow;
-                PrintCenter("════════════════════════════════");
+                case "brick":
+                    PrintCenter("============================================");
+                    break;
+                case "dash":
+                    PrintCenter("--------------------------------------------");
+                    break;
+                case "cross":
+                    PrintCenter("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+                    break;
+                case "block":
+                    PrintCenter("████████████████████████████████████████████");
+                    break;
+                case "line":
+                    PrintCenter("___________________________________________");
+                    break;
             }
             Console.ResetColor();
         }
         public static void PrintTitle(string title)
         {
             Console.ForegroundColor = ConsoleColor.Yellow;
-            PrintCenter("✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦");
-            PrintCenter($"𝟠 {title} 𝟠");
-            PrintCenter("✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦");
+            PrintCenter("===========================================");
+            Console.ResetColor();
+            PrintCenter($"★  {title} ★");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            PrintCenter("===========================================");
             Console.ResetColor();
         }
-
-        public static string ReadInput(string prompt = ">>")
+        public static void ConsoleArray(Action drawAction, int refreshDelayMs = 100)
         {
-            Console.ForegroundColor = ConsoleColor.Gray;
-            PrintCenter(prompt);
-            Console.ResetColor();
-            return Console.ReadLine() ?? "";
+            int lastwidth = Console.WindowWidth;
+            drawAction.Invoke();
+
+            while(true)
+            {
+                if(Console.WindowWidth != lastwidth)
+                {
+                    Console.Clear();
+                    drawAction.Invoke();
+                    lastwidth = Console.WindowWidth;
+                }
+                Thread.Sleep(refreshDelayMs);
+            }
         }
     }
 }

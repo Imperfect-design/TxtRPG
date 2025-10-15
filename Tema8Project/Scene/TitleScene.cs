@@ -1,36 +1,48 @@
 ﻿using System;
 using TxtRPG.Data;
 using TxtRPG.Game;
+using TxtRPG.UI;
 
 namespace TxtRPG.Scene
 {
     public class TitleScene : Iscene
     {
         public object Run(Player player)
-        {
-            while (true)
+        {;
+            string input = "";
+
+            UIManager.ConsoleArray(() =>
             {
                 Console.Clear();
-                Console.WriteLine("스파르타 던전에 오신 여러분 환영합니다.");
-                Console.WriteLine("이제 전투를 시작할 수 있습니다\n");
-                Console.WriteLine("1. 상태 보기");
-                Console.WriteLine("2. 전투 시작");
-                Console.WriteLine("\n원하시는 행동을 입력해 주세요. \n >> ");
 
-                string input = Console.ReadLine();
+                UIManager.PrintTitle("시작부터 마왕나옴");
+                UIManager.PrintCenter("시작부터 마왕을 만나실 당신을 환영합니다.");
+                UIManager.PrintDivider("dash");
+                Console.WriteLine();
+                UIManager.PrintYellow("1. 상태 보기");
+                UIManager.PrintDarkRed("2. 전투 시작");
+                UIManager.PrintCenter("0. 게임 종료");
+                Console.WriteLine();
+                UIManager.PrintCenterLine(">>");
+            });
+            input = Console.ReadLine();
 
-                switch (input)
-                {
-                    case "1":
-                        return new StatusScene();
-                    case "2":
-                        return new BattleStartScene();
-                    default:
-                        Console.WriteLine("잘못된 입력입니다.");
-                        Console.ReadKey();
-                        break;
-                }
+
+            switch (input)
+            {
+                case "1":
+                    return new StatusScene();
+                case "2":
+                    return new BattleStartScene();
+                case "3":
+                    Environment.Exit(0);
+                    break;
+                default:
+                    Console.WriteLine("잘못된 입력입니다.");
+                    Console.ReadKey();
+                    break;
             }
+            return this;
         }
     }
 }
