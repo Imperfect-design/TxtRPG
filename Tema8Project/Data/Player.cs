@@ -2,7 +2,11 @@
 
 namespace TxtRPG.Data
 {
-        public class Player
+
+
+
+
+    public class Player
     {
         public string name;
         public int level;
@@ -15,9 +19,11 @@ namespace TxtRPG.Data
         public int damage;
         public int gold;
         public string job;
-        public Inven inventory = new Inven();
-        public Item equipWeapon;
-        public Item equipArmor;
+        public int doge;
+        public int critical;
+        //public Inven inventory = new Inven();
+        //public Item equipWeapon;
+        //public Item equipArmor;
 
         public Player(string Name)
         {
@@ -31,6 +37,8 @@ namespace TxtRPG.Data
             mp = maxMp;
             damage = 10;
             gold = 1000;
+            doge = 30;
+            critical = 50;
         }
     }
 }

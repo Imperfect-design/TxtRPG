@@ -1,22 +1,22 @@
 ﻿using System;
-using Tema8Project.Data;
-using TxtRPG.Data;
 using TxtRPG.Game;
+using TxtRPG.Data;
 
 namespace TxtRPG.Scene
 {
     public class StatusScene : Iscene
     {
-        public object Run(GameData data)
+        public object Run(Player player)
         {
             while (true)
             {
                 Console.Clear();
                 Console.WriteLine(@$"
-{data.Player.name} {data.Player.level}.Lv
-HP {data.Player.hp}/{data.Player.maxHp}   MP {data.Player.mp}/{data.Player.maxMp}
-DMG {data.Player.damage}      {data.Player.gold}G
-EXP  {data.Player.exp} / {data.Player.maxExp}");
+{player.name} {player.level}.Lv
+HP {player.hp}/{player.maxHp}   MP {player.mp}/{player.maxMp}
+DMG {player.damage}      {player.gold}G
+EXP  {player.exp} / {player.maxExp}
+Dodge {player.doge}             CRITICAL {player.critical}");
                 Console.WriteLine("\n1.인벤토리 \n2.스킬보기 \n0.나가기");
                 Console.Write(">>>");
                 int input = int.Parse(Console.ReadLine());
