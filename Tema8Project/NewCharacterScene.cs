@@ -60,9 +60,7 @@ namespace TxtRPG.Scene
                     default:
                         Console.WriteLine("잘못된 입력입니다.");
                         break;
-
                 }
-
             }
             return job;
         }
