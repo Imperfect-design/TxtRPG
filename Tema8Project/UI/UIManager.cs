@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Security.Cryptography.X509Certificates;
+using System.Threading;
 using TxtRPG.Data;
 
 namespace TxtRPG.UI
@@ -14,7 +15,7 @@ namespace TxtRPG.UI
             foreach (char c in text)
             {
                 
-                if(( c >= 0xAC00 && c <= 0x07A3) || ( c > 127))
+                if(( c >= 0xAC00 && c <= 0xD7A3) || ( c > 127))
                 {
                     displayLength += 2;
                 }
@@ -35,7 +36,7 @@ namespace TxtRPG.UI
             foreach (char c in text)
             {
 
-                if ((c >= 0xAC00 && c <= 0x07A3) || (c > 127))
+                if ((c >= 0xAC00 && c <= 0xD7A3) || (c > 127))
                 {
                     displayLength += 2;
                 }
@@ -119,21 +120,34 @@ namespace TxtRPG.UI
             PrintCenter("===========================================");
             Console.ResetColor();
         }
-        public static void ConsoleArray(Action drawAction, int refreshDelayMs = 100)
+        public static string ConsoleArray(Action drawAction, int refreshDelayMs = 100)
         {
             int lastwidth = Console.WindowWidth;
-            drawAction.Invoke();
+            string input = "";
+            bool firstDraw = true;
 
             while(true)
             {
-                if(Console.WindowWidth != lastwidth)
+                if ( Console.WindowWidth != lastwidth || firstDraw)
                 {
                     Console.Clear();
                     drawAction.Invoke();
                     lastwidth = Console.WindowWidth;
+                    firstDraw = false;
                 }
+
+                if (Console.KeyAvailable)
+                {
+                    int promptPos = Math.Max((Console.WindowWidth / 2) - 2, 0);
+                    Console.SetCursorPosition(promptPos, Console.CursorTop);
+                    Console.Write(" ");
+                    input = Console.ReadLine() ?? "";
+                    break;
+                }
+
                 Thread.Sleep(refreshDelayMs);
             }
+            return input;
         }
     }
 }
