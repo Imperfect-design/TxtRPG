@@ -1,2 +1,14 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿using System;
+using TxtRPG.Game;
+
+namespace TxtRPG
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            GameManager game = new GameManager();
+            game.Run();
+        }
+    }
+}
