@@ -1,4 +1,4 @@
-﻿
+
 using TxtRPG.Data;
 using TxtRPG.Scene;
 
@@ -58,7 +58,12 @@ using TxtRPG.Scene;
 //player
 
 //public int doge;
+//public int critical;
 //doge = 30;
+//critical = 50;
 
 
 //Dodge {player.doge}
+//CRITICAL {player.critical}
+
+// 직업 : ({player.job}) << 이걸 StatusScene 클래스의 {player.name} (여기) {player.level}. 에 복사 붙여넣기하시면 될거같습니다.
