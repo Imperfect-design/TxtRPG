@@ -55,14 +55,9 @@ namespace TxtRPG.Scene
                 Console.WriteLine($"\n\nLV.{enemy.monsterLevel} {enemy.monsterName} HP {enemy.monsterHp}");
             }
 
-            int playerLevel = player.level;
-            string playername= player.name;
-            string playerJob = player.job; ;
-            int playerCurrentHP = player.hp;
-            int playerMaxHp = player.maxHp; ;
 
 
-            Console.WriteLine($"\\n[내정보]\nLv.{playerLevel}    {playername} ({playerJob})\nHP {playerCurrentHP}/{playerMaxHp} ");
+            Console.WriteLine($"\\n[내정보]\nLv.{player.level}    {player.name} ({player.job})\nHP {player.hp}/{player.maxHp} ");
 
             Console.Write("\n\n\n\n1. 공격\n\n원하시는 행동을 입력해주세요.!\n>>");
 
@@ -108,9 +103,9 @@ namespace TxtRPG.Scene
             {
                 if (selectIndex-1== 1)
                 {
+                    monster.TakeDamage(player, monster);
                     
-
-                    if (target.monsterIsAlive)
+                    if (monster.monsterIsAlive)
                     {
                         Console.WriteLine($"\n{target.monsterName}을(를) 공격합니다!");
 
@@ -137,7 +132,16 @@ namespace TxtRPG.Scene
             }
         }
 
+        public void TakeDamage(Player player, Monster monster, intmonsterIndex )//플레이어가 입힌 피해에 따라 몬스터의 체력이 감소하며 사망하는 메서드
+        {
 
+            monster -= player.damage;
+            if (monster.monsterHp <= 0)
+            {
+                monster.monsterIsAlive = false;
+
+            }
+        }
 
 
     }
@@ -160,7 +164,7 @@ namespace TxtRPG.Scene
 
             monsterName = names[random.Next(names.Length)];
             monsterLevel = random.Next(Math.Max(1, player.level - 5), player.level + 6);
-            int monsterHp = monsterLevel*100;//밸런스 조절은 if문 써서
+            monsterHp = monsterLevel*100;//밸런스 조절은 if문 써서
             monsterAttackPower = monsterLevel*20;
             monsterIsAlive = true;
             monsterIndex=0; 
@@ -171,16 +175,7 @@ namespace TxtRPG.Scene
 
         }
 
-        public void TakeDamage(int playerDamege)//플레이어가 입힌 피해에 따라 몬스터의 체력이 감소하며 사망하는 메서드
-        {
-
-            monsterHp -= playerDamege;
-            if (monsterHp <= 0)
-            {
-                monsterIsAlive = false;
-
-            }
-        }
+        
 
     }
 }
