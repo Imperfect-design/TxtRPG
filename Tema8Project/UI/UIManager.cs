@@ -1,28 +1,59 @@
 ﻿using System;
+using System.Security.Cryptography.X509Certificates;
 using TxtRPG.Data;
 
 namespace TxtRPG.UI
 {
     public static class UIManager
     {
-        public static void PrintTitle(string title)
+        public static void PrintCenter(string text)
         {
-            Console.WriteLine("=====");
-            Console.WriteLine($"{title}");
-            Console.WriteLine("=====");
+            int width = Console.WindowWidth;
+            int padding = Math.Max((width - text.Length) / 2, 0);
+            Console.SetCursorPosition(padding, Console.CursorTop);
+            Console.WriteLine(text);
         }
         public static void PrintText(string text)
         {
-            Console.WriteLine(text);
+            Console.ForegroundColor = ConsoleColor.Gray;
+            PrintCenter(text);
+            Console.ResetColor();
         }
-        public static void PrintStatus(Player player)
+        public static void PrintYellow(string text)
         {
-            Console.WriteLine($@"
-{player.name} {player.level}.Lv
-HP {player.hp}/{player.maxHp}   MP {player.mp}/{player.maxMp}
-DMG {player.damage}      {player.gold}G
-EXP  {player.exp} / {player.maxExp}");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            PrintCenter(text);
+            Console.ResetColor();
+        }
+        public static void PrintDivider(string style = "brick")
+        {
+            if (style == "brick")
+            {
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                PrintCenter("🟫🟫🟫🟫🟫🟫🟫🟫🟫🟫🟫🟫🟫🟫🟫🟫");
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                PrintCenter("════════════════════════════════");
+            }
+            Console.ResetColor();
+        }
+        public static void PrintTitle(string title)
+        {
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            PrintCenter("✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦");
+            PrintCenter($"𝟠 {title} 𝟠");
+            PrintCenter("✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦");
+            Console.ResetColor();
         }
 
+        public static string ReadInput(string prompt = ">>")
+        {
+            Console.ForegroundColor = ConsoleColor.Gray;
+            PrintCenter(prompt);
+            Console.ResetColor();
+            return Console.ReadLine() ?? "";
+        }
     }
 }
