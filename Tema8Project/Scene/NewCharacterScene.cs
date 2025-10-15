@@ -22,17 +22,23 @@ namespace TxtRPG.Scene
             {
                 case "전사":
                     player.maxHp = 200;
+                    player.hp = player.maxHp;
                     player.maxMp = 15;
+                    player.mp = player.maxMp;
                     player.damage = 15;
                     break;
                 case "궁수":
                     player.maxHp = 150;
+                    player.hp = player.maxHp;
                     player.maxMp = 25;
+                    player.mp = player.maxMp;
                     player.damage = 25;
                     break;
                 case "마법사":
                     player.maxHp = 120;
+                    player.hp = player.maxHp;
                     player.maxMp = 50;
+                    player.mp = player.maxMp;
                     player.damage = 40;
                     break;
             }
