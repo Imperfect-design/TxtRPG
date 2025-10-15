@@ -15,7 +15,8 @@ namespace TxtRPG.Scene
 {player.name} {player.level}.Lv
 HP {player.hp}/{player.maxHp}   MP {player.mp}/{player.maxMp}
 DMG {player.damage}      {player.gold}G
-EXP  {player.exp} / {player.maxExp}");
+EXP  {player.exp} / {player.maxExp}
+Dodge {player.doge}             CRITICAL {player.critical}");
                 Console.WriteLine("\n1.인벤토리 \n2.스킬보기 \n0.나가기");
                 Console.Write(">>>");
                 int input = int.Parse(Console.ReadLine());
