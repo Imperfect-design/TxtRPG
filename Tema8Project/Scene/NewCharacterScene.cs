@@ -1,7 +1,11 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Tema8Project.Data;
 using TxtRPG.Data;
 using TxtRPG.Game;
-using TxtRPG.UI;
 
 namespace TxtRPG.Scene
 {
@@ -44,14 +48,10 @@ namespace TxtRPG.Scene
         }
         private static string inputName()
         {
-            string inputYourName = UIManager.ConsoleArray(() =>
-            {
-                UIManager.PrintTitle("이름 설정");
-                UIManager.PrintCenter("당신의 이름을 입력하세요");
-                UIManager.PrintCenter("");
-            });
-            Console.WriteLine();
-            UIManager.PrintYellow($"당신의 이름은 이제부터 {inputYourName}입니다!");
+            Console.Write("=====캐릭터 생성=====\n당신의 이름을 입력해주세요.\n>>");
+            string inputYourName = Console.ReadLine();
+
+            Console.WriteLine($"당신의 이름은 이제부터 {inputYourName}입니다!");
             return inputYourName;
         }
 
@@ -64,12 +64,7 @@ namespace TxtRPG.Scene
 
             while (!isChoosed)
             {
-                Console.WriteLine();
-                UIManager.PrintTitle("직업 선택");
-                UIManager.PrintYellow("당신의 직업을 선택하세요");
-                UIManager.PrintYellow("1. 전사 2. 궁수 3. 마법사");
-                UIManager.PrintCenter("");
-                UIManager.PrintCenterLine(">>");
+                Console.Write("=====직업 선택=====\n당신의 직업을 선택하세요. (1. 전사 2. 궁수 3. 마법사 )\n>>");
                 int chooseJob = int.Parse(Console.ReadLine());
 
 
