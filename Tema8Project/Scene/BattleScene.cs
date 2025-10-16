@@ -25,45 +25,24 @@ namespace TxtRPG.Scene
 
 
         List<Monster> monsters = new List<Monster>();
-
-
         int showMonstersCount;
-
-
-
-        private void PrintMonsterList(GameData data)
-        {
-            Random randomMonsterChoice = new Random();
-            showMonstersCount = randomMonsterChoice.Next(1, 5);
-            
-
-            for (int i = 0; i < showMonstersCount; i++)
-            {
-                if (monsters.Count==0||monsters.All(monsterRamda=>!IsAlive)
-                Monster monster = new Monster(data);
-                monsters.Add(monster);
-
-                Console.WriteLine($"\n\nLV.{monsters[i].monsterLevel} {monsters[i].monsterName} HP {monsters[i].monsterHp}");
-            }
-
-           
-
-        }
-
 
 
 
         private void ShowBattle(GameData data)//매서드 사용해서 하나로 묶어서 AttackScene 없애기
         {
+            Random randomMonsterChoice = new Random();
+            showMonstersCount = randomMonsterChoice.Next(1, 5);
+
+            for (int i = 0; i < showMonstersCount; i++)
+            {
+                Monster monster = new Monster(data);
+                monsters.Add(monster);
+                Console.WriteLine($"\n\nLV.{monsters[i].monsterLevel} {monsters[i].monsterName} HP {monsters[i].monsterHp}");
+            }
+
             Console.Clear();
-            PrintMonsterList(data);
-
-
             Console.WriteLine("Battle!!");
-
-            //Count 길이 세는걸 이용해서 입력값이랑 같은 길이를 가진 몬스터를 피를 까는거 if문으로 
-
-           
 
             Console.WriteLine($"\n\n[내정보]\nLv.{data.Player.level}    {data.Player.name} ({data.Player.job})\nHP {data.Player.hp}/{data.Player.maxHp} ");
             Console.Write("\n\n\n\n1. 공격\n\n원하시는 행동을 입력해주세요.!\n>>");//마을가기, 소비아이템 먹기
