@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using TxtRPG;
 using TxtRPG.Data;
 
-
 namespace Tema8Project.Data
 {
     public class GameData
@@ -14,12 +13,8 @@ namespace Tema8Project.Data
         public Player Player { get; set; }
         public Inven Inventory  { get; set; }
         public List<Item> Items { get; set; }
-<<<<<<< HEAD
        
         public Monster Monster { get; set; }
-=======
-        public Monster monster { get; set; }
->>>>>>> NewMind
 
         public GameData()
         {

@@ -6,8 +6,6 @@ using Tema8Project.Data;
 using TxtRPG.Data;
 using TxtRPG.Game;
 using TxtRPG.UI;
-using static System.Runtime.InteropServices.JavaScript.JSType;
-
 
 
 namespace TxtRPG.Scene
@@ -61,7 +59,7 @@ namespace TxtRPG.Scene
 
             if (input == "1")
             {
-                PlayerTurn(data);
+                AttackScene(data);
             }
             else
             {
@@ -72,14 +70,14 @@ namespace TxtRPG.Scene
                     input = Console.ReadLine();
                     if (input == "1")
                     {
-                        PlayerTurn(data);
+                        AttackScene(data);
                     }
 
                 }
             }
         }
 
-        private void PlayerTurn(GameData data)
+        private void AttackScene(GameData data)
         {
             Console.Clear();
             Console.WriteLine("공격할 몬스터를 선택하세요");
@@ -106,13 +104,13 @@ namespace TxtRPG.Scene
             int inputInt = int.Parse(inputStr);
 
 
-            for (int i = 0; i < monsters.Count; i++)//리스트에 있는 몬스터를 싹 다 훑어서
-                if (inputInt-1 == monsters[i].monsterIndex)//유저가 입력한 값이랑 몬스터 리스트의 인덱스가 같으면
-                {
-                    if (monsters[i].monsterIsAlive)//일단 살아있는지 먼저 확인하고 살아있으면 TakeDamage를 실행시켜
+            for (int i = 0; i < monsters.Count; i++)
+                if (inputInt-1 == monsters[i].monsterIndex)
+                 {
+                    if (monsters[i].monsterIsAlive)
                     {
+                        monsters[i].TakeDamage(data);
                         Console.Clear();
-<<<<<<< HEAD
                         //여기 체력 떨어지는 시스템 만들어두기
 
                         Console.WriteLine($"{data.Player.name} 의 공격!\nLv.{monsters[i].monsterLevel} {monsters[i].monsterName} 을(를) 맞췄습니다. [데미지 : monster.playerFinalDamge]\n\n\nLv.{monsters[i].monsterLevel} {monsters[i].monsterName}\nHP 추가하기 -> 추가하기\n\n0. 다음\n\n\n>>");
@@ -122,57 +120,29 @@ namespace TxtRPG.Scene
                     {
                         EnemyPhase();
                     }
-=======
->>>>>>> NewMind
 
-                        beforeMonsterHP = monsters[i].monsterHp;
-                        int finalDamage= TakeDamageMonster(data);
-                        
-                        currentMonsterHP = monsters[i].monsterHp;
-
-                        string a= $"{data.Player.name} 의 공격!" +
-                            $"Lv.{monsters[i].monsterLevel} {monsters[i].monsterName} 을(를) 맞췄습니다. [데미지 : {finalDamage}]" +
-                            $"" +
-                            $"" +
-                            $"" +
-                            $"Lv.{monsters[i].monsterLevel} {monsters[i].monsterName}" +
-                            $"" +
-                            $"HP {beforeMonsterHP} -> {currentMonsterHP}" +
-                            $"" +
-                            $"" +
-                            $"0. 다음" +
-                            $"" +
-                            $"" +
-                            $"" +
-                            $">>";
-                        Console.WriteLine(a);
-                        Console.ReadLine();
-                    }
-                    
-
-                    else if(inputInt - 1 != monsters[i].monsterIndex || !monsters[i].monsterIsAlive)
+                    else if (!monsters[i].monsterIsAlive)
                     {
-                        while (inputInt - 1 != monsters[i].monsterIndex || !monsters[i].monsterIsAlive)
+                        while (inputInt - 1 != monsters[i].monsterIndex && !monsters[i].monsterIsAlive)
                         {
                             Console.WriteLine($"잘못된 입력입니다.");
                             Console.ReadLine();
                         }
                     }
 
-                    else if (inputInt == 0)
+                    else
                     {
-                        EnemyTurn(data);
+                        while (inputInt - 1 != monsters[i].monsterIndex && !monsters[i].monsterIsAlive)
+                        {
+                            Console.WriteLine($"잘못된 입력입니다.");
+                            Console.ReadLine();
+                        }
                     }
-
                 }
         }
-        int beforeMonsterHP;
-        int currentMonsterHP;
-        int beforePlayerHP;
-        int currentPlayerHP;
-        private void EnemyTurn(GameData data)
+
+        private void EnemyPhase()
         {
-            Console.Clear();
             foreach (Monster monster in monsters)
             {
                 if (monster.monsterIsAlive == false)
@@ -180,59 +150,13 @@ namespace TxtRPG.Scene
                     continue;
                 }
 
-                beforePlayerHP=data.Player.hp;
-                TakeDamagePlayer(data);
-                currentPlayerHP=data.Player.hp;
-
-                string a = $"Lv.{monster.monsterLevel} {monster.monsterName} 의 공격!" +
-                           $"{data.Player.name}을(를) 맞췄습니다.    [데미지 : {monster.monsterAttackPower}]" +
-                           $"Lv.{data.Player.name}" +
-                           $"HP {beforePlayerHP}->{currentPlayerHP}" +
-                           $"" +
-                           $"" +
-                           $"0. 다음 " +
-                           $"" +
-                           $"대상을 선택해주세요" +
-                           $">>";
-                Console.Write(a);
-                string input=Console.ReadLine();
-
-                if (input == "0")
-                {
-                    PlayerTurn(data);
-                }
-                else
-                {
-                    while (input != "0")
-                    {
-                        Console.WriteLine("잘못된 입력입니다.");
-                        Console.Write(">>");
-                        input = Console.ReadLine();
-                        if (input == "0")
-                        {
-                            PlayerTurn(data);
-                        }
-
-                    }
-                }
-
+                Console.Clear();
+                Console.WriteLine($"Battle!!\n\nLv.{monsters.monsterLevel}");
             }
         }
 
-<<<<<<< HEAD
         public int beforeMonsterHp;
         public void TakeDamage(GameData data)//플레이어가 입힌 피해에 따라 몬스터의 체력이 감소하며 사망하는 메서드
-=======
-        
-         public void TakeDamagePlayer(GameData data)
-         {
-            data.Player.hp -= data.monster.monsterAttackPower;
-         }
-
-
-
-        public int playerFinalDamage(GameData data)//너무 이상하게 만들어둠 수정 필요
->>>>>>> NewMind
         {
             double plusMinusDouble = data.Player.damage * 0.1f;
 
@@ -244,9 +168,7 @@ namespace TxtRPG.Scene
             Random randomPlayerDamge = new Random();
             int playerFinalDamage = randomPlayerDamge.Next(playerDamage - plusMinusInt, playerDamage + plusMinusInt);//Player가 가지는 계산식은 플레이어 클래스에 넣는게? 매서드 밖에 선언하고 클래스 받아서 가져오기
 
-            return playerFinalDamage;
 
-<<<<<<< HEAD
             beforeMonsterHp = data.Monster.monsterHp;
             //int currentMonsterHP;
 
@@ -258,20 +180,7 @@ namespace TxtRPG.Scene
             //    //드랍템 추가?
            data.Player.inventory.AddItem(new Item { });
             //currentMonsterHP = monster.monsterHp;
-=======
-           
 
-
->>>>>>> NewMind
-
-        }
-
-        public void AddItems(GameData data)//요런식으로 추가
-        {
-            if (data.monster.monsterIsAlive = false)
-            {
-                data.Player.inventory.AddItem(new Item("낡은 마법서", 0, 1, 5, 0, 0, 0, 20));
-            }
 
 
         }
@@ -280,5 +189,5 @@ namespace TxtRPG.Scene
     }
 
 
-
+    
 }

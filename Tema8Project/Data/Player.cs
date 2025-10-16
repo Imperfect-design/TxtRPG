@@ -44,7 +44,7 @@ namespace TxtRPG.Data
         }
         public void ExpUp(GameData data)
         {
-            exp += data.monster.monsterLevel*10;//밸런스 조정 필요
+            exp += data.Monster.monsterLevel*10;//밸런스 조정 필요
             if(exp >= maxExp)
             {
                 exp -= maxExp;
