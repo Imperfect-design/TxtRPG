@@ -24,7 +24,7 @@ Dodge {data.Player.doge}             CRITICAL {data.Player.critical}");
                 switch (input)
                 {
                     case 1:
-                        //인벤토리
+                        return new InvenScene();
                         break;
                     case 2:
                         //스킬보기

@@ -13,9 +13,9 @@
 //    public class BattleStartScene : Iscene
 //    {
 
-//        public object Run(Player player,Monster monster)
+//        public object Run(Player player, Monster monster)
 //        {
-//            ShowBattle(player,monster);
+//            ShowBattle(player, monster);
 //            return new TitleScene();
 //        }
 
@@ -32,7 +32,7 @@
 //            };
 
 //        int showMonsterCount;
-       
+
 
 //        private void ShowBattle(Player player, Monster monster)
 //        {
@@ -56,7 +56,7 @@
 //            }
 
 //            int playerLevel = player.level;
-//            string playername= player.name;
+//            string playername = player.name;
 //            string playerJob = player.job; ;
 //            int playerCurrentHP = player.hp;
 //            int playerMaxHp = player.maxHp; ;
@@ -89,7 +89,7 @@
 //            }
 //        }
 
-//        private void AttackScene(Player player,Monster monster)
+//        private void AttackScene(Player player, Monster monster)
 //        {
 //            Console.Clear();
 //            Console.WriteLine("공격할 몬스터를 선택하세요:");
@@ -110,7 +110,7 @@
 
 //            if (int.TryParse(input, out int selectIndex))
 //            {
-//                if (selectIndex== monster.indexmonster)
+//                if (selectIndex == monster.indexmonster)
 //                {
 //                    Monster target = showMonsters.);
 

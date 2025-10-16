@@ -133,7 +133,7 @@ namespace TxtRPG.UI
 
             while(true)
             {
-                if ( Console.WindowWidth != lastwidth || firstDraw)
+                if (Console.WindowWidth != lastwidth || firstDraw)
                 {
                     Console.Clear();
                     drawAction.Invoke();
@@ -149,7 +149,6 @@ namespace TxtRPG.UI
                     input = Console.ReadLine() ?? "";
                     break;
                 }
-
                 Thread.Sleep(refreshDelayMs);
             }
             return input;

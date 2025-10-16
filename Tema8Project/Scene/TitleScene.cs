@@ -33,7 +33,7 @@ namespace TxtRPG.Scene
                     Environment.Exit(0);
                     break;
                 default:
-                    Console.WriteLine("혹시 잘못 적으시지 않으셨습니까?.");
+                    UIManager.PrintCenter("혹시 잘못 적으시지 않으셨습니까?.");
                     Console.ReadKey();
                     break;
             }
