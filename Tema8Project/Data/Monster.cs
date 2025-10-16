@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
+using System.Reflection.Emit;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +24,13 @@ namespace Tema8Project.Data
         public bool monsterIsAlive { get; set; }
 
         public string[] names = new string[] { "마왕", "사천왕", "쫄따구" };
-        public List<Monster> monsters = new List<Monster>();
         public Monster(GameData data)
         {
             Random random = new Random(); 
 
             monsterName = names[random.Next(names.Length)];
             monsterLevel = random.Next(Math.Max(1, data.Player.level - 5), data.Player.level + 6);
-            monsterMaxhp = monsterLevel * 100;//밸런스 조절은 if문 써서
+            monsterMaxhp = monsterLevel * 100;//밸런스 조절
             monsterHp = monsterMaxhp;
             monsterAttackPower = monsterLevel * 20;
             monsterIsAlive = true;
@@ -39,13 +39,15 @@ namespace Tema8Project.Data
 
 
                 
-        public void TakeDamage(GameData data)//플레이어가 입힌 피해에 따라 몬스터의 체력이 감소하며 사망하는 메서드
+        public void TakeDamage(GameData data)
         {
+            if (!monsterIsAlive) return;
             monsterHp -= data.Player.damage;
             if(monsterHp <=0 )
             {
+                monsterIsAlive = false;
+                data.Player.ExpUp(monsterLevel);
                 LogManager.Add($"{monsterName}이(가) 사망하였다!");
-                monsters.Remove(this);
             }
         }
 

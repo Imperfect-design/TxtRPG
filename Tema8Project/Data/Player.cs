@@ -42,9 +42,10 @@ namespace TxtRPG.Data
             doge = 30;
             critical = 50;
         }
-        public void ExpUp(GameData data)
+        public void ExpUp(int Exp)
         {
-            exp += data.monster.monsterLevel*10;//밸런스 조정 필요
+            exp += Exp * 10;//밸런스 조정 필요
+            LogManager.Add($"{Exp}의 경험치를 얻었다!");
             if(exp >= maxExp)
             {
                 exp -= maxExp;
@@ -52,6 +53,7 @@ namespace TxtRPG.Data
                 playerLevelStat();
                 hp = maxHp;
                 mp = maxMp;
+                LogManager.Add($"레벨업! +1! {level}.lv");
             }
         }
         public void playerLevelStat()
@@ -60,9 +62,13 @@ namespace TxtRPG.Data
             maxMp = 10 + ((level - 1) * 2);
             damage = 10 + ((level - 1) * 5);
         }
-        public void TakeDamage(GameData data, int num)
+        public void TakeDamage(int damage)
         {
-            hp -= data.monster.monsters[num].monsterAttackPower;
+            hp -= damage;
+            if(hp <= 0)
+            {
+                hp = 0;
+            }
         }
     }
 }
