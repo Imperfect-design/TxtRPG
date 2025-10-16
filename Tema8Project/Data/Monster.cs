@@ -34,6 +34,7 @@ namespace Tema8Project.Data
             monsterAttackPower = monsterLevel * 20;
             monsterIsAlive = true;
             monsterIndex = 0;
+            List<Monster> monsters = new List<Monster>();
         }
 
 

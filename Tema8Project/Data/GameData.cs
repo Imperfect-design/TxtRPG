@@ -16,11 +16,15 @@ namespace Tema8Project.Data
        
         public Monster Monster { get; set; }
 
+        public List<Monster> monsters = new List<Monster>();
+
+
         public GameData()
         {
             Player = new Player("");
             Inventory = new Inven();
             Items = new List<Item>();
+            monsters = new List<Monster>();
         }
     }
 }
