@@ -12,7 +12,7 @@ namespace Tema8Project.Data
 {
     public class Monster
     {
-        Random random = new Random();
+        
         public string monsterName { get; set; }
         public int monsterLevel { get; set; }
         public int monsterHp { get; set; }
@@ -24,8 +24,10 @@ namespace Tema8Project.Data
 
         public Monster(GameData data)
         {
+            Random random = new Random(); 
+
             monsterName = names[random.Next(names.Length)];
-            monsterLevel = 0; //버그 생겨서 여기는 초기화만 하고 BattleScene에서 수정예정
+            monsterLevel = random.Next(Math.Max(1, data.Player.level - 5), data.Player.level + 6);
             monsterHp = monsterLevel * 100;//밸런스 조절은 if문 써서
             monsterAttackPower = monsterLevel * 20;
             monsterIsAlive = true;
@@ -33,13 +35,7 @@ namespace Tema8Project.Data
         }
 
 
-
-        public void EnemyPhase()
-        {
-
-        }
-
-
+                
         public void TakeDamage(GameData data)//플레이어가 입힌 피해에 따라 몬스터의 체력이 감소하며 사망하는 메서드
         {
             double plusMinusDouble = data.Player.damage * 0.1f;
