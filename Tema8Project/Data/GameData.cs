@@ -14,6 +14,8 @@ namespace Tema8Project.Data
         public Inven Inventory  { get; set; }
         public List<Item> Items { get; set; }
 
+        
+
         public GameData()
         {
             Player = new Player("");
