@@ -60,5 +60,9 @@ namespace TxtRPG.Data
             maxMp = 10 + ((level - 1) * 2);
             damage = 10 + ((level - 1) * 5);
         }
+        public void TakeDamage()
+        {
+
+        }
     }
 }

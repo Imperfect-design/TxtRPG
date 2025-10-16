@@ -23,24 +23,68 @@ namespace TxtRPG.Scene
         }
 
 
-       
+
         List<Monster> monsters = new List<Monster>();
-
-
-        int showMonstersCount;
+        Random rand = new Random();
 
 
         private void ShowBattle(GameData data)
         {
-            Console.Clear();
+            string str = "";
+            for (int i = 0; i < rand.Next(1, 5); i++)
+                monsters.Add(new Monster(data));
+            LogManager.Add("전투시작!");
+            while (true)
+            {
+                Console.Clear();
+                for (int i = 0; i < monsters.Count; i++)
+                    UIManager.PrintCenter($"{monsters[i].monsterName} {monsters[i].monsterLevel}.LV HP : {monsters[i].monsterHp}/{monsters[i].monsterMaxhp} DMG : {monsters[i].monsterAttackPower}");
+                LogManager.Show();
+                Console.WriteLine("\n\n\n\n\n1.공격하기 2.포션사용하기 3.도망가기");
+                Console.WriteLine(str);
+                int input = int.Parse(Console.ReadLine());
+                switch (input)
+                {
+                    case 1:
+                        Console.Clear();
+                        ShowAtack(data);
+                        break;
+                    case 2:
+                        break;
+                    case 3:
+                        break;
+                    default:
+                        str = "다시입력해주세요";
+                        break;
+                }
+            }
+        }
+        public void ShowAtack(GameData data)
+        {
+            string str = "";
+            while (true)
+            {
+                Console.Clear();
+                for (int i = 0; i < monsters.Count; i++)
+                    UIManager.PrintCenter($"[{i+1}]{monsters[i].monsterName} {monsters[i].monsterLevel}.LV HP : {monsters[i].monsterHp}/{monsters[i].monsterMaxhp} DMG : {monsters[i].monsterAttackPower}");
+                LogManager.Show();
+                Console.Write($"\n\n\n\n\n공격대상의 번호를 입력하세요 0.뒤로가기{str} : ");
+                int input = int.Parse(Console.ReadLine())-1;
+                if (input >= 0 && input < monsters.Count)
+                {
+                    LogManager.Add($"{monsters[input].monsterName}을(를) 공격하여 {data.Player.damage}만큼 피해를 입혔다!");
+                    monsters[input].TakeDamage(data);
+                    if (monsters[input].monsterHp <= 0)
+                        monsters.RemoveAt(input);
+                    break;
+                }
+                else
+                    str = "다시입력해주세요";
+                    continue;
+            }
+        }
 
-            Random randomMonsterChoice = new Random();
-            showMonstersCount = randomMonsterChoice.Next(1, 5);
-
-            Console.WriteLine("Battle!!");
-
-
-
+            /*
             for (int i = 0; i < showMonstersCount; i++)
             {
                 Monster monster = new Monster(data);
@@ -250,4 +294,6 @@ namespace TxtRPG.Scene
 
 
 
-}
+}*/
+        }
+    }
