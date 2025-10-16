@@ -95,14 +95,8 @@ namespace TxtRPG.UI
                 case "brick":
                     PrintCenter("============================================");
                     break;
-                case "dash":
-                    PrintCenter("--------------------------------------------");
-                    break;
                 case "cross":
                     PrintCenter("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-                    break;
-                case "block":
-                    PrintCenter("████████████████████████████████████████████");
                     break;
                 case "line":
                     PrintCenter("___________________________________________");
