@@ -1,13 +1,16 @@
-﻿
+﻿using System;
 using Tema8Project.Data;
+using System.Collections.Generic;
+using TxtRPG.Data;
 using TxtRPG.Game;
+using TxtRPG.UI;
 
 
 namespace TxtRPG.Scene
 {
 
 
-    public class BattleStartScene(GameData data) : Iscene
+    public class BattleStartScene() : Iscene
     {
         public object Run(GameData data)
         {
