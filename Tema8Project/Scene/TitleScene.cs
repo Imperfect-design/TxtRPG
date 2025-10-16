@@ -35,8 +35,8 @@ namespace TxtRPG.Scene
             {
                 case "1":
                     return new StatusScene();
-                case "2":
-                    return new BattleStartScene();
+                //case "2":
+                //    return new BattleStartScene();
                 case "0":
                     Environment.Exit(0);
                     break;

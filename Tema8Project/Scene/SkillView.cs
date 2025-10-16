@@ -55,7 +55,7 @@ class SkillView : Iscene
             Skill firstSkill = archer[1];
             Skill secondSkill = archer[2];
             Skill thirdSkill = archer[3];
-            
+
             Console.WriteLine($"{firstSkill.SkillNumber}     {firstSkill.SkillName} 데미지:  {firstSkill.SkillDamage}   체력소모:   {firstSkill.SkillHp}      마나소모:  {firstSkill.SkillMp}  해금레벨:  {firstSkill.UnlockLevel}");
             Console.WriteLine($"{secondSkill.SkillNumber}     {secondSkill.SkillName} 데미지:  {secondSkill.SkillDamage}  체력소모:  {secondSkill.SkillHp}     마나소모: {secondSkill.SkillMp}  해금레벨:  {secondSkill.UnlockLevel}");
             Console.WriteLine($"{thirdSkill.SkillNumber}     {thirdSkill.SkillName} 데미지:  {thirdSkill.SkillDamage}   체력소모:  {thirdSkill.SkillHp}   마나소모:   {thirdSkill.SkillMp}  해금레벨:  {thirdSkill.UnlockLevel}");
@@ -67,8 +67,8 @@ class SkillView : Iscene
             }
         }
         return this;
-        
+
     }
-        
-       
-    }
+
+
+}
