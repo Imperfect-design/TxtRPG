@@ -30,31 +30,43 @@ namespace TxtRPG.Scene
         int showMonstersCount;
 
 
-        private void ShowBattle(GameData data)//매서드 사용해서 하나로 묶어서 AttackScene 없애기
-        {
-            Console.Clear();
 
+        private void PrintMonsterList(GameData data)
+        {
             Random randomMonsterChoice = new Random();
             showMonstersCount = randomMonsterChoice.Next(1, 5);
-
-            Console.WriteLine("Battle!!");
-
-
+            bool AllMonstersIsAlive;
 
             for (int i = 0; i < showMonstersCount; i++)
             {
+                if (monsters.Count==0||monsters.All(monsterRamda=>!IsAlive)
                 Monster monster = new Monster(data);
-
-
                 monsters.Add(monster);
 
                 Console.WriteLine($"\n\nLV.{monsters[i].monsterLevel} {monsters[i].monsterName} HP {monsters[i].monsterHp}");
             }
 
+           
+
+        }
+
+
+
+
+        private void ShowBattle(GameData data)//매서드 사용해서 하나로 묶어서 AttackScene 없애기
+        {
+            Console.Clear();
+            PrintMonsterList(data);
+
+
+            Console.WriteLine("Battle!!");
+
+            //Count 길이 세는걸 이용해서 입력값이랑 같은 길이를 가진 몬스터를 피를 까는거 if문으로 
+
+           
 
             Console.WriteLine($"\n\n[내정보]\nLv.{data.Player.level}    {data.Player.name} ({data.Player.job})\nHP {data.Player.hp}/{data.Player.maxHp} ");
-
-            Console.Write("\n\n\n\n1. 공격\n\n원하시는 행동을 입력해주세요.!\n>>");
+            Console.Write("\n\n\n\n1. 공격\n\n원하시는 행동을 입력해주세요.!\n>>");//마을가기, 소비아이템 먹기
 
 
             string input = Console.ReadLine();
@@ -108,15 +120,16 @@ namespace TxtRPG.Scene
 
             for (int i = 0; i < monsters.Count; i++)//리스트에 있는 몬스터를 싹 다 훑어서
             {
-                if (inputInt - 1 == monsters[i].monsterIndex)//유저가 입력한 값이랑 몬스터 리스트의 인덱스가 같으면
+                if (inputInt == monsters[i].monsterIndex)//Length 활용
                 {
                     if (monsters[i].monsterIsAlive)//일단 살아있는지 먼저 확인하고 살아있으면 TakeDamage를 실행시켜
                     {
                         Console.Clear();
 
+
                         beforeMonsterHP = monsters[i].monsterHp;
                         int finalDamage = playerFinalDamage(data);
-                        TakeDamageMonster(data);
+                        HitMonster(data);
                         currentMonsterHP = monsters[i].monsterHp - finalDamage;
 
                         string a = $"{data.Player.name} 의 공격!" +
@@ -126,7 +139,15 @@ namespace TxtRPG.Scene
                             $"\n\n0. 다음" +
                             $"\n\n\n>>";
                         Console.WriteLine(a);
-                        Console.ReadLine();
+                        inputStr = Console.ReadLine();
+                        inputInt = int.Parse(inputStr);
+
+                        if (inputInt == 0)
+                        {
+                            EnemyTurn(data);
+                        }
+
+
                     }
 
 
@@ -139,10 +160,6 @@ namespace TxtRPG.Scene
                         }
                     }
 
-                    else if (inputInt == 0)
-                    {
-                        EnemyTurn(data);
-                    }
 
                 }
             }
@@ -154,56 +171,64 @@ namespace TxtRPG.Scene
         private void EnemyTurn(GameData data)
         {
             Console.Clear();
-            foreach (Monster monster in monsters)
-            {
-                if (monster.monsterIsAlive == false)
-                {
-                    continue;
-                }
+             
 
-                beforePlayerHP = data.Player.hp;
-                TakeDamagePlayer(data);
-                currentPlayerHP = data.Player.hp;
+            
+                PlayerTurn(data);
 
-                string a = $"Lv.{monster.monsterLevel} {monster.monsterName} 의 공격!" +
-                           $"\n{data.Player.name}을(를) 맞췄습니다.    [데미지 : {monster.monsterAttackPower}]" +
-                           $"\nLv.{data.Player.name}" +
-                           $"\nHP {beforePlayerHP}->{currentPlayerHP}" +
-                           $"\n\n\n0. 다음 " +
-                           $"\n대상을 선택해주세요" +
-                           $"\n>>";
-                Console.Write(a);
-                string input = Console.ReadLine();
-
-                if (input == "0")
+                foreach (Monster monster in monsters)
                 {
-                    PlayerTurn(data);
-                }
-                else
-                {
-                    while (input != "0")
+                    if (monster.monsterIsAlive == false)
                     {
-                        Console.WriteLine("잘못된 입력입니다.");
-                        Console.Write(">>");
-                        input = Console.ReadLine();
-                        if (input == "0")
-                        {
-                            PlayerTurn(data);
-                        }
+                        continue;
+                    }
+
+                    beforePlayerHP = data.Player.hp;
+                    HitPlayer(data);
+                    currentPlayerHP = data.Player.hp;
+
+                    string a = $"Lv.{monster.monsterLevel} {monster.monsterName} 의 공격!" +
+                               $"\n{data.Player.name}을(를) 맞췄습니다.    [데미지 : {monster.monsterAttackPower}]" +
+                               $"\nLv.{data.Player.level} {data.Player.name}" +
+                               $"\nHP {beforePlayerHP}->{currentPlayerHP}" +
+                               $"\n\n\n0. 다음 " +
+                               $"\n대상을 선택해주세요" +
+                               $"\n>>";
+                    Console.Write(a);
+                }
+
+            string input = Console.ReadLine();
+            if (input == "0")
+            {
+                ShowBattle(data);
+            }
+            else
+            {
+                while (input != "0")
+                {
+                    Console.WriteLine("잘못된 입력입니다.");
+                    Console.Write(">>");
+                    input = Console.ReadLine();
+                    if (input == "0")
+                    {
+                        ShowBattle(data);
                     }
                 }
             }
+            
         }
 
-
-
-        public void TakeDamagePlayer(GameData data)
+        public void HitPlayer(GameData data)
         {
             data.Player.hp -= data.Monster.monsterAttackPower;
+            
         }
-        public void TakeDamageMonster(GameData data)
+
+        public void HitMonster(GameData data)
         {
             data.Monster.monsterHp -= data.Player.damage;
+            if (data.Monster.monsterHp <= 0)
+            {data.Monster.monsterIsAlive = false;}
         }
 
 

@@ -30,7 +30,7 @@ namespace Tema8Project.Data
 
             monsterName = names[random.Next(names.Length)];
             monsterLevel = random.Next(Math.Max(1, data.Player.level - 5), data.Player.level + 6);
-            monsterHp = monsterLevel * 100;//밸런스 조절은 if문 써서
+            monsterHp = monsterLevel * 1;//밸런스 조절은 if문 써서++100으로 돌려놓기
             monsterAttackPower = monsterLevel * 20;
             monsterIsAlive = true;
             monsterIndex = 0;
