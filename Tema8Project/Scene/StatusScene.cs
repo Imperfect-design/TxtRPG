@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using TxtRPG.Game;
 using TxtRPG.Data;
 using Tema8Project.Data;
@@ -13,7 +13,7 @@ namespace TxtRPG.Scene
             {
                 Console.Clear();
                 Console.WriteLine(@$"
-{data.Player.name} {data.Player.level}.Lv
+{data.Player.name} | 직업 : ({data.Player.job}) | {data.Player.level}.Lv
 HP {data.Player.hp}/{data.Player.maxHp}   MP {data.Player.mp}/{data.Player.maxMp}
 DMG {data.Player.damage}      {data.Player.gold}G
 EXP  {data.Player.exp} / {data.Player.maxExp}
