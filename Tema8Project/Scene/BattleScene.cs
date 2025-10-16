@@ -24,24 +24,24 @@ namespace TxtRPG.Scene
 
 
 
-        List<Monster> monsters = new List<Monster>();
+        
         Random rand = new Random();
 
 
         private void ShowBattle(GameData data)
         {
-            string str = "";
             for (int i = 0; i < rand.Next(1, 5); i++)
-                monsters.Add(new Monster(data));
+                data.monster.monsters.Add(new Monster(data));
             LogManager.Add("전투시작!");
             while (true)
             {
                 Console.Clear();
-                for (int i = 0; i < monsters.Count; i++)
-                    UIManager.PrintCenter($"{monsters[i].monsterName} {monsters[i].monsterLevel}.LV HP : {monsters[i].monsterHp}/{monsters[i].monsterMaxhp} DMG : {monsters[i].monsterAttackPower}");
+                for (int i = 0; i < data.monster.monsters.Count; i++)
+                    UIManager.PrintCenter($"{data.monster.monsters[i].monsterName} {data.monster.monsters[i].monsterLevel}.LV HP : {data.monster.monsters[i].monsterHp}/{data.monster.monsters[i].monsterMaxhp} DMG : {data.monster.monsters[i].monsterAttackPower}");
+                Console.WriteLine("\n\n\n\n");
+                UIManager.PrintCenter($"[{data.Player.name} {data.Player.level}.Lv  HP : {data.Player.hp}/{data.Player.maxHp} MP : {data.Player.mp}/{data.Player.maxMp} DMG : {data.Player.damage}  EXP : {data.Player.exp}/{data.Player.maxExp}]");
                 LogManager.Show();
                 Console.WriteLine("\n\n\n\n\n1.공격하기 2.포션사용하기 3.도망가기");
-                Console.WriteLine(str);
                 int input = int.Parse(Console.ReadLine());
                 switch (input)
                 {
@@ -54,33 +54,31 @@ namespace TxtRPG.Scene
                     case 3:
                         break;
                     default:
-                        str = "다시입력해주세요";
+                        LogManager.Add("다시입력해주세요");
                         break;
                 }
             }
         }
         public void ShowAtack(GameData data)
         {
-            string str = "";
             while (true)
             {
                 Console.Clear();
-                for (int i = 0; i < monsters.Count; i++)
-                    UIManager.PrintCenter($"[{i+1}]{monsters[i].monsterName} {monsters[i].monsterLevel}.LV HP : {monsters[i].monsterHp}/{monsters[i].monsterMaxhp} DMG : {monsters[i].monsterAttackPower}");
+                for (int i = 0; i < data.monster.monsters.Count; i++)
+                    UIManager.PrintCenter($"[{i+1}]{data.monster.monsters[i].monsterName} {data.monster.monsters[i].monsterLevel}.LV HP : {data.monster.monsters[i].monsterHp}/{data.monster.monsters[i].monsterMaxhp} DMG : {data.monster.monsters[i].monsterAttackPower}");
                 LogManager.Show();
-                Console.Write($"\n\n\n\n\n공격대상의 번호를 입력하세요 0.뒤로가기{str} : ");
+                Console.Write($"\n\n\n\n\n공격대상의 번호를 입력하세요 0.뒤로가기 : ");
                 int input = int.Parse(Console.ReadLine())-1;
-                if (input >= 0 && input < monsters.Count)
+                if (input >= 0 && input < data.monster.monsters.Count)
                 {
-                    LogManager.Add($"{monsters[input].monsterName}을(를) 공격하여 {data.Player.damage}만큼 피해를 입혔다!");
-                    monsters[input].TakeDamage(data);
-                    if (monsters[input].monsterHp <= 0)
-                        monsters.RemoveAt(input);
+                    LogManager.Add($"{data.monster.monsters[input].monsterName}을(를) 공격하여 {data.Player.damage}만큼 피해를 입혔다!");
+                    data.monster.monsters[input].TakeDamage(data);
+                    data.Player.TakeDamage(data, rand.Next(data.monster.monsters.Count));
                     break;
                 }
                 else
-                    str = "다시입력해주세요";
-                    continue;
+                    LogManager.Add("다시입력해주세요");
+                continue;
             }
         }
 

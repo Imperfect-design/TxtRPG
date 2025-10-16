@@ -23,7 +23,7 @@ namespace Tema8Project.Data
         public bool monsterIsAlive { get; set; }
 
         public string[] names = new string[] { "마왕", "사천왕", "쫄따구" };
-
+        public List<Monster> monsters = new List<Monster>();
         public Monster(GameData data)
         {
             Random random = new Random(); 
@@ -45,6 +45,7 @@ namespace Tema8Project.Data
             if(monsterHp <=0 )
             {
                 LogManager.Add($"{monsterName}이(가) 사망하였다!");
+                monsters.Remove(this);
             }
         }
 
