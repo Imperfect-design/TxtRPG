@@ -28,6 +28,7 @@ Dodge {data.Player.doge}             CRITICAL {data.Player.critical}");
                         break;
                     case 2:
                         //스킬보기
+                        return new SkillView();
                         break;
                     case 0:
                         return new TitleScene();
