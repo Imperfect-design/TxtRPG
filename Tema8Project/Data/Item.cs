@@ -32,6 +32,5 @@ namespace TxtRPG
             this.buy = buy;
             this.sell = buy / 2;
         }
-
     }
 }

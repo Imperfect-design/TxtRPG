@@ -21,9 +21,9 @@ namespace TxtRPG.Data
         public string job;
         public int doge;
         public int critical;
-        //public Inven inventory = new Inven();
-        //public Item equipWeapon;
-        //public Item equipArmor;
+        public Inven inventory = new Inven();
+        public Item equipWeapon;
+        public Item equipArmor;
 
         public Player(string Name)
         {

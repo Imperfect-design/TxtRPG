@@ -1,4 +1,5 @@
 ﻿using System;
+using Tema8Project.Data;
 using TxtRPG.Data;
 using TxtRPG.Game;
 using TxtRPG.UI;
@@ -7,7 +8,7 @@ namespace TxtRPG.Scene
 {
     public class TitleScene : Iscene
     {
-        public object Run(Player player)
+        public object Run(GameData data)
         {
             string input = UIManager.ConsoleArray(() =>
             {
@@ -19,20 +20,20 @@ namespace TxtRPG.Scene
                 UIManager.PrintRed("2. 전투 시작");
                 UIManager.PrintCenter("0. 게임 종료");
                 Console.WriteLine();
-                UIManager.PrintCenter(">>");
+                UIManager.PrintCenterLine(">>    ");
             });
 
             switch (input)
             {
                 case "1":
                     return new StatusScene();
-                case "2":
-                    return new BattleStartScene();
+                //case "2":
+                //    return new BattleStartScene();
                 case "0":
                     Environment.Exit(0);
                     break;
                 default:
-                    Console.WriteLine("혹시 잘못 적으시지 않으셨습니까?.");
+                    UIManager.PrintCenter("혹시 잘못 적으시지 않으셨습니까?.");
                     Console.ReadKey();
                     break;
             }
