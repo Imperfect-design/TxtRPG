@@ -28,7 +28,7 @@ namespace TxtRPG.Scene
         int showMonstersCount;
 
 
-        private void ShowBattle(GameData data)
+        private void ShowBattle(GameData data)//매서드 사용해서 하나로 묶어서 AttackScene 없애기
         {
             Console.Clear();
 
@@ -97,7 +97,7 @@ namespace TxtRPG.Scene
                 Console.WriteLine(MonsterInfo);
             }
 
-            //변수 하나에 체력 정보를 넣기 반복문은 데미지 받기 전에 데미지를 주기 전에 미포hp에 변수에 저장을 해두고 데미지깎는 메서드 실행하기
+            //변수 하나에 체력 정보를 넣기 반복문은 데미지 받기 전에 데미지를 주기 전에 비포hp에 변수에 저장을 해두고 데미지깎는 메서드 실행하기
 
             Console.Write("\n>> ");
             string inputStr = Console.ReadLine();
@@ -112,6 +112,7 @@ namespace TxtRPG.Scene
                         monsters[i].TakeDamage(data);
                         Console.Clear();
                         //여기 체력 떨어지는 시스템 만들어두기
+
                         Console.WriteLine($"{data.Player.name} 의 공격!\nLv.{monsters[i].monsterLevel} {monsters[i].monsterName} 을(를) 맞췄습니다. [데미지 : monster.playerFinalDamge]\n\n\nLv.{monsters[i].monsterLevel} {monsters[i].monsterName}\nHP 추가하기 -> 추가하기\n\n0. 다음\n\n\n>>");
                         Console.Read();
                     }
@@ -154,6 +155,7 @@ namespace TxtRPG.Scene
             }
         }
 
+        public int beforeMonsterHp;
         public void TakeDamage(GameData data)//플레이어가 입힌 피해에 따라 몬스터의 체력이 감소하며 사망하는 메서드
         {
             double plusMinusDouble = data.Player.damage * 0.1f;
@@ -167,7 +169,7 @@ namespace TxtRPG.Scene
             int playerFinalDamage = randomPlayerDamge.Next(playerDamage - plusMinusInt, playerDamage + plusMinusInt);//Player가 가지는 계산식은 플레이어 클래스에 넣는게? 매서드 밖에 선언하고 클래스 받아서 가져오기
 
 
-            ////int beforeMonsterHP = monsters[i].monsterHp;
+            beforeMonsterHp = data.Monster.monsterHp;
             //int currentMonsterHP;
 
 
@@ -176,8 +178,7 @@ namespace TxtRPG.Scene
             //{
             //    monster.monsterIsAlive = false;
             //    //드랍템 추가?
-            //}
-            //data.Player.inventory.AddItem(new Item { });
+           data.Player.inventory.AddItem(new Item { });
             //currentMonsterHP = monster.monsterHp;
 
 

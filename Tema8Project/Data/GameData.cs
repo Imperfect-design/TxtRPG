@@ -13,8 +13,8 @@ namespace Tema8Project.Data
         public Player Player { get; set; }
         public Inven Inventory  { get; set; }
         public List<Item> Items { get; set; }
-
-        
+       
+        public Monster Monster { get; set; }
 
         public GameData()
         {
