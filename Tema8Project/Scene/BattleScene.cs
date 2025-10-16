@@ -35,7 +35,7 @@ namespace TxtRPG.Scene
         {
             Random randomMonsterChoice = new Random();
             showMonstersCount = randomMonsterChoice.Next(1, 5);
-            bool AllMonstersIsAlive;
+            
 
             for (int i = 0; i < showMonstersCount; i++)
             {
