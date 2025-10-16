@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Tema8Project.Data;
 using TxtRPG.Data;
 using TxtRPG.Game;
 
@@ -10,36 +11,36 @@ namespace TxtRPG.Scene
 {
     public class NewCharacterScene : Iscene
     {
-        public object Run(Player player)
+        public object Run(GameData data)
         {
             string name = inputName();
             string job = jobSelect();
 
-            player.name = name;
-            player.job = job;
+            data.Player.name = name;
+            data.Player.job = job;
 
-            switch (player.job)
+            switch (data.Player.job)
             {
                 case "전사":
-                    player.maxHp = 200;
-                    player.hp = player.maxHp;
-                    player.maxMp = 15;
-                    player.mp = player.maxMp;
-                    player.damage = 15;
+                    data.Player.maxHp = 200;
+                    data.Player.hp = data.Player.maxHp;
+                    data.Player.maxMp = 15;
+                    data.Player.mp = data.Player.maxMp;
+                    data.Player.damage = 15;
                     break;
                 case "궁수":
-                    player.maxHp = 150;
-                    player.hp = player.maxHp;
-                    player.maxMp = 25;
-                    player.mp = player.maxMp;
-                    player.damage = 25;
+                    data.Player.maxHp = 150;
+                    data.Player.hp = data.Player.maxHp;
+                    data.Player.maxMp = 25;
+                    data.Player.mp = data.Player.maxMp;
+                    data.Player.damage = 25;
                     break;
                 case "마법사":
-                    player.maxHp = 120;
-                    player.hp = player.maxHp;
-                    player.maxMp = 50;
-                    player.mp = player.maxMp;
-                    player.damage = 40;
+                    data.Player.maxHp = 120;
+                    data.Player.hp = data.Player.maxHp;
+                    data.Player.maxMp = 50;
+                    data.Player.mp = data.Player.maxMp;
+                    data.Player.damage = 40;
                     break;
             }
 

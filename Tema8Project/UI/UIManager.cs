@@ -126,9 +126,14 @@ namespace TxtRPG.UI
             string input = "";
             bool firstDraw = true;
 
+            if (Console.CursorVisible)
+            {
+                Console.CursorVisible = false;
+            }
+
             while(true)
             {
-                if ( Console.WindowWidth != lastwidth || firstDraw)
+                if (Console.WindowWidth != lastwidth || firstDraw)
                 {
                     Console.Clear();
                     drawAction.Invoke();
@@ -140,11 +145,10 @@ namespace TxtRPG.UI
                 {
                     int promptPos = Math.Max((Console.WindowWidth / 2) - 2, 0);
                     Console.SetCursorPosition(promptPos, Console.CursorTop);
-                    Console.Write(" ");
+                    Console.Write(">");
                     input = Console.ReadLine() ?? "";
                     break;
                 }
-
                 Thread.Sleep(refreshDelayMs);
             }
             return input;

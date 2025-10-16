@@ -1,4 +1,5 @@
 ﻿using System;
+using Tema8Project.Data;
 using TxtRPG.Data;
 using TxtRPG.Scene;
 
@@ -6,19 +7,18 @@ namespace TxtRPG.Game
 {
     public class GameManager
     {
-        public static Player player;
+        public static GameData data;
         private object currentScene;
-
         public void Run()
         {
-            player = new Player("");
+            data = new GameData();
             currentScene = new NewCharacterScene();
 
             while (currentScene != null)
             {
                 if (currentScene is Iscene scene)
                 {
-                    currentScene = scene.Run(player);
+                    currentScene = scene.Run(data);
                 }
                 else
                 {
