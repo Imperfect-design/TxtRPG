@@ -57,7 +57,7 @@ namespace TxtRPG.Scene
 
             if (input == "1")
             {
-                AttackScene(player, monster);
+                AttackScene(player);
             }
             else
             {
@@ -68,28 +68,28 @@ namespace TxtRPG.Scene
                     input = Console.ReadLine();
                     if (input == "1")
                     {
-                        AttackScene(player, monster);
+                        AttackScene(player);
                     }
 
                 }
             }
         }
 
-        private void AttackScene(Player player,Monster monster)
+        private void AttackScene(Player player)
         {
             Console.Clear();
             Console.WriteLine("공격할 몬스터를 선택하세요:");
 
             for (int i = 0; i < showMonstersCount; i++)
             {
-                monster.monsterIndex = i + 1;
+                monsters[i].monsterIndex = i + 1;
 
                 // monster.monsterIsAlive? monster.monsterHp.ToString() : "Dead";
-                string MonsterInfo = ($"\n\n[{monster.monsterIndex}] LV.{monster.monsterLevel} {monster.monsterName} HP {monster.monsterHp}");
+                string MonsterInfo = ($"\n\n[{monsters[i].monsterIndex}] LV.{monsters[i].monsterLevel} {monsters[i].monsterName} HP {monsters[i].monsterHp}");
 
-                if (!monster.monsterIsAlive)
+                if (!monsters[i].monsterIsAlive)
                 {
-                    string deadMonsterInfo = MonsterInfo.Replace($"HP {monster.monsterHp}", "Dead");
+                    string deadMonsterInfo = MonsterInfo.Replace($"HP {monsters[i].monsterHp}", "Dead");
                     Console.ForegroundColor = ConsoleColor.DarkGray;
                     MonsterInfo = deadMonsterInfo;
                 }
@@ -199,7 +199,7 @@ namespace TxtRPG.Scene
             if (monster.monsterHp <= 0)
             {
                 monster.monsterIsAlive = false;
-                //인벤토리 뭐 추가해달라고 했었죠.... 죄송합니다 까먹었어요..
+                //인벤토리 추가?
             }
 
             currentMonsterHP = monster.monsterHp;
