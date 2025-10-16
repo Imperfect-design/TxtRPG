@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Net.Security;
+using Tema8Project.Data;
 
 namespace TxtRPG.Data
 {
@@ -39,6 +41,24 @@ namespace TxtRPG.Data
             gold = 1000;
             doge = 30;
             critical = 50;
+        }
+        public void ExpUp(GameData data)
+        {
+            exp += data.Monster.monsterLevel*10;//밸런스 조정 필요
+            if(exp >= maxExp)
+            {
+                exp -= maxExp;
+                level++;
+                playerLevelStat();
+                hp = maxHp;
+                mp = maxMp;
+            }
+        }
+        public void playerLevelStat()
+        {
+            maxHp = 100 + ((level-1) * 20);
+            maxMp = 10 + ((level - 1) * 2);
+            damage = 10 + ((level - 1) * 5);
         }
     }
 }
