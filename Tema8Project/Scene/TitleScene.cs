@@ -10,14 +10,22 @@ namespace TxtRPG.Scene
     {
         public object Run(GameData data)
         {
+            if(data.Player.inventory.items.Count == 0 )
+            {
+                data.Player.inventory.AddItem(new Item("마우스", ItemType.Weapon, 1, 1, 0, 0, 0, 10));
+                data.Player.inventory.AddItem(new Item("키보드", ItemType.Armor, 1, 0, 1, 0, 0, 10));
+                data.Player.inventory.AddItem(new Item("커피", ItemType.Consumable, 10, 0, 0, 2, 2, 10));
+                LogManager.Add("기본 장비가 추가되었다");
+            }
             string input = UIManager.ConsoleArray(() =>
             {
-                UIManager.PrintTitle("시작부터 마왕나옴");
+                UIManager.PrintTitle("==== 시작부터 마왕나옴 ====");
                 UIManager.PrintCenter("시작부터 마왕을 만나실 당신을 환영합니다.");
                 UIManager.PrintDivider("dash");
                 Console.WriteLine();
+                LogManager.Show();
                 UIManager.PrintYellow("1. 상태 보기");
-                UIManager.PrintRed("2. 전투 시작");
+                UIManager.PrintYellow("2. 전투 시작");
                 UIManager.PrintCenter("0. 게임 종료");
                 Console.WriteLine();
                 UIManager.PrintCenterLine(">>    ");

@@ -21,15 +21,17 @@ namespace TxtRPG
 
         public static void Show()
         {
-            Console.WriteLine("\n[이벤트 로그]---------------");
+            Console.WriteLine("\n");
+            UIManager.PrintCenter("[이벤트 로그]---------------");
 
             foreach (var line in logLines)
             {
                 if (!string.IsNullOrEmpty(line))
-                    Console.WriteLine(line);
+                    UIManager.PrintCenter(line);
             }
 
-            Console.WriteLine("----------------------------");
+            UIManager.PrintCenter("----------------------------");
+            Console.WriteLine("\n");
         }
 
         public static void Clear()
