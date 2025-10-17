@@ -15,6 +15,7 @@ namespace Tema8Project.Data
         public Inven Inventory  { get; set; }
         public List<Item> Items { get; set; }
         public Monster monster { get; set; }
+        public string[] monsterNames = {"쫄따구", "사천왕", "마왕" };
 
         public GameData()
         {

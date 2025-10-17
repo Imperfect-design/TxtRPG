@@ -75,8 +75,12 @@ namespace TxtRPG.Scene
                         switch (selectedItem.type)
                         {
                             case ItemType.Weapon:
+                                if (player.equipWeapon != null)
+                                    player.damage -= player.equipWeapon.dmg;
+
                                 player.equipWeapon = (player.equipWeapon == selectedItem) ? null : selectedItem;
-                                if (player.equipArmor != null)
+
+                                if (player.equipWeapon != null)
                                     player.damage += selectedItem.dmg;
                                 else
                                     player.damage -= selectedItem.dmg;

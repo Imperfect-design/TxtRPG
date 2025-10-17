@@ -6,6 +6,7 @@ using Tema8Project.Data;
 using TxtRPG.Data;
 using TxtRPG.Game;
 using TxtRPG.UI;
+using TxtRPG.Scene;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 
@@ -17,10 +18,17 @@ namespace TxtRPG.Scene
     public class BattleStartScene : Iscene
     {
         public List<Monster> monsters = new List<Monster>();
+        private QuestScene questScene;
+
+
+        public BattleStartScene(QuestScene quest)
+        {
+            questScene = quest;
+        }
+
         public object Run(GameData data)
         {
-            ShowBattle(data);
-            return null;
+            return ShowBattle(data);
         }
 
 
@@ -29,7 +37,7 @@ namespace TxtRPG.Scene
         Random rand = new Random();
 
 
-        private void ShowBattle(GameData data)
+        private object ShowBattle(GameData data)
         {
             
 
@@ -38,6 +46,12 @@ namespace TxtRPG.Scene
             LogManager.Add("전투시작!");
             while (true)
             {
+                if (monsters.Count == 0)
+                {
+                    LogManager.Add("전투 종료!");
+                    Console.ReadLine();
+                    return new TitleScene();
+                }
                 int potionCount = data.Player.inventory.items.Where(item => item.name == "커피" && item.type == ItemType.Consumable).Sum(item => item.count);
                 Console.Clear();
                 for (int i = 0; i < monsters.Count; i++)
@@ -57,8 +71,8 @@ namespace TxtRPG.Scene
                         UsePotion(data);
                         continue;
                     case 3:
-                        //나가기
-                        break;
+                        LogManager.Add("도망쳤습니다.");
+                        return new TitleScene();
                     default:
                         LogManager.Add("다시입력해주세요");
                         break;
@@ -82,10 +96,14 @@ namespace TxtRPG.Scene
                     break;
                 else if (input >= 0 && input < monsters.Count)
                 {
+                    var target = monsters[input];
                     LogManager.Add($"{monsters[input].monsterName}을(를) 공격하여 {data.Player.damage}만큼 피해를 입혔다!{monsters[input].monsterHp}->{monsters[input].monsterHp - data.Player.damage}");
-                    monsters[input].TakeDamage(data);
-                    if(monsters[input].monsterHp <= 0)
+                    target.TakeDamage(data);
+
+                    if (target.monsterHp <= 0)
                     {
+                        LogManager.Add($"{target.monsterName} 처치 완료!");
+                        questScene?.CheckQuest(target.monsterName, data);
                         monsters.RemoveAt(input);
                     }
                     else

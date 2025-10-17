@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 using Tema8Project.Data;
 using TxtRPG;
 using TxtRPG.Data;
-using static Tema8Project.Scene.QuestScene;
+using TxtRPG.Scene;
 
-namespace Tema8Project.Scene
+namespace TxtRPG.Scene
 {
     public class QuestScene
     {
@@ -22,7 +23,7 @@ namespace Tema8Project.Scene
 
         public QuestScene(GameData data)
         {
-            monsterName = data.monster.names[rand.Next(data.monster.names.Length)];
+            monsterName = data.monsterNames[rand.Next(data.monsterNames.Length)];
             killCount = 5 + (data.Player.level - 1) * rand.Next(1, 11);
             reward = killCount * 20;
             isAccept = false;
@@ -86,7 +87,7 @@ namespace Tema8Project.Scene
 
         public void CheckQuest(string MonsterName, GameData data)
         {
-            foreach (var check in quests)
+            foreach (var check in quests.ToList())
             {
                 if (check.isAccept && check.monsterName == MonsterName && check.killCount > 0)
                 {
@@ -109,6 +110,8 @@ namespace Tema8Project.Scene
         {
             return new QuestScene(data);
         }
+
+
     }
 
 }

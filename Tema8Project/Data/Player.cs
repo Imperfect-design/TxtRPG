@@ -37,14 +37,14 @@ namespace TxtRPG.Data
             maxMp = 10;
             hp = maxHp;
             mp = maxMp;
-            damage = 10;
+            damage = 25;
             gold = 1000;
             doge = 30;
             critical = 50;
         }
         public void ExpUp(int Exp)
         {
-            exp += Exp * 10;//밸런스 조정 필요
+            exp += Exp * 30;//밸런스 조정 필요
             LogManager.Add($"{Exp}의 경험치를 얻었다!");
             if(exp >= maxExp)
             {
@@ -58,9 +58,9 @@ namespace TxtRPG.Data
         }
         public void playerLevelStat()
         {
-            maxHp = 100 + ((level-1) * 20);
-            maxMp = 10 + ((level - 1) * 2);
-            damage = 10 + ((level - 1) * 5);
+            maxHp = 150 + ((level-1) * 25);
+            maxMp = 15 + ((level - 1) * 3);
+            damage = 25 + ((level - 1) * 8);
         }
         public void TakeDamage(int damage)
         {

@@ -6,11 +6,12 @@ using System.Reflection.Emit;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Tema8Project.Data;
 using TxtRPG;
 using TxtRPG.Data;
 
 
-namespace Tema8Project.Data
+namespace TxtRPG.Data
 {
     public class Monster
     {
@@ -24,15 +25,16 @@ namespace Tema8Project.Data
         public bool monsterIsAlive { get; set; }
 
         public string[] names = new string[] { "마왕", "사천왕", "쫄따구" };
+        private static Random random = new Random();
         public Monster(GameData data)
         {
             Random random = new Random(); 
 
             monsterName = names[random.Next(names.Length)];
             monsterLevel = random.Next(Math.Max(1, data.Player.level - 5), data.Player.level + 6);
-            monsterMaxhp = monsterLevel * 100;//밸런스 조절
+            monsterMaxhp = monsterLevel * 40;//밸런스 조절
             monsterHp = monsterMaxhp;
-            monsterAttackPower = monsterLevel * 20;
+            monsterAttackPower = monsterLevel * 5;
             monsterIsAlive = true;
             monsterIndex = 0;
         }
