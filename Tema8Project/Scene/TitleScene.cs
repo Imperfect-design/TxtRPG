@@ -1,6 +1,5 @@
 ﻿using System;
 using Tema8Project.Data;
-using TxtRPG.Data;
 using TxtRPG.Game;
 using TxtRPG.UI;
 
@@ -8,12 +7,18 @@ namespace TxtRPG.Scene
 {
     public class TitleScene : Iscene
     {
+        private QuestScene questScene;
+        public TitleScene()
+        {
+            questScene = new QuestScene(new GameData());
+        }
+
         public object Run(GameData data)
         {
             if(data.Player.inventory.items.Count == 0 )
             {
-                data.Player.inventory.AddItem(new Item("마우스", ItemType.Weapon, 1, 1, 0, 0, 0, 10));
-                data.Player.inventory.AddItem(new Item("키보드", ItemType.Armor, 1, 0, 1, 0, 0, 10));
+                data.Player.inventory.AddItem(new Item("마우스", ItemType.Weapon, 1, 50, 0, 0, 0, 10));
+                data.Player.inventory.AddItem(new Item("키보드", ItemType.Armor, 1, 0, 50, 0, 0, 10));
                 data.Player.inventory.AddItem(new Item("커피", ItemType.Consumable, 10, 0, 0, 2, 2, 10));
                 LogManager.Add("기본 장비가 추가되었다");
             }
@@ -26,6 +31,7 @@ namespace TxtRPG.Scene
                 LogManager.Show();
                 UIManager.PrintYellow("1. 상태 보기");
                 UIManager.PrintYellow("2. 전투 시작");
+                UIManager.PrintYellow("3. 퀘스트 보기");
                 UIManager.PrintCenter("0. 게임 종료");
                 Console.WriteLine();
                 UIManager.PrintCenterLine(">>    ");
@@ -36,7 +42,14 @@ namespace TxtRPG.Scene
                 case "1":
                     return new StatusScene();
                 case "2":
-                    return new BattleStartScene();
+                    return new BattleStartScene(questScene);
+                case "3":
+                    questScene.CreateQuests(data);
+                    questScene.ShowQuests(data);
+                    Console.WriteLine("\n엔터를 눌러 돌아갑니다.");
+                    Console.ReadLine();
+                    return this;
+
                 case "0":
                     Environment.Exit(0);
                     break;

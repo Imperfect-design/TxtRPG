@@ -75,13 +75,31 @@ namespace TxtRPG.Scene
                         switch (selectedItem.type)
                         {
                             case ItemType.Weapon:
+                                if (player.equipWeapon != null)
+                                    player.damage -= player.equipWeapon.dmg;
+
                                 player.equipWeapon = (player.equipWeapon == selectedItem) ? null : selectedItem;
+
+                                if (player.equipWeapon != null)
+                                    player.damage += selectedItem.dmg;
+                                else
+                                    player.damage -= selectedItem.dmg;
+
                                 LogManager.Add($"{selectedItem.name} {(player.equipWeapon == selectedItem ? "장착" : "해제")}");
                                 break;
                             case ItemType.Armor:
                                 player.equipArmor = (player.equipArmor == selectedItem) ? null : selectedItem;
+                                if (player.equipArmor != null)
+                                {
+                                    player.maxHp += selectedItem.hp;
+                                    player.hp += selectedItem.hp;
+                                }
+                                else
+                                {
+                                    player.maxHp -= selectedItem.hp;
+                                    player.hp -= selectedItem.hp;
+                                }
                                 LogManager.Add($"{selectedItem.name} {(player.equipArmor == selectedItem ? "장착" : "해제")}");
-
                                 break;
                         }
                     }

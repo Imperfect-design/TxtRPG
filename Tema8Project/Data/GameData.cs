@@ -17,7 +17,8 @@ namespace Tema8Project.Data
        
         public int PlayerInput { get; set; }
 
-        public Monster Monster { get; set; }
+        public Monster monster { get; set; }
+        public string[] monsterNames = {"쫄따구", "사천왕", "마왕" };
 
         public List<Monster> monsters = new List<Monster>();
 
