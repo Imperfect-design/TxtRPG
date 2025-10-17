@@ -17,7 +17,7 @@ namespace Tema8Project.Data
        
         public int PlayerInput { get; set; }
 
-        public Monster Monster { get; set; }
+        public Monster monster { get; set; }
 
         public List<Monster> monsters = new List<Monster>();
 

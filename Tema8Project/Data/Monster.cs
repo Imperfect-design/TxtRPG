@@ -38,9 +38,6 @@ namespace Tema8Project.Data
 
         }
 
-
-
-
     }
 
     public class PlayerInputNumber
