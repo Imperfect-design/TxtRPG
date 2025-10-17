@@ -76,15 +76,26 @@ namespace TxtRPG.Scene
                         {
                             case ItemType.Weapon:
                                 player.equipWeapon = (player.equipWeapon == selectedItem) ? null : selectedItem;
-                                player.damage += selectedItem.dmg;
+                                if (player.equipArmor != null)
+                                    player.damage += selectedItem.dmg;
+                                else
+                                    player.damage -= selectedItem.dmg;
+
                                 LogManager.Add($"{selectedItem.name} {(player.equipWeapon == selectedItem ? "장착" : "해제")}");
                                 break;
                             case ItemType.Armor:
                                 player.equipArmor = (player.equipArmor == selectedItem) ? null : selectedItem;
-                                player.maxHp += selectedItem.hp;
-                                player.hp += player.maxHp;
+                                if (player.equipArmor != null)
+                                {
+                                    player.maxHp += selectedItem.hp;
+                                    player.hp += selectedItem.hp;
+                                }
+                                else
+                                {
+                                    player.maxHp -= selectedItem.hp;
+                                    player.hp -= selectedItem.hp;
+                                }
                                 LogManager.Add($"{selectedItem.name} {(player.equipArmor == selectedItem ? "장착" : "해제")}");
-
                                 break;
                         }
                     }
