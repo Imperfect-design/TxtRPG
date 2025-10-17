@@ -12,7 +12,7 @@ namespace Tema8Project.Data
 {
     public class Monster
     {
-        
+
         public string monsterName { get; set; }
         public int monsterLevel { get; set; }
         public int monsterHp { get; set; }
@@ -20,15 +20,13 @@ namespace Tema8Project.Data
         public int monsterIndex { get; set; }
         public bool monsterIsAlive { get; set; }
 
-        public int targetIndex { get; set; }
-
         public string[] names = new string[] { "마왕", "사천왕", "쫄따구" };
 
-        
+
 
         public Monster(GameData data)
         {
-            Random random = new Random(); 
+            Random random = new Random();
 
             monsterName = names[random.Next(names.Length)];
             monsterLevel = random.Next(Math.Max(1, data.Player.level - 5), data.Player.level + 6);
@@ -37,11 +35,22 @@ namespace Tema8Project.Data
             monsterIsAlive = true;
             monsterIndex = 0;
             List<Monster> monsters = new List<Monster>();
+
         }
 
 
-                
-       
+
+
+    }
+
+    public class PlayerInputNumber
+    {
+        public int playerInputNumber { get; set; }
+
+        public PlayerInputNumber(GameData data)
+        {
+            playerInputNumber = 0;
+        }
 
     }
 }

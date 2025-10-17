@@ -18,15 +18,88 @@ namespace TxtRPG.Scene
     {
         public object Run(GameData data)
         {
-            data.monsters.Add(new Monster(data));
             ShowBattle(data);
             return null;
         }
 
-        
         int showMonstersCount;
 
+        bool cheakAllMonsterNoDead=true;
+
+        string monsterList;
         
+
+
+        private void printList(GameData data)
+        {
+            for (int i = 0; i < showMonstersCount; i++)//몬스터 정보를 저장하기 위해서 몬스터 생성하는 반복문 분리 
+            {
+                Monster monster = new Monster(data);
+                data.monsters.Add(monster);
+                
+                
+                if (!data.monsters[i].monsterIsAlive)
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkGray;
+                    monsterList = $"\n\nLV.{data.monsters[i].monsterLevel} {data.monsters[i].monsterName} Dead";
+                }
+                else
+                {
+                    monsterList = $"\n\nLV.{data.monsters[i].monsterLevel} {data.monsters[i].monsterName} HP {data.monsters[i].monsterHp}";
+                }
+
+                if (monster.monsterIsAlive)
+                {
+                    cheakAllMonsterNoDead = true;
+                }
+                else
+                {
+                    cheakAllMonsterNoDead = false;
+                    //결과화면 가기
+                }
+
+
+                    Console.WriteLine(monsterList);
+            }
+        }
+
+
+        private void printList2(GameData data)
+        {
+            for (int i = 0; i < showMonstersCount; i++)//몬스터 정보를 저장하기 위해서 몬스터 생성하는 반복문 분리 
+            {
+                Monster monster = new Monster(data);
+                data.monsters.Add(monster);
+
+
+                if (!data.monsters[i].monsterIsAlive)
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkGray;
+                    monsterList = $"\n\n[{data.monsters[i].monsterIndex}] LV.{data.monsters[i].monsterLevel} {data.monsters[i].monsterName} Dead";
+                }
+                else
+                {
+                    monsterList = $"\n\n[{data.monsters[i].monsterIndex}] LV.{data.monsters[i].monsterLevel} {data.monsters[i].monsterName} HP {data.monsters[i].monsterHp}";
+                }
+
+                if (monster.monsterIsAlive)
+                {
+                    cheakAllMonsterNoDead = true;
+                }
+                else
+                {
+                    cheakAllMonsterNoDead = false;
+                    //결과화면 가기
+                }
+
+
+                Console.WriteLine(monsterList);
+            }
+        }
+
+
+
+
 
         private void ShowBattle(GameData data)//매서드 사용해서 하나로 묶어서 AttackScene 없애기
         {
@@ -35,25 +108,22 @@ namespace TxtRPG.Scene
 
             Console.Clear();
             Console.WriteLine("Battle!!");
-            for (int i = 0; i < showMonstersCount; i++)
-            {
-                Monster monster = new Monster(data);
-                data.monsters.Add(monster);
-            }
-            while (true)
-            {
-                for (int i = 0; i < showMonstersCount; i++)
-                Console.WriteLine($"\n\nLV.{data.monsters[i].monsterLevel} {data.monsters[i].monsterName} HP {data.monsters[i].monsterHp}");
+
+            printList(data);
 
 
                 Console.WriteLine($"\n\n[내정보]\nLv.{data.Player.level}    {data.Player.name} ({data.Player.job})\nHP {data.Player.hp}/{data.Player.maxHp} ");
-                Console.Write("\n\n\n\n1. 공격\n\n원하시는 행동을 입력해주세요.!\n>>");
-
+                Console.Write("\n\n\n\n1. 공격\n\n2.취소\n\n원하시는 행동을 입력해주세요.!\n>>");
                 int input = int.Parse(Console.ReadLine());
 
                 if (input == 1)
                 {
                     PlayerTurn(data);
+                }
+
+                else if(input == 2)
+                {
+                    //TitleScene?
                 }
                 else
                 {
@@ -68,49 +138,38 @@ namespace TxtRPG.Scene
                         }
                     }
                 }
-            }
         }
+        
 
         private void PlayerTurn(GameData data)
         {
             Console.Clear();
+
             Console.WriteLine("공격할 몬스터를 선택하세요");
+            
+            printList2(data);
 
-            for (int i = 0; i < showMonstersCount; i++)
-            {
-                data.monsters[i].monsterIndex = i + 1;
-
-                string MonsterInfo = ($"\n\n[{data.monsters[i].monsterIndex}] LV.{data.monsters[i].monsterLevel} {data.monsters[i].monsterName} HP {data.monsters[i].monsterHp}");
-
-                if (!data.monsters[i].monsterIsAlive)
-                {
-                    string deadMonsterInfo = MonsterInfo.Replace($"HP {data.monsters[i].monsterHp}", "Dead");
-                    Console.ForegroundColor = ConsoleColor.DarkGray;
-                    MonsterInfo = deadMonsterInfo;
-                }
-                Console.WriteLine(MonsterInfo);
-            }
-
-            //변수 하나에 체력 정보를 넣기 반복문은 데미지 받기 전에 데미지를 주기 전에 비포hp에 변수에 저장을 해두고 데미지깎는 메서드 실행하기
 
             Console.Write("\n>> ");
-            string inputStr = Console.ReadLine();
+            string inputStr = Console.ReadLine();//입력값 받아서
             int inputInt = int.Parse(inputStr);
-
+            data.PlayerInput = inputInt-1;
 
             for (int i = 0; i < data.monsters.Count; i++)//리스트에 있는 몬스터를 싹 다 훑어서
             {
-                if (inputInt == data.monsters[i].monsterIndex)//Length 활용
+                if (inputInt == data.monsters[i].monsterIndex)//리스트에 있는걸 유저가 선택하면(Length 활용)
                 {
                     if (data.monsters[i].monsterIsAlive)//일단 살아있는지 먼저 확인하고 살아있으면 TakeDamage를 실행시켜
                     {
                         Console.Clear();
 
-
                         beforeMonsterHP = data.monsters[i].monsterHp;
                         int finalDamage = playerFinalDamage(data);
                         HitMonster(data);
                         currentMonsterHP = data.monsters[i].monsterHp - finalDamage;
+
+                        
+                        
 
                         string a = $"{data.Player.name} 의 공격!" +
                             $"\nLv.{data.monsters[i].monsterLevel} {data.monsters[i].monsterName} 을(를) 맞췄습니다. [데미지 : {finalDamage}]" +
@@ -118,6 +177,13 @@ namespace TxtRPG.Scene
                             $"\nHP {beforeMonsterHP} -> {currentMonsterHP}" +
                             $"\n\n0. 다음" +
                             $"\n\n\n>>";
+
+
+                        if(currentMonsterHP<=0)
+                        {
+                            a=a.Replace($"{currentMonsterHP}", "Dead");
+                        }
+
                         Console.WriteLine(a);
                         inputStr = Console.ReadLine();
                         inputInt = int.Parse(inputStr);
@@ -152,10 +218,6 @@ namespace TxtRPG.Scene
         {
             Console.Clear();
              
-
-            
-                PlayerTurn(data);
-
                 foreach (Monster monster in data.monsters)
                 {
                     if (monster.monsterIsAlive == false)
@@ -171,17 +233,30 @@ namespace TxtRPG.Scene
                                $"\n{data.Player.name}을(를) 맞췄습니다.    [데미지 : {monster.monsterAttackPower}]" +
                                $"\nLv.{data.Player.level} {data.Player.name}" +
                                $"\nHP {beforePlayerHP}->{currentPlayerHP}" +
-                               $"\n\n\n0. 다음 " +
+                               $"\n\n\n0. 계속하기 " +
+                               $"\n1. 도망치기"+
                                $"\n대상을 선택해주세요" +
                                $"\n>>";
                     Console.Write(a);
                 }
 
             string input = Console.ReadLine();
-            if (input == "0")
+
+            if (input == "0" && cheakAllMonsterNoDead == false)
             {
-                ShowBattle(data);
+                Console.WriteLine("결과화면으로");//결과화면
             }
+
+            else if (input == "0")
+            {
+                PlayerTurn(data);
+            }
+
+            else if (input == "1")
+            {
+                //Title로 돌아가기?
+            }
+
             else
             {
                 while (input != "0")
@@ -189,10 +264,7 @@ namespace TxtRPG.Scene
                     Console.WriteLine("잘못된 입력입니다.");
                     Console.Write(">>");
                     input = Console.ReadLine();
-                    if (input == "0")
-                    {
-                        ShowBattle(data);
-                    }
+
                 }
             }
             
@@ -204,24 +276,20 @@ namespace TxtRPG.Scene
             
         }
 
-        public void HitMonster(GameData data)
+        public void HitMonster(GameData data)//여기에 input값을 넣어서 쓰고 싶어서 playerInput을 만들어서 여기 리드라인 썼다가 빠꾸
         {
-            
-            data.monsters[input-1].monsterHp -= data.Player.damage;
-            if (data.monsters[input - 1].monsterHp <= 0)
+            data.monsters[data.PlayerInput].monsterHp -= data.Player.damage;
+            if (data.monsters[data.PlayerInput].monsterHp <= 0)
             {
-                data.monsters[input - 1].monsterIsAlive = false;
+                data.monsters[data.PlayerInput].monsterIsAlive = false;
             }
         }
 
 
-
-        public int playerFinalDamage(GameData data)//좀... 너저분하게 만들어둠 수정 필요ㅠ
+        public int playerFinalDamage(GameData data)//좀... 너저분하게 만들어둠 수정 필요ㅠ 이거 매서드 밖으로 빼서 수정
 
         {
             double plusMinusDouble = data.Player.damage * 0.1f;
-
-
             int playerDamage = (int)data.Player.damage;//Player 클래스 데미지 자체를 int로 수정하는게 더 낫지 않을까?.?
             int plusMinusInt = (int)Math.Round(plusMinusDouble);
 
@@ -234,7 +302,7 @@ namespace TxtRPG.Scene
 
         public void AddItems(GameData data)//요런식으로 추가
         {
-            if (data.Monster.monsterIsAlive = false)
+            if (data.Monster.monsterIsAlive ==false)
             {
                 data.Player.inventory.AddItem(new Item("낡은 마법서", 0, 1, 5, 0, 0, 0, 20));
             }
