@@ -75,11 +75,11 @@ namespace TxtRPG.Scene
                 if (!data.monsters[i].monsterIsAlive)
                 {
                     Console.ForegroundColor = ConsoleColor.DarkGray;
-                    monsterList = $"\n\n[{data.monsters[i].monsterIndex}] LV.{data.monsters[i].monsterLevel} {data.monsters[i].monsterName} Dead";
+                    monsterList = $"\n\n[{i+1}] LV.{data.monsters[i].monsterLevel} {data.monsters[i].monsterName} Dead";
                 }
                 else
                 {
-                    monsterList = $"\n\n[{data.monsters[i].monsterIndex}] LV.{data.monsters[i].monsterLevel} {data.monsters[i].monsterName} HP {data.monsters[i].monsterHp}";
+                    monsterList = $"\n\n[{i+1}] LV.{data.monsters[i].monsterLevel} {data.monsters[i].monsterName} HP {data.monsters[i].monsterHp}";
                 }
 
                 if (monster.monsterIsAlive)
