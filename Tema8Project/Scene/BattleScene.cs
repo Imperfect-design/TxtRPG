@@ -78,7 +78,9 @@ namespace TxtRPG.Scene
                 LogManager.Show();
                 Console.Write($"\n\n\n\n\n공격대상의 번호를 입력하세요 0.뒤로가기 : ");
                 int input = int.Parse(Console.ReadLine()) - 1;
-                if (input >= 0 && input < monsters.Count)
+                if (input == -1)
+                    break;
+                else if (input >= 0 && input < monsters.Count)
                 {
                     LogManager.Add($"{monsters[input].monsterName}을(를) 공격하여 {data.Player.damage}만큼 피해를 입혔다!{monsters[input].monsterHp}->{monsters[input].monsterHp - data.Player.damage}");
                     monsters[input].TakeDamage(data);
@@ -114,8 +116,10 @@ namespace TxtRPG.Scene
                 int healMp = data.Player.maxMp / potion.healMp;
                 data.Player.hp += healHp;
                 data.Player.mp += healMp;
+
                 if (data.Player.hp > data.Player.maxHp)
                     data.Player.hp = data.Player.maxHp;
+
                 if (data.Player.mp > data.Player.maxMp)
                     data.Player.mp = data.Player.maxMp;
                 potion.count--;
