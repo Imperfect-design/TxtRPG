@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TxtRPG;
 using TxtRPG.Data;
-
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Tema8Project.Data
 {
@@ -14,13 +14,21 @@ namespace Tema8Project.Data
         public Player Player { get; set; }
         public Inven Inventory  { get; set; }
         public List<Item> Items { get; set; }
-        public Monster monster { get; set; }
+       
+        public int PlayerInput { get; set; }
+
+        public Monster Monster { get; set; }
+
+        public List<Monster> monsters = new List<Monster>();
+
 
         public GameData()
         {
             Player = new Player("");
             Inventory = new Inven();
             Items = new List<Item>();
+            monsters = new List<Monster>();//중복 초기화?
+            PlayerInput = 0;
         }
     }
 }
