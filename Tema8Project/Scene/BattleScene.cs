@@ -309,5 +309,40 @@ namespace TxtRPG.Scene
 
 
         }
+
+        private void UsePotion(GameData data)
+        {
+            var potion = data.Player.inventory.items
+                .FirstOrDefault(item => item.name == "커피" && item.type == ItemType.Consumable && item.count > 0);
+
+            if (potion != null)
+            {
+                if (data.Player.hp == data.Player.maxHp && data.Player.mp == data.Player.maxMp)
+                {
+                    LogManager.Add("이미 카페인 한도초과다!");
+                    return;
+                }
+                int healHp = data.Player.maxHp / potion.healHp;
+                int healMp = data.Player.maxMp / potion.healMp;
+                data.Player.hp += healHp;
+                data.Player.mp += healMp;
+
+                if (data.Player.hp > data.Player.maxHp)
+                    data.Player.hp = data.Player.maxHp;
+
+                if (data.Player.mp > data.Player.maxMp)
+                    data.Player.mp = data.Player.maxMp;
+                potion.count--;
+                LogManager.Add($"커피를 마셔 +{healHp}HP +{healMp}MP 회복했습니다!");
+
+                if (potion.count == 0)
+                    data.Player.inventory.items.Remove(potion);
+            }
+            else
+            {
+                LogManager.Add("커피가 없습니다!");
+            }
+        }
+
     }
 }
