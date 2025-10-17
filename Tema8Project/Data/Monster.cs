@@ -20,6 +20,8 @@ namespace Tema8Project.Data
         public int monsterIndex { get; set; }
         public bool monsterIsAlive { get; set; }
 
+        public int targetIndex { get; set; }
+
         public string[] names = new string[] { "마왕", "사천왕", "쫄따구" };
 
         

@@ -206,7 +206,7 @@ namespace TxtRPG.Scene
 
         public void HitMonster(GameData data)
         {
-            int input = int.Parse(Console.ReadLine());
+            
             data.monsters[input-1].monsterHp -= data.Player.damage;
             if (data.monsters[input - 1].monsterHp <= 0)
             {
