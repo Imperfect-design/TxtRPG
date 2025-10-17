@@ -10,7 +10,7 @@ class SkillView : Iscene
     {
 
         Skill skill = new Skill();
-
+        Console.Clear();
 
 
         if (data.Player.job == "전사")
