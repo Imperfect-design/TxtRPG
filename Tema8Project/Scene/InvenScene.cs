@@ -82,7 +82,7 @@ namespace TxtRPG.Scene
                             case ItemType.Armor:
                                 player.equipArmor = (player.equipArmor == selectedItem) ? null : selectedItem;
                                 player.maxHp += selectedItem.hp;
-                                player.hp = player.maxHp;
+                                player.hp += player.maxHp;
                                 LogManager.Add($"{selectedItem.name} {(player.equipArmor == selectedItem ? "장착" : "해제")}");
 
                                 break;
