@@ -80,6 +80,13 @@ namespace TxtRPG.Data
                     data.Player.inventory.AddItem(new Item("커피", ItemType.Consumable, 1, 0, 0, 2, 2, 10));
                     LogManager.Add($"{monsterName}이(가) 커피를 가지고있었다!!");
                 }
+                else
+                {
+                    int rewardGold = 100 + data.Player.level * random.Next(1, 3);
+                    data.Player.gold += rewardGold;
+                    LogManager.Add($"{monsterName}이(가) {rewardGold}G를 가지고있었다!!");
+                }
+
             }
         }
     }

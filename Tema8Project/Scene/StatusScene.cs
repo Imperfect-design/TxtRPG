@@ -1,7 +1,6 @@
-using System;
-using TxtRPG.Game;
-using TxtRPG.Data;
 using Tema8Project.Data;
+using TxtRPG.Game;
+using TxtRPG.UI;
 
 namespace TxtRPG.Scene
 {
@@ -12,13 +11,14 @@ namespace TxtRPG.Scene
             while (true)
             {
                 Console.Clear();
-                Console.WriteLine(@$"
-{data.Player.name} | 직업 : ({data.Player.job}) | {data.Player.level}.Lv
-HP {data.Player.hp}/{data.Player.maxHp}   MP {data.Player.mp}/{data.Player.maxMp}
-DMG {data.Player.damage}      {data.Player.gold}G
-EXP  {data.Player.exp} / {data.Player.maxExp}
-Dodge {data.Player.doge}             CRITICAL {data.Player.critical}");
-                Console.WriteLine("\n1.인벤토리 \n2.스킬보기 \n0.나가기");
+                UIManager.PrintCenter("[플레이어 정보]\n");
+                UIManager.PrintCenter($"[{data.Player.job}]{data.Player.name} {data.Player.level}.Lv\n");
+                UIManager.PrintCenter($"체력 {data.Player.hp}/{data.Player.maxHp} 마나 {data.Player.mp}/{data.Player.maxMp}\n");
+                UIManager.PrintCenter($"공격력 {data.Player.damage} 치명타확률 {data.Player.critical} 회피확률 {data.Player.doge}\n");
+                UIManager.PrintCenter($"경험치  {data.Player.exp} / {data.Player.maxExp}\n");
+                UIManager.PrintCenter($"{data.Player.gold} G\n");
+                LogManager.Show();
+                Console.WriteLine("1.인벤토리 2.스킬보기 0.나가기");
                 Console.Write(">>>");
                 int input = int.Parse(Console.ReadLine());
                 switch (input)
