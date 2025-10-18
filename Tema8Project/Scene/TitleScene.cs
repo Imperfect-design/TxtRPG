@@ -44,11 +44,7 @@ namespace TxtRPG.Scene
                 case "2":
                     return new BattleStartScene(questScene);
                 case "3":
-                    questScene.CreateQuests(data);
-                    questScene.ShowQuests(data);
-                    Console.WriteLine("\n엔터를 눌러 돌아갑니다.");
-                    Console.ReadLine();
-                    return this;
+                    return new QuestScene(data);
 
                 case "0":
                     Environment.Exit(0);
