@@ -43,7 +43,7 @@ namespace TxtRPG.Scene
                     LogManager.Add("플레이어가 사망하여 마을에서 다시 태어납니다.");
                     return new TitleScene();
                 }
-                    
+
                 if (monsters.Count == 0)
                 {
                     LogManager.Add("모든 몬스터를 처치하여 마을로 돌아왔다!");
@@ -93,21 +93,27 @@ namespace TxtRPG.Scene
                     break;
                 else if (input >= 0 && input < monsters.Count)
                 {
-                    var target = monsters[input];
-                    LogManager.Add($"{monsters[input].monsterName}을(를) 공격하여 {data.Player.damage}만큼 피해를 입혔다!{monsters[input].monsterHp}->{monsters[input].monsterHp - data.Player.damage}");
-                    target.TakeDamage(data);
+                    monsters[input].TakeDamage(data);
 
-                    if (target.monsterHp <= 0)
+                    if (monsters[input].monsterHp <= 0)
                     {
-                        LogManager.Add($"{target.monsterName} 처치 완료!");
-                        QuestScene.CheckQuest(target.monsterName,data);
+                        QuestScene.CheckQuest(monsters[input].monsterName, data);
                         monsters.RemoveAt(input);
                     }
-                    else
+                    else if (monsters.Count != 0)
                     {
-                        data.Player.TakeDamage(monsters[monsterCount].monsterAttackPower);
-                        LogManager.Add($"{monsters[monsterCount].monsterName}한테 공격당하여 {monsters[monsterCount].monsterAttackPower}의 데미지를 받았다!");
+                        int dogeRand = rand.Next(1, 101);
+                        if (data.Player.doge >= dogeRand)
+                        {
+                            LogManager.Add($"{monsters[monsterCount].monsterName}이(가) 공격하였지만 회피하였다!");
+                        }
+                        else
+                        {
+                            data.Player.TakeDamage(monsters[monsterCount].monsterAttackPower);
+                            LogManager.Add($"{monsters[monsterCount].monsterName}한테 공격당하여 {monsters[monsterCount].monsterAttackPower}의 데미지를 받았다!");
+                        }
                     }
+
                     break;
                 }
                 else

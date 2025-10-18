@@ -47,7 +47,7 @@ namespace TxtRPG.Data
         {
             exp += Exp * 30;//밸런스 조정 필요
             LogManager.Add($"{Exp}의 경험치를 얻었다!");
-            while(exp >= maxExp)
+            while (exp >= maxExp)
             {
                 exp -= maxExp;
                 level++;
@@ -59,14 +59,14 @@ namespace TxtRPG.Data
         }
         public void playerLevelStat()
         {
-            maxHp = 150 + ((level-1) * 25);
+            maxHp = 150 + ((level - 1) * 25);
             maxMp = 15 + ((level - 1) * 3);
             damage = 25 + ((level - 1) * 8);
         }
         public void TakeDamage(int damage)
         {
             hp -= damage;
-            if(hp <= 0)
+            if (hp <= 0)
             {
                 hp = 0;
             }
