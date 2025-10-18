@@ -7,14 +7,20 @@ namespace TxtRPG.Scene
 {
     public class TitleScene : Iscene
     {
-        
+
 
         public object Run(GameData data)
         {
-            if(data.Player.inventory.items.Count == 0 )
+            if (data.Player.inventory.items.Count == 0)
             {
-                data.Player.inventory.AddItem(new Item("마우스", ItemType.Weapon, 1, 50, 0, 0, 0, 10));
-                data.Player.inventory.AddItem(new Item("키보드", ItemType.Armor, 1, 0, 50, 0, 0, 10));
+                if (data.Player.job == "궁수")
+                    data.Player.inventory.AddItem(new Item("활처럼 휘어진 키보드", ItemType.Weapon, 1, 50, 0, 0, 0, 10));
+                if (data.Player.job == "전사")
+                    data.Player.inventory.AddItem(new Item("날카롭게 갈린 키보드", ItemType.Weapon, 1, 50, 0, 0, 0, 10));
+                else
+                    data.Player.inventory.AddItem(new Item("수정구를 붙힌 키보드", ItemType.Weapon, 1, 50, 0, 0, 0, 10));
+
+                data.Player.inventory.AddItem(new Item("마우스선으로 감은 갑옷", ItemType.Armor, 1, 0, 50, 0, 0, 10));
                 data.Player.inventory.AddItem(new Item("커피", ItemType.Consumable, 10, 0, 0, 2, 2, 10));
                 LogManager.Add("기본 장비가 추가되었다");
             }
