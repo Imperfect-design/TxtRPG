@@ -94,22 +94,21 @@ namespace TxtRPG.Scene
             }
         }
 
-        public void CheckQuest(string MonsterName, GameData data)
+        public static void CheckQuest(string MonsterName, GameData data)
         {
             foreach (var check in quests.ToList())
             {
                 if (check.isAccept && check.monsterName == MonsterName && check.killCount > 0)
                 {
                     check.killCount--;
-                    Console.WriteLine($"퀘스트 진행: {check.monsterName} 남은 수 {check.killCount}");
+                    LogManager.Add($"퀘스트 진행: {check.monsterName} 남은 수 {check.killCount}");
 
                     if (check.killCount == 0)
                     {
                         LogManager.Add($"퀘스트 완료! {check.reward} 골드 획득!");
                         data.Player.gold += check.reward;
                         quests.Remove(check);
-                        quests.Add(CreateOneQuest(data));
-                        break;
+                        quests.Add(new QuestScene(data));
                     }
                 }
             }

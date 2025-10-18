@@ -7,11 +7,7 @@ namespace TxtRPG.Scene
 {
     public class TitleScene : Iscene
     {
-        private QuestScene questScene;
-        public TitleScene()
-        {
-            questScene = new QuestScene(new GameData());
-        }
+        
 
         public object Run(GameData data)
         {
@@ -42,7 +38,7 @@ namespace TxtRPG.Scene
                 case "1":
                     return new StatusScene();
                 case "2":
-                    return new BattleStartScene(questScene);
+                    return new BattleStartScene();
                 case "3":
                     return new QuestScene(data);
 

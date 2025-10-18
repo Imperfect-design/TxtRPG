@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net.Security;
 using Tema8Project.Data;
+using TxtRPG.Scene;
 
 namespace TxtRPG.Data
 {
@@ -46,7 +47,7 @@ namespace TxtRPG.Data
         {
             exp += Exp * 30;//밸런스 조정 필요
             LogManager.Add($"{Exp}의 경험치를 얻었다!");
-            if(exp >= maxExp)
+            while(exp >= maxExp)
             {
                 exp -= maxExp;
                 level++;

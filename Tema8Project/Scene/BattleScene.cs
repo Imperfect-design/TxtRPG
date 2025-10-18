@@ -18,13 +18,7 @@ namespace TxtRPG.Scene
     public class BattleStartScene : Iscene
     {
         public List<Monster> monsters = new List<Monster>();
-        private QuestScene questScene;
 
-
-        public BattleStartScene(QuestScene quest)
-        {
-            questScene = quest;
-        }
 
         public object Run(GameData data)
         {
@@ -39,17 +33,20 @@ namespace TxtRPG.Scene
 
         private object ShowBattle(GameData data)
         {
-            
-
             for (int i = 0; i < rand.Next(1, 5); i++)
                 monsters.Add(new Monster(data));
             LogManager.Add("전투시작!");
             while (true)
             {
+                if (data.Player.hp <= 0)
+                {
+                    LogManager.Add("플레이어가 사망하여 마을에서 다시 태어납니다.");
+                    return new TitleScene();
+                }
+                    
                 if (monsters.Count == 0)
                 {
-                    LogManager.Add("전투 종료!");
-                    Console.ReadLine();
+                    LogManager.Add("모든 몬스터를 처치하여 마을로 돌아왔다!");
                     return new TitleScene();
                 }
                 int potionCount = data.Player.inventory.items.Where(item => item.name == "커피" && item.type == ItemType.Consumable).Sum(item => item.count);
@@ -103,7 +100,7 @@ namespace TxtRPG.Scene
                     if (target.monsterHp <= 0)
                     {
                         LogManager.Add($"{target.monsterName} 처치 완료!");
-                        questScene?.CheckQuest(target.monsterName, data);
+                        QuestScene.CheckQuest(target.monsterName,data);
                         monsters.RemoveAt(input);
                     }
                     else
