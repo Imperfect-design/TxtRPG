@@ -30,7 +30,7 @@ namespace TxtRPG.Scene
         
 
 
-        private void printList(GameData data)
+        private void PrintList(GameData data)
         {
             for (int i = 0; i < showMonstersCount; i++)//몬스터 정보를 저장하기 위해서 몬스터 생성하는 반복문 분리 
             {
@@ -64,7 +64,7 @@ namespace TxtRPG.Scene
         }
 
 
-        private void printList2(GameData data)
+        private void PrintList2(GameData data)
         {
             for (int i = 0; i < showMonstersCount; i++)//몬스터 정보를 저장하기 위해서 몬스터 생성하는 반복문 분리 
             {
@@ -109,7 +109,7 @@ namespace TxtRPG.Scene
             Console.Clear();
             Console.WriteLine("Battle!!");
 
-            printList(data);
+            PrintList(data);
 
 
                 Console.WriteLine($"\n\n[내정보]\nLv.{data.Player.level}    {data.Player.name} ({data.Player.job})\nHP {data.Player.hp}/{data.Player.maxHp} ");
@@ -147,7 +147,7 @@ namespace TxtRPG.Scene
 
             Console.WriteLine("공격할 몬스터를 선택하세요");
             
-            printList2(data);
+            PrintList2(data);
 
 
             Console.Write("\n>> ");
