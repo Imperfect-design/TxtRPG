@@ -1,9 +1,10 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using TxtRPG.Data;
 using TxtRPG.Game;
 using TxtRPG.Scene;
+using TxtRPG.UI;
 
 namespace TxtRPG.Scene
 {
@@ -22,11 +23,13 @@ namespace TxtRPG.Scene
                 Skill secondSkill = warrior[2];
                 Skill thirdSkill = warrior[3];
                 Skill fourthSkill = warrior[4];
-                Console.WriteLine($"{firstSkill.SkillNumber} {firstSkill.SkillName} 데미지:  {firstSkill.SkillDamage}  체력소모: {firstSkill.SkillHp}   마나소모:  {firstSkill.SkillMp}  해금레벨:  {firstSkill.UnlockLevel}");
-                Console.WriteLine($"{secondSkill.SkillNumber} {secondSkill.SkillName} 데미지:  {secondSkill.SkillDamage}  체력소모: {secondSkill.SkillHp}  마나소모:   {secondSkill.SkillMp}  해금레벨:  {secondSkill.UnlockLevel}");
-                Console.WriteLine($"{thirdSkill.SkillNumber}   {thirdSkill.SkillName} 데미지:  {thirdSkill.SkillDamage}  체력회복: {thirdSkill.SkillHp}   마나소모: {thirdSkill.SkillMp}  해금레벨:  {thirdSkill.UnlockLevel}");
-                Console.WriteLine($"{fourthSkill.SkillNumber}   {fourthSkill.SkillName} 데미지:  {fourthSkill.SkillDamage}  체력소모: {fourthSkill.SkillHp} 마나소모:  {fourthSkill.SkillMp}  해금레벨:  {fourthSkill.UnlockLevel}");
-                Console.WriteLine("0. 나가기");
+                UIManager.PrintTitle("스킬목록");
+                UIManager.PrintCenter("");
+                UIManager.PrintCenter($"{firstSkill.SkillNumber} {firstSkill.SkillName} 데미지:  {firstSkill.SkillDamage}  체력소모: {firstSkill.SkillHp}   마나소모:  {firstSkill.SkillMp}  해금레벨:  {firstSkill.UnlockLevel}");
+                UIManager.PrintCenter($"{secondSkill.SkillNumber} {secondSkill.SkillName} 데미지:  {secondSkill.SkillDamage}  체력소모: {secondSkill.SkillHp}  마나소모:   {secondSkill.SkillMp}  해금레벨:  {secondSkill.UnlockLevel}");
+                UIManager.PrintCenter($"{thirdSkill.SkillNumber}   {thirdSkill.SkillName} 데미지:  {thirdSkill.SkillDamage}  체력회복: {thirdSkill.SkillHp}   마나소모: {thirdSkill.SkillMp}  해금레벨:  {thirdSkill.UnlockLevel}");
+                UIManager.PrintCenter($"{fourthSkill.SkillNumber}   {fourthSkill.SkillName} 데미지:  {fourthSkill.SkillDamage}  체력소모: {fourthSkill.SkillHp} 마나소모:  {fourthSkill.SkillMp}  해금레벨:  {fourthSkill.UnlockLevel}");
+                UIManager.PrintCenter("0. 나가기");
                 int input = int.Parse(Console.ReadLine());
                 if (input == 0)
                 {
