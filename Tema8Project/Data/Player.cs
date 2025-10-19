@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Net.Security;
-using Tema8Project.Data;
 using TxtRPG.Scene;
 
 namespace TxtRPG.Data

@@ -1,8 +1,7 @@
 
-using System.Runtime.CompilerServices;
-using Tema8Project.Data;
-using TxtRPG.Data;
-using TxtRPG.Scene;
+//using System.Runtime.CompilerServices;
+//using TxtRPG.Data;
+//using TxtRPG.Scene;
 
 //List<Monster> monsters = new List<Monster>()
 //    {

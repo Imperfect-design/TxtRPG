@@ -1,4 +1,4 @@
-using Tema8Project.Data;
+using TxtRPG.Data;
 using TxtRPG.Game;
 using TxtRPG.UI;
 
@@ -20,7 +20,13 @@ namespace TxtRPG.Scene
                 LogManager.Show();
                 Console.WriteLine("1.인벤토리 2.스킬보기 0.나가기");
                 Console.Write(">>>");
-                int input = int.Parse(Console.ReadLine());
+                //int input = int.Parse(Console.ReadLine());
+                if (!int.TryParse(Console.ReadLine(), out int input))
+                {
+                    Console.WriteLine("잘못된 입력입니다. 숫자를 입력해주세요.");
+                    Console.ReadKey();
+                    continue;
+                }
                 switch (input)
                 {
                     case 1:

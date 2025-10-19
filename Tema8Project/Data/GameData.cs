@@ -7,7 +7,7 @@ using TxtRPG;
 using TxtRPG.Data;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
-namespace Tema8Project.Data
+namespace TxtRPG.Data
 {
     public class GameData
     {

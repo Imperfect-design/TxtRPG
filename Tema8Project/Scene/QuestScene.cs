@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Tema8Project.Data;
 using TxtRPG;
 using TxtRPG.Data;
 using TxtRPG.Game;
@@ -62,8 +61,14 @@ namespace TxtRPG.Scene
                 }
                 LogManager.Show();
 
-                UIManager.PrintCenter("수락할 퀘스트 번호 입력 (0: 거절하고 새로고침 / 아무키나 누르면 나갑니다.): ");
-                int input = int.Parse(Console.ReadLine());
+                UIManager.PrintCenter("수락할 퀘스트 번호 입력 (0: 거절하고 새로고침 / 4번을 누르면 나갑니다.): ");
+                //int input = int.Parse(Console.ReadLine());
+
+                if (!int.TryParse(Console.ReadLine(), out int input))
+                {
+                    LogManager.Add("숫자를 입력해주세요.");
+                    continue;
+                }
 
                 if (input == 0)
                 {
@@ -86,6 +91,7 @@ namespace TxtRPG.Scene
                     {
                         LogManager.Add($"{input}번의 퀘스트는 이미 수락상태입니다.");
                     }
+
                 }
                 else
                 {

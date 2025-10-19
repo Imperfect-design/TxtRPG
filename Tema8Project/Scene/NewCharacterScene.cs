@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Tema8Project.Data;
 using TxtRPG.Data;
 using TxtRPG.Game;
 using TxtRPG.UI;
@@ -62,7 +61,6 @@ namespace TxtRPG.Scene
 
         private static string jobSelect()
         {
-
             string job = "";
             bool isChoosed = false;
 
@@ -75,9 +73,13 @@ namespace TxtRPG.Scene
                 UIManager.PrintYellow("1. 전사 2. 궁수 3. 마법사");
                 UIManager.PrintCenter("");
                 UIManager.PrintCenterLine(">>");
-                int chooseJob = int.Parse(Console.ReadLine());
 
-
+                if (!int.TryParse(Console.ReadLine(), out int chooseJob))
+                {
+                    UIManager.PrintRed("다시 입력해 주세요.");
+                    continue;
+                }
+                //int chooseJob = int.Parse(Console.ReadLine());
 
                 switch (chooseJob)
 
