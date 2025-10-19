@@ -8,9 +8,9 @@ namespace TxtRPG
 {
     public class Inven
     {
+        //아이템 리스트 생성
         public List<Item> items = new List<Item>();
-
-        public void AddItem(Item item) // 중복시 갯수추가
+        public void AddItem(Item item) // 중복시 갯수추가, i로 사용
         {
             foreach (Item i in items)
             {

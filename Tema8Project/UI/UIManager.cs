@@ -5,13 +5,15 @@ using TxtRPG.Data;
 
 namespace TxtRPG.UI
 {
+    //static으로 선언
     public static class UIManager
     {
+        //중앙 정렬 매소드
         public static void PrintCenter(string text)
         {
             int width = Console.WindowWidth;
             int displayLength = 0;
-
+            //한글이 영어보다 크기 2배 차지해서, 각가에 맞게 크기 맞추기
             foreach (char c in text)
             {
                 
@@ -24,10 +26,12 @@ namespace TxtRPG.UI
                     displayLength += 1;
                 }
             }
+            //왼쪽 공백과 커서, 출력 정의
             int padding = Math.Max((width - displayLength) / 2, 0);
             Console.SetCursorPosition(padding, Console.CursorTop);
             Console.WriteLine(text);
         }
+        //중앙 정렬에 줄 이동 없이
         public static void PrintCenterLine(string text)
         {
             int width = Console.WindowWidth;
@@ -49,7 +53,7 @@ namespace TxtRPG.UI
             Console.SetCursorPosition(padding, Console.CursorTop);
             Console.Write(text);
         }
-
+        //색 변화 및 가운데 정렬
         public static void PrintYellow(string text)
         {
             Console.ForegroundColor = ConsoleColor.Yellow;
@@ -86,6 +90,7 @@ namespace TxtRPG.UI
             PrintCenter(text);
             Console.ResetColor();
         }
+        //분리 선 정의
         public static void PrintDivider(string style = "brick")
         {
             Console.ForegroundColor = ConsoleColor.DarkYellow;
@@ -104,6 +109,7 @@ namespace TxtRPG.UI
             }
             Console.ResetColor();
         }
+        //타이틀 정의
         public static void PrintTitle(string title)
         {
             Console.ForegroundColor = ConsoleColor.Yellow;
@@ -114,12 +120,14 @@ namespace TxtRPG.UI
             PrintCenter("===========================================");
             Console.ResetColor();
         }
-        public static string ConsoleArray(Action drawAction, int refreshDelayMs = 100)
+        //창 변경시 중앙 정렬
+        //공개적으로, 전역에 사용할 수 있는, 문자열로 받고, 화면을 그리는 액션을 롤백으로 받는다.
+        public static string ConsoleArray(Action drawAction)
         {
             int lastwidth = Console.WindowWidth;
             string input = "";
             bool firstDraw = true;
-
+            //커서 숨기기
             if (Console.CursorVisible)
             {
                 Console.CursorVisible = false;
@@ -127,6 +135,7 @@ namespace TxtRPG.UI
 
             while(true)
             {
+                //콘솔 너비가 바뀌면 콘설 Clear, 새롭게 그리기
                 if (Console.WindowWidth != lastwidth || firstDraw)
                 {
                     Console.Clear();
@@ -134,7 +143,7 @@ namespace TxtRPG.UI
                     lastwidth = Console.WindowWidth;
                     firstDraw = false;
                 }
-
+                //키 입력 감지, 화면을 감지해서 커서 위치 조정. 사용자가 엔터 칠 때 까지 입력 받기.
                 if (Console.KeyAvailable)
                 {
                     int promptPos = Math.Max((Console.WindowWidth / 2) - 2, 0);
@@ -143,7 +152,7 @@ namespace TxtRPG.UI
                     input = Console.ReadLine() ?? "";
                     break;
                 }
-                Thread.Sleep(refreshDelayMs);
+                Thread.Sleep(100);
             }
             return input;
         }
