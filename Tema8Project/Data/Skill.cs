@@ -10,7 +10,6 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace TxtRPG.Data
 {
-
     class Skill
     {
         public string SkillName { get; set; }
@@ -21,11 +20,12 @@ namespace TxtRPG.Data
         public int SkillNumber { get; set; }
         public int UnlockLevel { get; set; }
 
+        //뭔지 모르겠다.
         public Skill()
         {
 
         }
-
+        //item과 같이 리스트화
         public Skill(string name, int damage, int hp, int mp, int number, int unlockLevel) //생성자 매개변수 추가 추가한 매개변수를 리스트 값에 적용
         {
             SkillName = name;
@@ -36,7 +36,7 @@ namespace TxtRPG.Data
             UnlockLevel = unlockLevel;
         }
 
-
+        //직업별 스킬
         public List<Skill> WarriorSkillList(Player player)
         {
             List<Skill> warrior = new List<Skill>(); //스킬이름, 스킬데미지, 체력소모, MP소모, 사용할 때 스킬숫자
@@ -49,8 +49,6 @@ namespace TxtRPG.Data
             return warrior;
 
         }
-
-
         public List<Skill> MageSkillList(Player player)
         {
             List<Skill> mage = new List<Skill>();
@@ -59,7 +57,6 @@ namespace TxtRPG.Data
             mage.Add(new Skill("불기둥", player.damage + 40, 0, 30, 2, 2));
             mage.Add(new Skill("마나회복", 0, 0, player.mp + 30, 3, 3));
             mage.Add(new Skill("필살불", player.damage + 80, 0, 50, 4, 3));
-
 
             return mage;
         }

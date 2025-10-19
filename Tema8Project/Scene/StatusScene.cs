@@ -8,6 +8,7 @@ namespace TxtRPG.Scene
     {
         public object Run(GameData data)
         {
+            //상태 표시
             while (true)
             {
                 Console.Clear();
@@ -27,6 +28,7 @@ namespace TxtRPG.Scene
                     Console.ReadKey();
                     continue;
                 }
+                //선택지 출력 및 연결
                 switch (input)
                 {
                     case 1:

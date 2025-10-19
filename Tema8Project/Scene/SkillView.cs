@@ -14,6 +14,8 @@ namespace TxtRPG.Scene
             Skill skill = new Skill();
             Console.Clear();
 
+            //각 직업별 스킬
+            //skill data에 있기 때문에, 공통 메서드로 호출 추천
 
             if (data.Player.job == "전사")
             {
@@ -62,6 +64,7 @@ namespace TxtRPG.Scene
                 Console.WriteLine($"{secondSkill.SkillNumber}     {secondSkill.SkillName} 데미지:  {secondSkill.SkillDamage}  체력소모:  {secondSkill.SkillHp}     마나소모: {secondSkill.SkillMp}  해금레벨:  {secondSkill.UnlockLevel}");
                 Console.WriteLine($"{thirdSkill.SkillNumber}     {thirdSkill.SkillName} 데미지:  {thirdSkill.SkillDamage}   체력소모:  {thirdSkill.SkillHp}   마나소모:   {thirdSkill.SkillMp}  해금레벨:  {thirdSkill.UnlockLevel}");
                 Console.WriteLine("0. 나가기");
+
                 //int input = int.Parse(Console.ReadLine());
                 if (!int.TryParse(Console.ReadLine(), out int input))
                 {
@@ -73,9 +76,6 @@ namespace TxtRPG.Scene
                 }
             }
             return this;
-
         }
-
-
     }
 }

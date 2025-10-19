@@ -18,15 +18,17 @@ namespace TxtRPG.Scene
 
             while (true)
             {
+                //인벤토리 로직
                 string input = UIManager.ConsoleArray(() =>
                 {
                     UIManager.PrintTitle("===== 인벤토리 =====");
-
+                    //인벤토리에 아이템이 없을 때
                     if (player.inventory.items.Count == 0)
                     {
                         UIManager.PrintCenter("인벤토리가 비어있습니다.");
                         LogManager.Add($"비어있는 인벤토리는 내 마음의 공허함과 같다");
                     }
+                    //있을 때 index지정 및 장착 토글, 아이템 타입 별 디스크립션
                     else
                     {
                         int index = 1;
@@ -57,9 +59,8 @@ namespace TxtRPG.Scene
                     UIManager.PrintCenter("번호를 입력해서 장착 Or 해제합니다.");
                     UIManager.PrintCenter("0. 나가기");
                     UIManager.PrintCenterLine(">>   ");
-
                 });
-
+                //선택지 선택시 로직
                 if (input == "0")
                 {
                     LogManager.Add($"인벤토리를 닫았습니다.");
@@ -74,9 +75,7 @@ namespace TxtRPG.Scene
                         switch (selectedItem.type)
                         {
                             case ItemType.Weapon:
-                                if (player.equipWeapon != null)
-                                    player.damage -= player.equipWeapon.dmg;
-
+                                //같은 무기, 방어구 선택시 해제 및 장착
                                 player.equipWeapon = (player.equipWeapon == selectedItem) ? null : selectedItem;
 
                                 if (player.equipWeapon != null)
@@ -86,6 +85,7 @@ namespace TxtRPG.Scene
 
                                 LogManager.Add($"{selectedItem.name} {(player.equipWeapon == selectedItem ? "장착" : "해제")}");
                                 break;
+
                             case ItemType.Armor:
                                 player.equipArmor = (player.equipArmor == selectedItem) ? null : selectedItem;
                                 if (player.equipArmor != null)

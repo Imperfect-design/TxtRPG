@@ -14,14 +14,14 @@ namespace TxtRPG.Scene
 {
     public class QuestScene : Iscene
     {
+        //static으로 선언했기 때문에 BattleScene에도 공유 가능. 그 외 기본 필드.
         public static List<QuestScene> quests = new List<QuestScene>();
-
         public string monsterName;
         public int killCount;
         public int reward;
         public bool isAccept;
         Random rand = new Random();
-
+        //퀘스트 생성
         public QuestScene(GameData data)
         {
             monsterName = data.monsterNames[rand.Next(data.monsterNames.Length)];
@@ -29,8 +29,7 @@ namespace TxtRPG.Scene
             reward = killCount * 20;
             isAccept = false;
         }
-
-
+        //퀘스트 3개까지 만든다.
         public void CreateQuests(GameData data)
         {
             if(quests.Count != 3)
@@ -41,12 +40,11 @@ namespace TxtRPG.Scene
                 }
             }
         }
-
         public object Run(GameData data)
         {
             return ShowQuests(data);
         }
-
+        //퀘스트 보여주는 Scene, 
         private object ShowQuests(GameData data)
         {
             CreateQuests(data);
@@ -69,7 +67,7 @@ namespace TxtRPG.Scene
                     LogManager.Add("숫자를 입력해주세요.");
                     continue;
                 }
-
+                //수락하지 않은 퀘스트 새로고침
                 if (input == 0)
                 {
                     for (int i = 0; i < quests.Count; i++)
@@ -91,7 +89,6 @@ namespace TxtRPG.Scene
                     {
                         LogManager.Add($"{input}번의 퀘스트는 이미 수락상태입니다.");
                     }
-
                 }
                 else
                 {
@@ -99,7 +96,7 @@ namespace TxtRPG.Scene
                 }
             }
         }
-
+        //BattleScene에서 확인 위해 public static으로 선언
         public static void CheckQuest(string MonsterName, GameData data)
         {
             foreach (var check in quests.ToList())
@@ -119,13 +116,9 @@ namespace TxtRPG.Scene
                 }
             }
         }
-
         public QuestScene CreateOneQuest(GameData data)
         {
             return new QuestScene(data);
         }
-
-
     }
-
 }

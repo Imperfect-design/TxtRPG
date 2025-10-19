@@ -7,10 +7,9 @@ namespace TxtRPG.Scene
 {
     public class TitleScene : Iscene
     {
-
-
         public object Run(GameData data)
         {
+            //초기 주어지는 장비.
             if (data.Player.inventory.items.Count == 0)
             {
                 if (data.Player.job == "궁수")
