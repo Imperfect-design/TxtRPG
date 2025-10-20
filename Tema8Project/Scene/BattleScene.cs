@@ -63,7 +63,7 @@ namespace TxtRPG.Scene
                 int potionCount = 0;
                 for (int i = 0; i < data.Player.inventory.items.Count; i++)
                 {
-                    if (data.Player.inventory.items[i].name == "커피")
+                    if (data.Player.inventory.items[i].name == "커피"&& data.Player.inventory.items[i].type == ItemType.Consumable)
                     {
                         potionCount += data.Player.inventory.items[i].count;
                     }

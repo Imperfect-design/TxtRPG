@@ -39,15 +39,13 @@ namespace TxtRPG.Scene
                                 equipped = " [E]";
                             if (player.equipArmor != null && player.equipArmor.name == item.name)
                                 equipped = " [E]";
-
-                            string info = item.type switch
-                            {
-                                ItemType.Weapon => $"[공격력 +{item.dmg}]",
-                                ItemType.Armor => $"[체력 +{item.hp}]",
-                                ItemType.Consumable => $"[회복: HP+{player.maxHp / item.healHp}, MP+{player.maxMp / item.healMp}]",
-                                ItemType.Loot => "[재료 아이템]",
-                                _ => ""
-                            };
+                            string info="";
+                            if (item.type == ItemType.Weapon)
+                                info = $"[공격력 +{item.dmg}]";
+                            if (item.type == ItemType.Armor)
+                                info = $"[체력 +{item.hp}]";
+                            if (item.type == ItemType.Consumable)
+                                info = $"[회복: HP+{player.maxHp / item.healHp}, MP+{player.maxMp / item.healMp}]";
                             UIManager.PrintCenter($"{index}. {item.name}{equipped} - {info} x{item.count} [판매가 개당 {item.sell}G / 전체{item.sell * item.count}G]");
                             index++;
                         }
