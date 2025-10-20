@@ -38,10 +38,10 @@ namespace TxtRPG.Scene
                     LogManager.Add("플레이어가 사망하여 마을에서 다시 태어납니다.");
                     return new TitleScene();
                 }
-
-                if (monsters.Count == 0)
+                if (monsters.All(m => m.monsterHp <= 0))
                 {
-                    LogManager.Add("모든 몬스터를 처치하여 마을로 돌아왔다!");
+                    LogManager.Add("모든 몬스터가 쓰러졌습니다! 마을로 돌아갑니다!");
+                    Thread.Sleep(1000);
                     return new TitleScene();
                 }
                 //인벤토리에서 포션 가져오기
@@ -125,12 +125,16 @@ namespace TxtRPG.Scene
                 //퀘스트 체크 및 회피, 몬스터 반격
                 else if (input >= 0 && input < monsters.Count)
                 {
-                    monsters[input].TakeDamage(data);
-
                     if (monsters[input].monsterHp <= 0)
                     {
-                        QuestScene.CheckQuest(monsters[input].monsterName, data);
-                        monsters.RemoveAt(input);
+                        LogManager.Add($"{monsters[input].monsterName}은(는) 이미 쓰러져 있습니다!");
+                        continue;
+                    }
+                    monsters[input].TakeDamage(data);
+                    if (monsters[input].monsterHp <= 0)
+                    {
+                        monsters[input].monsterHp = 0;
+                        monsters[input].monsterName = $"{monsters[input].monsterName} 사망";
                     }
                     else if (monsters.Count != 0)
                     {
