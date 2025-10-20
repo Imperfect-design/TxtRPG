@@ -10,6 +10,7 @@ namespace TxtRPG.Scene
     {
         public object Run(GameData data)
         {
+            GameManager gm = new GameManager();
             //초기 주어지는 장비.
             if (data.Player.inventory.items.Count == 0)
             {
@@ -38,6 +39,8 @@ namespace TxtRPG.Scene
                 UIManager.PrintYellow("1. 상태 보기");
                 UIManager.PrintYellow("2. 전투 시작");
                 UIManager.PrintYellow("3. 퀘스트 보기");
+                UIManager.PrintDarkYellow("4. 게임 저장");
+                UIManager.PrintDarkYellow("5. 불러오기");
                 UIManager.PrintCenterLine("0. 게임 종료");
                 Console.WriteLine();
                 UIManager.PrintCenter(">>    ");
@@ -51,6 +54,25 @@ namespace TxtRPG.Scene
                     return new BattleStartScene();
                 case "3":
                     return new QuestScene(data);
+                case "4":
+                    new GameManager().SaveGame(data);
+                    return this;
+                case "5":
+                    GameData loaded = gm.Load();
+
+                    if (loaded != null)
+                    {
+                        GameManager.data = loaded;
+                        data = GameManager.data;
+                        LogManager.Add("저장된 데이터를 불러왔습니다.");
+                    }
+                    else
+                    {
+                        LogManager.Add("불러오기에 실패했습니다.");
+                    }
+
+                    return this;
+
 
                 case "0":
                     Environment.Exit(0);

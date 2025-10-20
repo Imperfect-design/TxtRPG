@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Reflection.Metadata.Ecma335;
 using System.Threading;
 using TxtRPG.Data;
+using System.Linq;
 using TxtRPG.Game;
 using TxtRPG.UI;
 using TxtRPG.Scene;
@@ -24,14 +25,14 @@ namespace TxtRPG.Scene
         //배틀 보여주기 함수
         private object ShowBattle(GameData data)
         {
+
             //랜덤 몬스터 생성 및 전투 루프
-<<<<<<< HEAD
-            for (int i = 0; i < rand.Next(1, 5); i++)            
-=======
+            monsters.Clear();
             for (int i = 0; i < rand.Next(1, 5); i++)
->>>>>>> NewMind
             {
-                monsters.Add(new Monster(data));
+                Monster m = new Monster(data);
+                m.monsterIsAlive = true;
+                monsters.Add(m);
             }
             LogManager.Add("전투시작!");
 
@@ -42,14 +43,14 @@ namespace TxtRPG.Scene
                 {
                     LogManager.Add("플레이어가 사망하여 마을에서 다시 태어납니다.");
                     BattleResultLose(data);
-                    Console.WriteLine("아무 키나 입력해주세요.");
+                    UIManager.PrintCenterLine("아무 키나 입력해주세요.");
                     Console.ReadKey();
                     return new TitleScene();
                     
                 }
                 for (int i = 0; i < monsters.Count; i++)//3
                 {
-                    if (monsters[i].monsterIsAlive == true)
+                    if (monsters[i].monsterIsAlive)
                     {
                         isAlive = false;
                         break;
@@ -61,7 +62,7 @@ namespace TxtRPG.Scene
                     LogManager.Add("모든 몬스터가 쓰러졌습니다! 마을로 돌아갑니다!");
                     Thread.Sleep(1000);
                     BattleResultVictory(data);
-                    Console.WriteLine("아무 키나 입력해주세요.");
+                    UIManager.PrintCenterLine("아무 키나 입력해주세요.");
                     Console.ReadKey();
                     return new TitleScene();
                 }
@@ -80,14 +81,30 @@ namespace TxtRPG.Scene
                 //몬스터, 플레이어, 선택지 출력
                 for (int i = 0; i < monsters.Count; i++)
                 {
-                    UIManager.PrintCenterLine($"{monsters[i].monsterName} {monsters[i].monsterLevel}.LV HP : {monsters[i].monsterHp}/{monsters[i].monsterMaxhp} DMG : {monsters[i].monsterAttackPower}");
+                    var m = monsters[i];
+                    string info = $"[{i + 1}] {m.monsterName} {m.monsterLevel}.LV HP : {m.monsterHp}/{m.monsterMaxhp} DMG : {m.monsterAttackPower}";
+
+                    if (!m.monsterIsAlive || m.monsterHp <= 0)
+                    {
+                        int pad = Math.Max((Console.WindowWidth - info.Length - 6) / 2, 0);
+                        Console.ForegroundColor = ConsoleColor.DarkGray;
+                        Console.SetCursorPosition(pad, Console.CursorTop);
+                        Console.WriteLine($"{info} - [사망]");
+                        Console.ResetColor();
+                    }
+                    else
+                    {
+                        UIManager.PrintCenterLine(info);
+                    }
                 }
                 Console.WriteLine("\n\n\n\n");
                 UIManager.PrintCenterLine($"[{data.Player.name} {data.Player.level}.Lv  HP : {data.Player.hp}/{data.Player.maxHp} MP : {data.Player.mp}/{data.Player.maxMp} DMG : {data.Player.damage}  EXP : {data.Player.exp}/{data.Player.maxExp}]");
                 
                 LogManager.Show();
 
-                Console.WriteLine($"\n\n\n\n\n1.공격하기 2.커피사용하기[{potionCount}]개 3.도망가기");
+                UIManager.PrintDivider("line");
+                Console.WriteLine($"\n");
+                UIManager.PrintYellow($"1.공격하기 2.커피사용하기 ({potionCount}개) 0.도망가기");
 
                 //int input = int.Parse(Console.ReadLine());
                 if (!int.TryParse(Console.ReadLine(), out int input))
@@ -101,11 +118,16 @@ namespace TxtRPG.Scene
                     case 1:
                         Console.Clear();
                         ShowAtack(data);
+                        EnemyTurn(data);
+                        if (data.Player.hp <= 0)
+                        {
+                            return new TitleScene();
+                        }
                         break;
                     case 2:
                         UsePotion(data);
                         continue;
-                    case 3:
+                    case 0:
                         LogManager.Add("도망쳤습니다.");
                         return new TitleScene();
                     default:
@@ -114,8 +136,6 @@ namespace TxtRPG.Scene
                 }
             }
         }
-
-        
 
         //공격하기 선택시 로직
         public void ShowAtack(GameData data)
@@ -129,14 +149,31 @@ namespace TxtRPG.Scene
                 //인덱스 표시 -> 공격 대상 선택 가능
                 for (int i = 0; i < monsters.Count; i++)
                 {
-                    UIManager.PrintCenterLine($"[{i + 1}]{monsters[i].monsterName} {monsters[i].monsterLevel}.LV HP : {monsters[i].monsterHp}/{monsters[i].monsterMaxhp} DMG : {monsters[i].monsterAttackPower}");
+                    var m = monsters[i];
+                    string info = $"[{i + 1}] {m.monsterName} {m.monsterLevel}.LV HP : {m.monsterHp}/{m.monsterMaxhp} DMG : {m.monsterAttackPower}";
+
+                    if (!m.monsterIsAlive || m.monsterHp <= 0)
+                    {
+                        int pad = Math.Max((Console.WindowWidth - info.Length - 6) / 2, 0);
+                        Console.ForegroundColor = ConsoleColor.DarkGray;
+                        Console.SetCursorPosition(pad, Console.CursorTop);
+                        Console.WriteLine($"{info} - [사망]");
+                        Console.ResetColor();
+                    }
+                    else
+                    {
+                        UIManager.PrintCenterLine(info);
+                    }
                 }
-                Console.WriteLine("\n\n\n\n");
+                Console.WriteLine("\n\n");
+                UIManager.PrintDivider("line");
 
                 UIManager.PrintCenterLine($"[{data.Player.name} {data.Player.level}.Lv  HP : {data.Player.hp}/{data.Player.maxHp} MP : {data.Player.mp}/{data.Player.maxMp} DMG : {data.Player.damage}  EXP : {data.Player.exp}/{data.Player.maxExp}]");
                 LogManager.Show();
 
-                Console.Write($"\n\n\n\n\n공격대상의 번호를 입력하세요 0.뒤로가기 : ");
+                UIManager.PrintDivider("line");
+                Console.Write($"\n\n\n");
+                UIManager.PrintCenterLine("공격대상의 번호를 입력하세요 0.뒤로가기 : ");
 
                 //int input = int.Parse(Console.ReadLine()) - 1;
 
@@ -153,31 +190,23 @@ namespace TxtRPG.Scene
                     break;
                 }
                 //퀘스트 체크 및 회피, 몬스터 반격
-                else if (input >= 0 && input < monsters.Count)
+                if (input >= 0 && input < monsters.Count)
                 {
-                    if (monsters[input].monsterHp <= 0)
+                    var target = monsters[input];
+
+                    if (!target.monsterIsAlive || target.monsterHp <= 0)
                     {
-                        LogManager.Add($"{monsters[input].monsterName}은(는) 이미 쓰러져 있습니다!");
+                        LogManager.Add($"{target.monsterName}은(는) 이미 쓰러져 있습니다!");
                         continue;
                     }
-                    monsters[input].TakeDamage(data);
-                    if (monsters[input].monsterHp <= 0)
+
+                    target.TakeDamage(data);
+
+                    if (target.monsterHp <= 0)
                     {
-                        monsters[input].monsterHp = 0;
-                        monsters[input].monsterName = $"{monsters[input].monsterName} 사망";
-                    }
-                    else if (monsters.Count != 0)
-                    {
-                        int dogeRand = rand.Next(1, 101);
-                        if (data.Player.doge >= dogeRand)
-                        {
-                            LogManager.Add($"{monsters[monsterCount].monsterName}이(가) 공격하였지만 회피하였다!");
-                        }
-                        else
-                        {
-                            data.Player.TakeDamage(monsters[monsterCount].monsterAttackPower);
-                            LogManager.Add($"{monsters[monsterCount].monsterName}한테 공격당하여 {monsters[monsterCount].monsterAttackPower}의 데미지를 받았다!");
-                        }
+                        target.monsterHp = 0;
+                        target.monsterIsAlive = false;
+                        LogManager.Add($"{target.monsterName}은(는) 쓰러졌다!");
                     }
                     break;
                 }
@@ -185,9 +214,54 @@ namespace TxtRPG.Scene
                 {
                     LogManager.Add("다시입력해주세요");
                 }
-                continue;
             }
         }
+
+        private void EnemyTurn(GameData data)
+        {
+            Console.Clear();
+            UIManager.PrintCenterLine("몬스터의 차례");
+            UIManager.PrintDivider("brick");
+
+            for (int i = 0; i < monsters.Count; i++)
+            {
+                var m = monsters[i];
+                if (!m.monsterIsAlive || m.monsterHp <= 0)
+                {
+                    UIManager.PrintDarkYellow($"[{m.monsterName}] 은(는) 쓰러져 있어 행동할 수 없습니다.");
+                    continue;
+                }
+                UIManager.PrintRed($"[ {m.monsterName} 이 공격합니다.]");
+                Thread.Sleep(500);
+
+                int dodgeRand = rand.Next(1, 101);
+                if (data.Player.doge >= dodgeRand)
+                {
+                    LogManager.Add($"{m.monsterName}이(가) 공격하였지만 회피하였다!");
+                }
+                else
+                {
+                    data.Player.TakeDamage(m.monsterAttackPower);
+                    LogManager.Add($"{m.monsterName}에게 {m.monsterAttackPower}의 데미지를 받았습니다!");
+                }
+
+                if (data.Player.hp <= 0)
+                {
+                    LogManager.Add("플레이어가 사망했습니다.");
+                    BattleResultLose(data);
+                    UIManager.PrintCenterLine("아무 키나 눌러 마을로 돌아갑니다.");
+                    Console.ReadKey();
+                    return;
+                }
+                Console.WriteLine();
+                Thread.Sleep(300);
+            }
+            UIManager.PrintDivider("line");
+            UIManager.PrintCenterLine("[몬스터의 차례가 끝났습니다.]");
+            UIManager.PrintCenterLine("다시 [플레이어의 차례]로 돌아갑니다.");
+            Thread.Sleep(1200);
+        }
+        
         //포션 선택시 로직
         private void UsePotion(GameData data)
         {
@@ -239,45 +313,28 @@ namespace TxtRPG.Scene
             }
         }
 
-
         public void BattleResultVictory(GameData data)
         {
             Console.Clear();
-            string a = $"Battle!! - Result" +
-                $"\n" +
-                $"Victory" +
-                $"\n" +
-                $"던전에서 몬스터 {monsters.Count}를 잡았습니다." +
-                $"\n" +
-                $"Lv.{data.Player.level} {data.Player.name}" +
-                $"HP {data.Player.maxHp} -> {data.Player.hp}" +
-                $"\n";
-
-            Console.WriteLine(a);
+            UIManager.PrintTitle("===== Battle!! - Result =====");
+            UIManager.PrintCenterLine("");
+            UIManager.PrintYellow("Victory");
+            UIManager.PrintDivider("cross");
+            UIManager.PrintCenterLine($"던전에서 몬스터 {monsters.Count}마리를 처치했습니다.");
+            UIManager.PrintDivider("cross");
+            UIManager.PrintCenterLine($"[{data.Player.name}]  Lv.{data.Player.level}");
+            UIManager.PrintCenterLine("");
         }
 
         public void BattleResultLose(GameData data)
         {
             Console.Clear();
-            string a = $"Battle!! - Result" +
-                $"\n" +
-                $"You Lose" +
-                $"\n" +
-                $"Lv.{data.Player.level} {data.Player.name}" +
-                $"HP {data.Player.maxHp} -> {data.Player.hp}" +
-                $"\n";
-
-            Console.WriteLine(a);
+            UIManager.PrintTitle("===== Battle!! - Result =====");
+            UIManager.PrintCenterLine("");
+            UIManager.PrintRed("You Lose");
+            UIManager.PrintDivider("cross");
+            UIManager.PrintCenterLine($"Lv.{data.Player.level} {data.Player.name}");
+            UIManager.PrintCenterLine("");
         }
     }
 }
-
-    
-    
-    
-    
-    
-    
-    
-    
-

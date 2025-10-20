@@ -14,6 +14,8 @@ namespace TxtRPG
 {
     public class Monster
     {
+        public Monster() { }
+
         public string monsterName { get; set; }
         public int monsterLevel { get; set; }
         public int monsterHp { get; set; }
@@ -41,9 +43,9 @@ namespace TxtRPG
             else
             {
                 monsterLevel = random.Next(Math.Max(1, data.Player.level - 5), data.Player.level + 6);
-                monsterMaxhp = monsterLevel * 40;
+                monsterMaxhp = monsterLevel * 20;
                 monsterHp = monsterMaxhp;
-                monsterAttackPower = monsterLevel * 5;
+                monsterAttackPower = monsterLevel * 4;
                 monsterIsAlive = true;
                 monsterIndex = 0;
             }

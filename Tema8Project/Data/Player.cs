@@ -6,6 +6,8 @@ namespace TxtRPG.Data
 {
     public class Player
     {
+        public Player() { }
+
         public string name;
         public int level;
         public int exp;
@@ -34,7 +36,7 @@ namespace TxtRPG.Data
             maxMp = 10;
             hp = maxHp;
             mp = maxMp;
-            damage = 25;
+            damage = 70;
             gold = 1000;
             doge = 30;
             critical = 50;

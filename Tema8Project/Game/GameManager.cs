@@ -1,6 +1,9 @@
 ﻿using System;
 using TxtRPG.Data;
 using TxtRPG.Scene;
+using System.Text.Json;
+using System.IO;
+
 
 namespace TxtRPG.Game
 {
@@ -20,13 +23,57 @@ namespace TxtRPG.Game
             {
                 if (currentScene is Iscene scene)
                 {
-                    LogManager.Clear();
+                    
                     currentScene = scene.Run(data);
                 }
                 else
                 {
                     break;
                 }
+            }
+        }
+
+    private const string Save = "saveData.json";
+
+        public void SaveGame(GameData data)
+        {
+            try
+            {
+                string json = JsonSerializer.Serialize(data, new JsonSerializerOptions { WriteIndented = true });
+                File.WriteAllText(Save, json);
+                LogManager.Add("저장 성공");
+            }
+            catch (Exception ex)
+            {
+                LogManager.Add($"저장 실패: {ex.Message}");
+            }
+        }
+        public GameData Load()
+        {
+            try
+            {
+                if (File.Exists(Save))
+                {
+                    string json = File.ReadAllText(Save);
+                    GameData loadedData = JsonSerializer.Deserialize<GameData>(json, new JsonSerializerOptions
+                    {
+                        IncludeFields = true, 
+                        PropertyNameCaseInsensitive = true,  
+                        WriteIndented = true
+                    }) ?? new GameData();
+                    LogManager.Add("저장된 게임을 불러왔습니다.");
+                    return loadedData;
+                }
+                else
+                {
+                    LogManager.Add("저장된 데이터가 없습니다.");
+                    return new GameData();
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.Add($"불러오기 실패: {ex.Message}");
+                return new GameData();
             }
         }
     }
