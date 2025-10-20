@@ -8,6 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using TxtRPG;
 using TxtRPG.Data;
+using TxtRPG.Scene;
 
 namespace TxtRPG
 {
@@ -76,6 +77,7 @@ namespace TxtRPG
                 monsterIsAlive = false;
                 data.Player.ExpUp(monsterLevel);
                 LogManager.Add($"{monsterName}이(가) 사망하였다!");
+                QuestScene.CheckQuest(monsterName, data);
                 //몬스터 보상 로직 ( 커피 혹은 골드 )
                 if (itemReward >= 50)
                 {
