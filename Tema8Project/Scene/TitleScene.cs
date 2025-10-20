@@ -14,9 +14,9 @@ namespace TxtRPG.Scene
             {
                 if (data.Player.job == "궁수")
                     data.Player.inventory.AddItem(new Item("활처럼 휘어진 키보드", ItemType.Weapon, 1, 50, 0, 0, 0, 10));
-                if (data.Player.job == "전사")
+                else if (data.Player.job == "전사")
                     data.Player.inventory.AddItem(new Item("날카롭게 갈린 키보드", ItemType.Weapon, 1, 50, 0, 0, 0, 10));
-                else
+                else if (data.Player.job == "마법사")
                     data.Player.inventory.AddItem(new Item("수정구를 붙힌 키보드", ItemType.Weapon, 1, 50, 0, 0, 0, 10));
 
                 data.Player.inventory.AddItem(new Item("마우스선으로 감은 갑옷", ItemType.Armor, 1, 0, 50, 0, 0, 10));
