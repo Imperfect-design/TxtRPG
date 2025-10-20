@@ -17,7 +17,7 @@ namespace TxtRPG.UI
             foreach (char c in text)
             {
                 
-                if(( c >= 0xAC00 && c <= 0xD7A3) || ( c > 127))
+                if(( c >= 0xAC00 && c <= 0xD7A3) || ( c > 127))//받침유무를 체크하는거 그냥 그때 그때 16진법
                 {
                     displayLength += 2;
                 }
@@ -28,7 +28,8 @@ namespace TxtRPG.UI
             }
             //왼쪽 공백과 커서, 출력 정의
             int padding = Math.Max((width - displayLength) / 2, 0);
-            Console.SetCursorPosition(padding, Console.CursorTop);
+            //최솟값 displayLength이게 계속 움직이는 값이니까
+            Console.SetCursorPosition(padding, Console.CursorTop);//Console.CursorTop: 현재 커서의 위치
             Console.WriteLine(text);
         }
         //중앙 정렬에 줄 이동 없이
@@ -126,11 +127,11 @@ namespace TxtRPG.UI
         {
             int lastwidth = Console.WindowWidth;
             string input = "";
-            bool firstDraw = true;
+            bool firstDraw = true;//처음 실행하려면 값이 있어야하니까 추가한거
             //커서 숨기기
             if (Console.CursorVisible)
             {
-                Console.CursorVisible = false;
+                Console.CursorVisible = false;//커서 끌 때 이렇게 쓰는거
             }
 
             while(true)
@@ -139,20 +140,21 @@ namespace TxtRPG.UI
                 if (Console.WindowWidth != lastwidth || firstDraw)
                 {
                     Console.Clear();
-                    drawAction.Invoke();
+                    drawAction.Invoke();//출력내용을 거기에 맞춰서 새로 그려라
                     lastwidth = Console.WindowWidth;
-                    firstDraw = false;
+                    firstDraw = false;//처음창으로 돌아가면 안되니까 false로 바꾸기
                 }
                 //키 입력 감지, 화면을 감지해서 커서 위치 조정. 사용자가 엔터 칠 때 까지 입력 받기.
-                if (Console.KeyAvailable)
+                if (Console.KeyAvailable) //입력값을 한 번 감지하면 커서가 중앙정렬되는?
                 {
                     int promptPos = Math.Max((Console.WindowWidth / 2) - 2, 0);
                     Console.SetCursorPosition(promptPos, Console.CursorTop);
                     Console.Write(">");
-                    input = Console.ReadLine() ?? "";
+                    input = Console.ReadLine() ?? "";//자료형없이도 입력한값을 받아라? ??:null병합연산자 왼쪽이 "null이 아니면 왼쪽 그대로 쓰고 왼쪽 null이면 오른쪽을 써라이어도(그냥 엔터만 쳐도
+                    //다른 UI를 건드리기 위해서 받아오는 과정에서 매개변수가 null을 받을 수 없어서 그런 오류를 없애기 위해서
                     break;
                 }
-                Thread.Sleep(100);
+                Thread.Sleep(100);//while문을 사용할 때 cpu사용량이 0.1인데 cpu70은 됨 과부하가 올 수 있음 반복문을 쓸 때 제한을 걸어둬야함
             }
             return input;
         }

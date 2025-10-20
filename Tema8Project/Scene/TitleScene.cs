@@ -27,7 +27,6 @@ namespace TxtRPG.Scene
             {
                 UIManager.PrintTitle("==== 시작부터 마왕나옴 ====");
                 UIManager.PrintCenter("시작부터 마왕을 만나실 당신을 환영합니다.");
-                UIManager.PrintDivider("dash");
                 Console.WriteLine();
                 LogManager.Show();
                 UIManager.PrintYellow("1. 상태 보기");
