@@ -49,11 +49,21 @@ namespace TxtRPG.Scene
                 
                 Console.Clear();
 
-                //몬스터, 플레이어, 선택지 출력
+                
                 for (int i = 0; i < monsters.Count; i++)
                 {
-                    UIManager.PrintCenter($"{monsters[i].monsterName} {monsters[i].monsterLevel}.LV HP : {monsters[i].monsterHp}/{monsters[i].monsterMaxhp} DMG : {monsters[i].monsterAttackPower}");
+                    if (monsters[i].monsterHp <= 0)
+                        Console.ForegroundColor = ConsoleColor.DarkGray;
+                    else
+                        Console.ForegroundColor = ConsoleColor.White;
+
+                    UIManager.PrintCenter(
+                        $"[{i + 1}] {monsters[i].monsterName} {monsters[i].monsterLevel}.Lv HP : " +
+                        $"{Math.Max(0, monsters[i].monsterHp)}/{monsters[i].monsterMaxhp}" +
+                        $"{(monsters[i].monsterHp <= 0 ? " [Dead]" : $" DMG : {monsters[i].monsterAttackPower}")}");
                 }
+
+                Console.ResetColor();
                 Console.WriteLine("\n\n\n\n");
                 UIManager.PrintCenter($"[{data.Player.name} {data.Player.level}.Lv  HP : {data.Player.hp}/{data.Player.maxHp} MP : {data.Player.mp}/{data.Player.maxMp} DMG : {data.Player.damage}  EXP : {data.Player.exp}/{data.Player.maxExp}]");
                 
@@ -135,7 +145,7 @@ namespace TxtRPG.Scene
                     if (monsters[input].monsterHp <= 0)
                     {
                         monsters[input].monsterHp = 0;
-                        monsters[input].monsterName = $"{monsters[input].monsterName} 사망";
+                        monsters[input].monsterName = $"[사망] {monsters[input].monsterName}";
                     }
                     else if (monsters.Count != 0)
                     {
