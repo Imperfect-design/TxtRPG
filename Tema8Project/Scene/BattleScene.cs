@@ -32,6 +32,7 @@ namespace TxtRPG.Scene
 
             while (true)
             {
+                bool isAlive = true;
                 if (data.Player.hp <= 0)
                 {
                     LogManager.Add("플레이어가 사망하여 마을에서 다시 태어납니다.");
@@ -41,9 +42,17 @@ namespace TxtRPG.Scene
                     return new TitleScene();
                     
                 }
-                if (monsters.All(m => m.monsterHp <= 0))
+                for (int i = 0; i < monsters.Count; i++)
                 {
-                    LogManager.Add("모든 몬스터가 쓰러졌습니다! 마을로 돌아갑시다!");
+                    if (monsters[i].monsterIsAlive == true)
+                    {
+                        isAlive = false;
+                        break;
+                    }
+                }
+                if (isAlive)
+                {
+                    LogManager.Add("모든 몬스터가 쓰러졌습니다! 마을로 돌아갑니다!");
                     Thread.Sleep(1000);
                     BattleResultVictory(data);
                     Console.WriteLine("아무 키나 입력해주세요.");
@@ -51,48 +60,28 @@ namespace TxtRPG.Scene
                     return new TitleScene();
                 }
                 //인벤토리에서 포션 가져오기
-                //int potionCount = data.Player.inventory.items.Where(item => item.name == "커피" && item.type == ItemType.Consumable).Sum(item => item.count);
-
-                //int potionCount = 0;
-                //foreach (Item item in data.Player.inventory.items)
-                //{
-                //    if (item.name == "커피" && item.type == ItemType.Consumable)
-                //        potionCount += item.count;
-                //}
-
                 int potionCount = 0;
-                for ( int i = 0; i < data.Player.inventory.items.Count; i++)
+                for (int i = 0; i < data.Player.inventory.items.Count; i++)
                 {
-                   Item item = data.Player.inventory.items[i];
-
-                    if( item.name == "커피" && item.type == ItemType.Consumable)
-                        potionCount += item.count;
+                    if (data.Player.inventory.items[i].name == "커피"&& data.Player.inventory.items[i].type == ItemType.Consumable)
+                    {
+                        potionCount += data.Player.inventory.items[i].count;
+                    }
                 }
-
 
                 Console.Clear();
 
-                
+                //몬스터, 플레이어, 선택지 출력
                 for (int i = 0; i < monsters.Count; i++)
                 {
-                    if (monsters[i].monsterHp <= 0)
-                        Console.ForegroundColor = ConsoleColor.DarkGray;
-                    else
-                        Console.ForegroundColor = ConsoleColor.White;
-
-                    UIManager.PrintCenterLine(
-                        $"[{i + 1}] {monsters[i].monsterName} {monsters[i].monsterLevel}.Lv HP : " +
-                        $"{Math.Max(0, monsters[i].monsterHp)}/{monsters[i].monsterMaxhp}" +
-                        $"{(monsters[i].monsterHp <= 0 ? " [Dead]" : $" DMG : {monsters[i].monsterAttackPower}")}");
+                    UIManager.PrintCenter($"{monsters[i].monsterName} {monsters[i].monsterLevel}.LV HP : {monsters[i].monsterHp}/{monsters[i].monsterMaxhp} DMG : {monsters[i].monsterAttackPower}");
                 }
-
-                Console.ResetColor();
                 Console.WriteLine("\n\n\n\n");
-                UIManager.PrintCenterLine($"[{data.Player.name} {data.Player.level}.Lv  HP : {data.Player.hp}/{data.Player.maxHp} MP : {data.Player.mp}/{data.Player.maxMp} DMG : {data.Player.damage}  EXP : {data.Player.exp}/{data.Player.maxExp}]");
+                UIManager.PrintCenter($"[{data.Player.name} {data.Player.level}.Lv  HP : {data.Player.hp}/{data.Player.maxHp} MP : {data.Player.mp}/{data.Player.maxMp} DMG : {data.Player.damage}  EXP : {data.Player.exp}/{data.Player.maxExp}]");
                 
                 LogManager.Show();
-                UIManager.PrintCenterLine("\n\n");
-                UIManager.PrintCenterLine($"1.공격하기 2.커피사용하기[{potionCount}]개 3.도망가기");
+
+                Console.WriteLine($"\n\n\n\n\n1.공격하기 2.커피사용하기[{potionCount}]개 3.도망가기");
 
                 //int input = int.Parse(Console.ReadLine());
                 if (!int.TryParse(Console.ReadLine(), out int input))
@@ -120,6 +109,8 @@ namespace TxtRPG.Scene
             }
         }
 
+        
+
         //공격하기 선택시 로직
         public void ShowAtack(GameData data)
         {
@@ -132,15 +123,14 @@ namespace TxtRPG.Scene
                 //인덱스 표시 -> 공격 대상 선택 가능
                 for (int i = 0; i < monsters.Count; i++)
                 {
-                    UIManager.PrintCenterLine($"[{i + 1}]{monsters[i].monsterName} {monsters[i].monsterLevel}.LV HP : {monsters[i].monsterHp}/{monsters[i].monsterMaxhp} DMG : {monsters[i].monsterAttackPower}");
+                    UIManager.PrintCenter($"[{i + 1}]{monsters[i].monsterName} {monsters[i].monsterLevel}.LV HP : {monsters[i].monsterHp}/{monsters[i].monsterMaxhp} DMG : {monsters[i].monsterAttackPower}");
                 }
                 Console.WriteLine("\n\n\n\n");
 
-                UIManager.PrintCenterLine($"[{data.Player.name} {data.Player.level}.Lv  HP : {data.Player.hp}/{data.Player.maxHp} MP : {data.Player.mp}/{data.Player.maxMp} DMG : {data.Player.damage}  EXP : {data.Player.exp}/{data.Player.maxExp}]");
+                UIManager.PrintCenter($"[{data.Player.name} {data.Player.level}.Lv  HP : {data.Player.hp}/{data.Player.maxHp} MP : {data.Player.mp}/{data.Player.maxMp} DMG : {data.Player.damage}  EXP : {data.Player.exp}/{data.Player.maxExp}]");
                 LogManager.Show();
 
-                UIManager.PrintCenterLine("\n\n");
-                UIManager.PrintCenterLine($"공격대상의 번호를 입력하세요 0.뒤로가기 : ");
+                Console.Write($"\n\n\n\n\n공격대상의 번호를 입력하세요 0.뒤로가기 : ");
 
                 //int input = int.Parse(Console.ReadLine()) - 1;
 
@@ -168,7 +158,7 @@ namespace TxtRPG.Scene
                     if (monsters[input].monsterHp <= 0)
                     {
                         monsters[input].monsterHp = 0;
-                        monsters[input].monsterName = $"[사망] {monsters[input].monsterName}";
+                        monsters[input].monsterName = $"{monsters[input].monsterName} 사망";
                     }
                     else if (monsters.Count != 0)
                     {
@@ -266,3 +256,13 @@ namespace TxtRPG.Scene
         }
     }
 }
+
+    
+    
+    
+    
+    
+    
+    
+    
+
