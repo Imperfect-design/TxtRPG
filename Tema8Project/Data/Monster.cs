@@ -8,6 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using TxtRPG;
 using TxtRPG.Data;
+using TxtRPG.Scene;
 
 namespace TxtRPG
 {
@@ -62,13 +63,13 @@ namespace TxtRPG
             //치명타 발동시 로직
             if(data.Player.critical >= critical)
             {
-                monsterHp -= criticalDamage;
                 LogManager.Add($"{monsterName}을(를) 공격! 크리티컬!! {criticalDamage}만큼 피해를 입혔다!{monsterHp}->{monsterHp - criticalDamage}");
+                monsterHp -= criticalDamage;
             }
             else
             {
-                monsterHp -= data.Player.damage;
                 LogManager.Add($"{monsterName}을(를) 공격하여 {data.Player.damage}만큼 피해를 입혔다!{monsterHp}->{monsterHp - data.Player.damage}");
+                monsterHp -= data.Player.damage;
             }
             //몬스터 죽을 때 로직                
             if (monsterHp <= 0)
@@ -76,6 +77,7 @@ namespace TxtRPG
                 monsterIsAlive = false;
                 data.Player.ExpUp(monsterLevel);
                 LogManager.Add($"{monsterName}이(가) 사망하였다!");
+                QuestScene.CheckQuest(monsterName, data);
                 //몬스터 보상 로직 ( 커피 혹은 골드 )
                 if (itemReward >= 50)
                 {
