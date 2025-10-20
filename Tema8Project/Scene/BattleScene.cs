@@ -32,6 +32,7 @@ namespace TxtRPG.Scene
 
             while (true)
             {
+                bool isAlive = true;
                 if (data.Player.hp <= 0)
                 {
                     LogManager.Add("플레이어가 사망하여 마을에서 다시 태어납니다.");
@@ -41,9 +42,17 @@ namespace TxtRPG.Scene
                     return new TitleScene();
                     
                 }
-                if (monsters.All(m => m.monsterHp <= 0))
+                for (int i = 0; i < monsters.Count; i++)
                 {
-                    LogManager.Add("모든 몬스터가 쓰러졌습니다! 마을로 돌아갑시다!");
+                    if (monsters[i].monsterIsAlive == true)
+                    {
+                        isAlive = false;
+                        break;
+                    }
+                }
+                if (isAlive)
+                {
+                    LogManager.Add("모든 몬스터가 쓰러졌습니다! 마을로 돌아갑니다!");
                     Thread.Sleep(1000);
                     BattleResultVictory(data);
                     Console.WriteLine("아무 키나 입력해주세요.");
@@ -51,8 +60,15 @@ namespace TxtRPG.Scene
                     return new TitleScene();
                 }
                 //인벤토리에서 포션 가져오기
-                int potionCount = data.Player.inventory.items.Where(item => item.name == "커피" && item.type == ItemType.Consumable).Sum(item => item.count);
-                
+                int potionCount = 0;
+                for (int i = 0; i < data.Player.inventory.items.Count; i++)
+                {
+                    if (data.Player.inventory.items[i].name == "커피")
+                    {
+                        potionCount += data.Player.inventory.items[i].count;
+                    }
+                }
+
                 Console.Clear();
 
                 //몬스터, 플레이어, 선택지 출력
