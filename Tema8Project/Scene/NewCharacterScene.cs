@@ -53,8 +53,8 @@ namespace TxtRPG.Scene
             string inputYourName = UIManager.ConsoleArray(() =>
             {
                 UIManager.PrintTitle("이름 설정");
-                UIManager.PrintCenter("당신의 이름을 입력하세요");
-                UIManager.PrintCenter("");
+                UIManager.PrintCenterLine("당신의 이름을 입력하세요");
+                UIManager.PrintCenterLine("");
             });
             Console.WriteLine();
             UIManager.PrintYellow($"당신의 이름은 이제부터 {inputYourName}입니다!");
@@ -73,8 +73,8 @@ namespace TxtRPG.Scene
                 UIManager.PrintTitle("직업 선택");
                 UIManager.PrintYellow("당신의 직업을 선택하세요");
                 UIManager.PrintYellow("1. 전사 2. 궁수 3. 마법사");
-                UIManager.PrintCenter("");
-                UIManager.PrintCenterLine(">>");
+                UIManager.PrintCenterLine("");
+                UIManager.PrintCenter(">>");
 
                 if (!int.TryParse(Console.ReadLine(), out int chooseJob))
                 {

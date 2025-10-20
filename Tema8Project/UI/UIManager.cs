@@ -8,8 +8,9 @@ namespace TxtRPG.UI
     //static으로 선언
     public static class UIManager
     {
+       
         //중앙 정렬 매소드
-        public static void PrintCenter(string text)
+        public static void PrintCenterLine(string text)
         {
             int width = Console.WindowWidth;
             int displayLength = 0;
@@ -32,7 +33,7 @@ namespace TxtRPG.UI
             Console.WriteLine(text);
         }
         //중앙 정렬에 줄 이동 없이
-        public static void PrintCenterLine(string text)
+        public static void PrintCenter(string text)
         {
             int width = Console.WindowWidth;
             int displayLength = 0;
@@ -57,37 +58,37 @@ namespace TxtRPG.UI
         public static void PrintYellow(string text)
         {
             Console.ForegroundColor = ConsoleColor.Yellow;
-            PrintCenter(text);
+            PrintCenterLine(text);
             Console.ResetColor();
         }
         public static void PrintDarkYellow(string text)
         {
             Console.ForegroundColor = ConsoleColor.DarkYellow;
-            PrintCenter(text);
+            PrintCenterLine(text);
             Console.ResetColor();
         }
         public static void PrintRed(string text)
         {
             Console.ForegroundColor = ConsoleColor.Red;
-            PrintCenter(text);
+            PrintCenterLine(text);
             Console.ResetColor();
         }
         public static void PrintDarkRed(string text)
         {
             Console.ForegroundColor = ConsoleColor.DarkRed;
-            PrintCenter(text);
+            PrintCenterLine(text);
             Console.ResetColor();
         }
         public static void PrintBlue(string text)
         {
             Console.ForegroundColor = ConsoleColor.Blue;
-            PrintCenter(text);
+            PrintCenterLine(text);
             Console.ResetColor();
         }
         public static void PrintCyan(string text)
         {
             Console.ForegroundColor = ConsoleColor.Cyan;
-            PrintCenter(text);
+            PrintCenterLine(text);
             Console.ResetColor();
         }
         //분리 선 정의
@@ -98,13 +99,13 @@ namespace TxtRPG.UI
             switch (style)
             {
                 case "brick":
-                    PrintCenter("============================================");
+                    PrintCenterLine("============================================");
                     break;
                 case "cross":
-                    PrintCenter("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+                    PrintCenterLine("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
                     break;
                 case "line":
-                    PrintCenter("___________________________________________");
+                    PrintCenterLine("___________________________________________");
                     break;
             }
             Console.ResetColor();
@@ -113,11 +114,11 @@ namespace TxtRPG.UI
         public static void PrintTitle(string title)
         {
             Console.ForegroundColor = ConsoleColor.Yellow;
-            PrintCenter("===========================================");
+            PrintCenterLine("===========================================");
             Console.ResetColor();
-            PrintCenter($"★  {title} ★");
+            PrintCenterLine($"★  {title} ★");
             Console.ForegroundColor = ConsoleColor.Yellow;
-            PrintCenter("===========================================");
+            PrintCenterLine("===========================================");
             Console.ResetColor();
         }
         //창 변경시 중앙 정렬

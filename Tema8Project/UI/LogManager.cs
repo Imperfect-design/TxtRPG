@@ -22,14 +22,14 @@ namespace TxtRPG
         public static void Show()
         {
             Console.WriteLine("\n");
-            UIManager.PrintCenter("[이벤트 로그]---------------");
+            UIManager.PrintCenterLine("[이벤트 로그]---------------");
 
             foreach (var line in logLines)
             {
                 if (!string.IsNullOrEmpty(line))
-                    UIManager.PrintCenter(line);
+                    UIManager.PrintCenterLine(line);
             }
-            UIManager.PrintCenter("----------------------------");
+            UIManager.PrintCenterLine("----------------------------");
             Console.WriteLine("\n");
         }
         //로그 초기화, GamaManager에서 사용
@@ -40,3 +40,4 @@ namespace TxtRPG
         }
     }
 }
+

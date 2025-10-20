@@ -51,8 +51,25 @@ namespace TxtRPG.Scene
                     return new TitleScene();
                 }
                 //인벤토리에서 포션 가져오기
-                int potionCount = data.Player.inventory.items.Where(item => item.name == "커피" && item.type == ItemType.Consumable).Sum(item => item.count);
-                
+                //int potionCount = data.Player.inventory.items.Where(item => item.name == "커피" && item.type == ItemType.Consumable).Sum(item => item.count);
+
+                //int potionCount = 0;
+                //foreach (Item item in data.Player.inventory.items)
+                //{
+                //    if (item.name == "커피" && item.type == ItemType.Consumable)
+                //        potionCount += item.count;
+                //}
+
+                int potionCount = 0;
+                for ( int i = 0; i < data.Player.inventory.items.Count; i++)
+                {
+                   Item item = data.Player.inventory.items[i];
+
+                    if( item.name == "커피" && item.type == ItemType.Consumable)
+                        potionCount += item.count;
+                }
+
+
                 Console.Clear();
 
                 
@@ -63,7 +80,7 @@ namespace TxtRPG.Scene
                     else
                         Console.ForegroundColor = ConsoleColor.White;
 
-                    UIManager.PrintCenter(
+                    UIManager.PrintCenterLine(
                         $"[{i + 1}] {monsters[i].monsterName} {monsters[i].monsterLevel}.Lv HP : " +
                         $"{Math.Max(0, monsters[i].monsterHp)}/{monsters[i].monsterMaxhp}" +
                         $"{(monsters[i].monsterHp <= 0 ? " [Dead]" : $" DMG : {monsters[i].monsterAttackPower}")}");
@@ -71,11 +88,11 @@ namespace TxtRPG.Scene
 
                 Console.ResetColor();
                 Console.WriteLine("\n\n\n\n");
-                UIManager.PrintCenter($"[{data.Player.name} {data.Player.level}.Lv  HP : {data.Player.hp}/{data.Player.maxHp} MP : {data.Player.mp}/{data.Player.maxMp} DMG : {data.Player.damage}  EXP : {data.Player.exp}/{data.Player.maxExp}]");
+                UIManager.PrintCenterLine($"[{data.Player.name} {data.Player.level}.Lv  HP : {data.Player.hp}/{data.Player.maxHp} MP : {data.Player.mp}/{data.Player.maxMp} DMG : {data.Player.damage}  EXP : {data.Player.exp}/{data.Player.maxExp}]");
                 
                 LogManager.Show();
-                UIManager.PrintCenter("\n\n");
-                UIManager.PrintCenter($"1.공격하기 2.커피사용하기[{potionCount}]개 3.도망가기");
+                UIManager.PrintCenterLine("\n\n");
+                UIManager.PrintCenterLine($"1.공격하기 2.커피사용하기[{potionCount}]개 3.도망가기");
 
                 //int input = int.Parse(Console.ReadLine());
                 if (!int.TryParse(Console.ReadLine(), out int input))
@@ -103,8 +120,6 @@ namespace TxtRPG.Scene
             }
         }
 
-        
-
         //공격하기 선택시 로직
         public void ShowAtack(GameData data)
         {
@@ -117,15 +132,15 @@ namespace TxtRPG.Scene
                 //인덱스 표시 -> 공격 대상 선택 가능
                 for (int i = 0; i < monsters.Count; i++)
                 {
-                    UIManager.PrintCenter($"[{i + 1}]{monsters[i].monsterName} {monsters[i].monsterLevel}.LV HP : {monsters[i].monsterHp}/{monsters[i].monsterMaxhp} DMG : {monsters[i].monsterAttackPower}");
+                    UIManager.PrintCenterLine($"[{i + 1}]{monsters[i].monsterName} {monsters[i].monsterLevel}.LV HP : {monsters[i].monsterHp}/{monsters[i].monsterMaxhp} DMG : {monsters[i].monsterAttackPower}");
                 }
                 Console.WriteLine("\n\n\n\n");
 
-                UIManager.PrintCenter($"[{data.Player.name} {data.Player.level}.Lv  HP : {data.Player.hp}/{data.Player.maxHp} MP : {data.Player.mp}/{data.Player.maxMp} DMG : {data.Player.damage}  EXP : {data.Player.exp}/{data.Player.maxExp}]");
+                UIManager.PrintCenterLine($"[{data.Player.name} {data.Player.level}.Lv  HP : {data.Player.hp}/{data.Player.maxHp} MP : {data.Player.mp}/{data.Player.maxMp} DMG : {data.Player.damage}  EXP : {data.Player.exp}/{data.Player.maxExp}]");
                 LogManager.Show();
 
-                UIManager.PrintCenter("\n\n");
-                UIManager.PrintCenter($"공격대상의 번호를 입력하세요 0.뒤로가기 : ");
+                UIManager.PrintCenterLine("\n\n");
+                UIManager.PrintCenterLine($"공격대상의 번호를 입력하세요 0.뒤로가기 : ");
 
                 //int input = int.Parse(Console.ReadLine()) - 1;
 
@@ -251,13 +266,3 @@ namespace TxtRPG.Scene
         }
     }
 }
-
-    
-    
-    
-    
-    
-    
-    
-    
-

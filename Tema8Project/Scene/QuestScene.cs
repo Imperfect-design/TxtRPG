@@ -55,13 +55,13 @@ namespace TxtRPG.Scene
                 for (int i = 0; i < quests.Count; i++)
                 {
                     string status = quests[i].isAccept ? "[수락됨]" : "";
-                    UIManager.PrintCenter($"[{i + 1}] {quests[i].monsterName} {quests[i].killCount}마리 처치 (보상: {quests[i].reward}G){status}");
+                    UIManager.PrintCenterLine($"[{i + 1}] {quests[i].monsterName} {quests[i].killCount}마리 처치 (보상: {quests[i].reward}G){status}");
                 }
                 LogManager.Show();
 
                 UIManager.PrintDivider("line");
-                UIManager.PrintCenter("");
-                UIManager.PrintCenter("수락할 퀘스트 번호 입력 (0: 거절하고 새로고침 / 4번을 누르면 나갑니다.): ");
+                UIManager.PrintCenterLine("");
+                UIManager.PrintCenterLine("수락할 퀘스트 번호 입력 (0: 거절하고 새로고침 / 4번을 누르면 나갑니다.): ");
                 //int input = int.Parse(Console.ReadLine());
 
                 if (!int.TryParse(Console.ReadLine(), out int input))

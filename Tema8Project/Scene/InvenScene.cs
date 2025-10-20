@@ -25,7 +25,7 @@ namespace TxtRPG.Scene
                     //인벤토리에 아이템이 없을 때
                     if (player.inventory.items.Count == 0)
                     {
-                        UIManager.PrintCenter("인벤토리가 비어있습니다.");
+                        UIManager.PrintCenterLine("인벤토리가 비어있습니다.");
                         LogManager.Add($"비어있는 인벤토리는 내 마음의 공허함과 같다");
                     }
                     //있을 때 index지정 및 장착 토글, 아이템 타입 별 디스크립션
@@ -48,17 +48,17 @@ namespace TxtRPG.Scene
                                 ItemType.Loot => "[재료 아이템]",
                                 _ => ""
                             };
-                            UIManager.PrintCenter($"{index}. {item.name}{equipped} - {info} x{item.count} [판매가 개당 {item.sell}G / 전체{item.sell * item.count}G]");
+                            UIManager.PrintCenterLine($"{index}. {item.name}{equipped} - {info} x{item.count} [판매가 개당 {item.sell}G / 전체{item.sell * item.count}G]");
                             index++;
                         }
                         LogManager.Add($"인벤토리를 열었습니다");
                     }
-                    UIManager.PrintCenter("");
+                    UIManager.PrintCenterLine("");
                     UIManager.PrintDivider("line");
                     LogManager.Show();
-                    UIManager.PrintCenter("번호를 입력해서 장착 Or 해제합니다.");
-                    UIManager.PrintCenter("0. 나가기");
-                    UIManager.PrintCenterLine(">>   ");
+                    UIManager.PrintCenterLine("번호를 입력해서 장착 Or 해제합니다.");
+                    UIManager.PrintCenterLine("0. 나가기");
+                    UIManager.PrintCenter(">>   ");
                 });
                 //선택지 선택시 로직
                 if (input == "0")

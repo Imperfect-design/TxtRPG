@@ -13,11 +13,11 @@ namespace TxtRPG.Scene
             {
                 Console.Clear();
                 UIManager.PrintTitle("[플레이어 정보]");
-                UIManager.PrintCenter($"[{data.Player.job}]{data.Player.name} {data.Player.level}.Lv\n");
-                UIManager.PrintCenter($"체력 {data.Player.hp}/{data.Player.maxHp} 마나 {data.Player.mp}/{data.Player.maxMp}\n");
-                UIManager.PrintCenter($"공격력 {data.Player.damage} 치명타확률 {data.Player.critical} 회피확률 {data.Player.doge}\n");
-                UIManager.PrintCenter($"경험치  {data.Player.exp} / {data.Player.maxExp}\n");
-                UIManager.PrintCenter($"{data.Player.gold} G\n");
+                UIManager.PrintCenterLine($"[{data.Player.job}]{data.Player.name} {data.Player.level}.Lv\n");
+                UIManager.PrintCenterLine($"체력 {data.Player.hp}/{data.Player.maxHp} 마나 {data.Player.mp}/{data.Player.maxMp}\n");
+                UIManager.PrintCenterLine($"공격력 {data.Player.damage} 치명타확률 {data.Player.critical} 회피확률 {data.Player.doge}\n");
+                UIManager.PrintCenterLine($"경험치  {data.Player.exp} / {data.Player.maxExp}\n");
+                UIManager.PrintCenterLine($"{data.Player.gold} G\n");
                 LogManager.Show();
                 UIManager.PrintYellow("1.인벤토리 2.스킬보기 0.나가기");
                 UIManager.PrintYellow(">>>");
