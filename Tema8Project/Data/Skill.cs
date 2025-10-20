@@ -10,7 +10,8 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace TxtRPG.Data
 {
-    class Skill
+
+    public class Skill
     {
         public string SkillName { get; set; }
         public int SkillDamage { get; set; }
@@ -20,54 +21,122 @@ namespace TxtRPG.Data
         public int SkillNumber { get; set; }
         public int UnlockLevel { get; set; }
 
-        //뭔지 모르겠다.
-        public Skill()
-        {
 
-        }
-        //item과 같이 리스트화
-        public Skill(string name, int damage, int hp, int mp, int number, int unlockLevel) //생성자 매개변수 추가 추가한 매개변수를 리스트 값에 적용
+        public Dictionary<string, Skill> WarriorSkillList(GameData data)
         {
-            SkillName = name;
-            SkillDamage = damage;
-            SkillHp = hp;
-            SkillMp = mp;
-            SkillNumber = number;
-            UnlockLevel = unlockLevel;
-        }
-
-        //직업별 스킬
-        public List<Skill> WarriorSkillList(Player player)
-        {
-            List<Skill> warrior = new List<Skill>(); //스킬이름, 스킬데미지, 체력소모, MP소모, 사용할 때 스킬숫자
-            warrior.Add(new Skill("", 0, 0, 0, 0, 0));
-            warrior.Add(new Skill("두번베기", player.damage * 2, 0, 1, 1, 1));
-            warrior.Add(new Skill("달려들기", player.damage + 30, 8, 1, 2, 2));
-            warrior.Add(new Skill("회복", 0, 30, 0, 3, 2));
-            warrior.Add(new Skill("필살검", player.damage * 3 + 50, 30, 10, 4, 3));
-
+            Dictionary<string, Skill> warrior = new Dictionary<string, Skill>(); //스킬이름, 스킬데미지, 체력소모, MP소모, 사용할 때 스킬숫자
+            warrior.Add("두번베기", new Skill
+            {
+                SkillNumber = 1,
+                SkillName = "두번베기",
+                SkillDamage = data.Player.damage * 2,
+                SkillHp = 0,
+                SkillMp = 15,
+                UnlockLevel = 1
+            });
+            warrior.Add("달려들기", new Skill
+            {
+                SkillNumber = 2,
+                SkillName = "달려들기",
+                SkillDamage = data.Player.damage + 30 * 2,
+                SkillHp = 8,
+                SkillMp = 1,
+                UnlockLevel = 2
+            });
+            warrior.Add("회복", new Skill
+            {
+                SkillNumber = 3,
+                SkillName = "회복",
+                SkillDamage = 0,
+                SkillHp = (data.Player.damage / 2) + 30,
+                SkillMp = 3,
+                UnlockLevel = 2
+            });
+            warrior.Add("필살검", new Skill
+            {
+                SkillNumber = 4,
+                SkillName = "필살검",
+                SkillDamage = data.Player.damage * 3 + 50,
+                SkillHp = 30,
+                SkillMp = 10,
+                UnlockLevel = 3
+            });
             return warrior;
 
         }
-        public List<Skill> MageSkillList(Player player)
+    
+        public Dictionary<string, Skill> MageSkillList(GameData data)
         {
-            List<Skill> mage = new List<Skill>();
-            mage.Add(new Skill("", 0, 0, 0, 0, 0));
-            mage.Add(new Skill("파이어", player.damage + 30, 0, 8, 1, 1));
-            mage.Add(new Skill("불기둥", player.damage + 40, 0, 30, 2, 2));
-            mage.Add(new Skill("마나회복", 0, 0, player.mp + 30, 3, 3));
-            mage.Add(new Skill("필살불", player.damage + 80, 0, 50, 4, 3));
-
+            Dictionary<string, Skill> mage = new Dictionary<string, Skill>();
+            mage.Add("파이어", new Skill
+            {
+                SkillNumber = 1,
+                SkillName = "파이어",
+                SkillDamage = data.Player.damage,
+                SkillHp = 0,
+                SkillMp = 8,
+                UnlockLevel = 1
+            });
+            mage.Add("불기둥", new Skill
+            {
+                SkillNumber = 2,
+                SkillName = "불기둥",
+                SkillDamage = data.Player.damage + 40,
+                SkillHp = 0,
+                SkillMp = 30,
+                UnlockLevel = 2
+            });
+            mage.Add("마나회복", new Skill
+            {
+                SkillNumber = 3,
+                SkillName = "마나회복",
+                SkillDamage = 0,
+                SkillHp = 0,
+                SkillMp = 30,
+                UnlockLevel = 2
+            });
+            mage.Add("필살불", new Skill
+            {
+                SkillNumber = 4,
+                SkillName = "필살불",
+                SkillDamage = data.Player.damage + 80,
+                SkillHp = 0,
+                SkillMp = 50,
+                UnlockLevel = 3
+            });
             return mage;
         }
 
-        public List<Skill> ArcherSkillList(Player player)
+        public Dictionary<string, Skill> ArcherSkillList(GameData data)
         {
-            List<Skill> archer = new List<Skill>();
-            archer.Add(new Skill("", 0, 0, 0, 0, 0));
-            archer.Add(new Skill("세번쏘기", player.damage * 3, 0, 4, 1, 1));
-            archer.Add(new Skill("네번쏘기", player.damage * 4, 0, 8, 2, 2));
-            archer.Add(new Skill("다섯번쏘기", player.damage * 5, 0, 12, 3, 3));
+            Dictionary<string, Skill> archer = new Dictionary<string, Skill>();
+            archer.Add("세번쏘기", new Skill
+            {
+                SkillNumber = 1,
+                SkillName = "세번쏘기",
+                SkillDamage = data.Player.damage * 3,
+                SkillHp = 0,
+                SkillMp = 4,
+                UnlockLevel = 1
+            });
+            archer.Add("네번쏘기", new Skill
+            {
+                SkillNumber = 2,
+                SkillName = "네번쏘기",
+                SkillDamage = data.Player.damage * 4,
+                SkillHp = 0,
+                SkillMp = 8,
+                UnlockLevel = 2
+            });
+            archer.Add("다섯번쏘기", new Skill
+            {
+                SkillNumber = 3,
+                SkillName = "다섯번쏘기",
+                SkillDamage = data.Player.damage * 5,
+                SkillHp = 0,
+                SkillMp = 12,
+                UnlockLevel = 3
+            });
 
             return archer;
         }
