@@ -88,19 +88,19 @@ namespace TxtRPG.Scene
                 {
                     case 1:
                         job = "전사";
-                        UIManager.PrintDarkYellow("1. 전사 : \"전사를 고르셨습니다.\"");
+                        UIManager.PrintDarkYellow("\"전사를 고르셨습니다.\"");
                         isChoosed = true;
                         Thread.Sleep(1000);
                         break;
                     case 2:
                         job = "궁수";
-                        UIManager.PrintDarkYellow("2. 궁수 : \"궁수를 고르셨습니다.\"");
+                        UIManager.PrintDarkYellow("\"궁수를 고르셨습니다.\"");
                         isChoosed = true;
                         Thread.Sleep(1000);
                         break;
                     case 3:
                         job = "마법사";
-                        UIManager.PrintDarkYellow("3. 마법사 : \"마법사를 고르셨습니다.\"");
+                        UIManager.PrintDarkYellow("\"마법사를 고르셨습니다.\"");
                         isChoosed = true;
                         Thread.Sleep(1000);
                         break;
