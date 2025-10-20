@@ -54,18 +54,18 @@ namespace TxtRPG.Scene
                     new GameManager().SaveGame(data);
                     return this;
                 case "5":
-                    GameData loaded = gm.Load();
+                    //GameData loaded = gm.Load();
 
-                    if (loaded != null)
-                    {
-                        GameManager.data = loaded;
-                        data = GameManager.data;
-                        LogManager.Add("저장된 데이터를 불러왔습니다.");
-                    }
-                    else
-                    {
-                        LogManager.Add("불러오기에 실패했습니다.");
-                    }
+                    //if (loaded != null)
+                    //{
+                    //    GameManager.data = loaded;
+                    //    data = GameManager.data;
+                    //    LogManager.Add("저장된 데이터를 불러왔습니다.");
+                    //}
+                    //else
+                    //{
+                    //    LogManager.Add("불러오기에 실패했습니다.");
+                    //}
 
                     return this;
 

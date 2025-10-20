@@ -38,7 +38,7 @@ namespace TxtRPG.Scene
 
             while (true)
             {
-                bool isAlive = true;
+                bool allMonsterDead = true;
                 if (data.Player.hp <= 0)
                 {
                     LogManager.Add("플레이어가 사망하여 마을에서 다시 태어납니다.");
@@ -52,12 +52,12 @@ namespace TxtRPG.Scene
                 {
                     if (monsters[i].monsterIsAlive)
                     {
-                        isAlive = false;
+                        allMonsterDead = false;
                         break;
                     }
                 }
 
-                if (isAlive)
+                if (allMonsterDead)
                 {
                     LogManager.Add("모든 몬스터가 쓰러졌습니다! 마을로 돌아갑니다!");
                     Thread.Sleep(1000);
