@@ -92,10 +92,5 @@ namespace TxtRPG
                 }
             }
         }
-        //지워도 된다. 몬스터 변환 자동화, 아마 보스나 던전 시스템에 쓰려고 만들려고 한 것.
-        public static implicit operator Monster(List<Monster> v)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

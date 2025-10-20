@@ -25,7 +25,8 @@ namespace TxtRPG.Scene
         private object ShowBattle(GameData data)
         {
             //랜덤 몬스터 생성 및 전투 루프
-            for (int i = 0; i < rand.Next(1, 5); i++)            {
+            for (int i = 0; i < rand.Next(1, 5); i++)            
+            {
                 monsters.Add(new Monster(data));
             }
             LogManager.Add("전투시작!");

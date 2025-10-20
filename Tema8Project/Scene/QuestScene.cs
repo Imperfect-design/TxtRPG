@@ -57,7 +57,7 @@ namespace TxtRPG.Scene
                     string status = quests[i].isAccept ? "[수락됨]" : "";
                     UIManager.PrintCenter($"[{i + 1}] {quests[i].monsterName} {quests[i].killCount}마리 처치 (보상: {quests[i].reward}G){status}");
                 }
-                LogManager.Show();
+                LogManager.Show();//이미 수락한 상태입니다/수락하였습니다 메세지 띄우기 위해서
 
                 UIManager.PrintCenter("수락할 퀘스트 번호 입력 (0: 거절하고 새로고침 / 4번을 누르면 나갑니다.): ");
                 //int input = int.Parse(Console.ReadLine());
