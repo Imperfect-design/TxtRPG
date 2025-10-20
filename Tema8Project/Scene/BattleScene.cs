@@ -25,7 +25,8 @@ namespace TxtRPG.Scene
         private object ShowBattle(GameData data)
         {
             //랜덤 몬스터 생성 및 전투 루프
-            for (int i = 0; i < rand.Next(1, 5); i++)            {
+            for (int i = 0; i < rand.Next(1, 5); i++)
+            {
                 monsters.Add(new Monster(data));
             }
             LogManager.Add("전투시작!");
@@ -42,7 +43,7 @@ namespace TxtRPG.Scene
                     return new TitleScene();
                     
                 }
-                for (int i = 0; i < monsters.Count; i++)
+                for (int i = 0; i < monsters.Count; i++)//3
                 {
                     if (monsters[i].monsterIsAlive == true)
                     {
@@ -50,6 +51,7 @@ namespace TxtRPG.Scene
                         break;
                     }
                 }
+
                 if (isAlive)
                 {
                     LogManager.Add("모든 몬스터가 쓰러졌습니다! 마을로 돌아갑니다!");
@@ -185,7 +187,16 @@ namespace TxtRPG.Scene
         //포션 선택시 로직
         private void UsePotion(GameData data)
         {
-            var potion = data.Player.inventory.items.FirstOrDefault(item => item.name == "커피" && item.type == ItemType.Consumable && item.count > 0);
+            Item potion = null;
+
+            foreach (var item in data.Player.inventory.items)
+            {
+                if (item.name == "커피" && item.type == ItemType.Consumable && item.count > 0)
+                {
+                    potion = item;
+                    break;
+                }
+            }
 
             if (potion != null)
             {
