@@ -58,8 +58,8 @@ namespace TxtRPG.Scene
                 UIManager.PrintCenter($"[{data.Player.name} {data.Player.level}.Lv  HP : {data.Player.hp}/{data.Player.maxHp} MP : {data.Player.mp}/{data.Player.maxMp} DMG : {data.Player.damage}  EXP : {data.Player.exp}/{data.Player.maxExp}]");
                 
                 LogManager.Show();
-
-                Console.WriteLine($"\n\n\n\n\n1.공격하기 2.커피사용하기[{potionCount}]개 3.도망가기");
+                UIManager.PrintCenter("\n\n");
+                UIManager.PrintCenter($"1.공격하기 2.커피사용하기[{potionCount}]개 3.도망가기");
 
                 //int input = int.Parse(Console.ReadLine());
                 if (!int.TryParse(Console.ReadLine(), out int input))
@@ -106,7 +106,8 @@ namespace TxtRPG.Scene
                 UIManager.PrintCenter($"[{data.Player.name} {data.Player.level}.Lv  HP : {data.Player.hp}/{data.Player.maxHp} MP : {data.Player.mp}/{data.Player.maxMp} DMG : {data.Player.damage}  EXP : {data.Player.exp}/{data.Player.maxExp}]");
                 LogManager.Show();
 
-                Console.Write($"\n\n\n\n\n공격대상의 번호를 입력하세요 0.뒤로가기 : ");
+                UIManager.PrintCenter("\n\n");
+                UIManager.PrintCenter($"공격대상의 번호를 입력하세요 0.뒤로가기 : ");
 
                 //int input = int.Parse(Console.ReadLine()) - 1;
 

@@ -51,7 +51,7 @@ namespace TxtRPG.Scene
             while (true)
             {
                 Console.Clear();
-                UIManager.PrintCenter("=== 퀘스트 목록 ===");
+                UIManager.PrintTitle("=== 퀘스트 목록 ===");
                 for (int i = 0; i < quests.Count; i++)
                 {
                     string status = quests[i].isAccept ? "[수락됨]" : "";
@@ -59,6 +59,8 @@ namespace TxtRPG.Scene
                 }
                 LogManager.Show();
 
+                UIManager.PrintDivider("line");
+                UIManager.PrintCenter("");
                 UIManager.PrintCenter("수락할 퀘스트 번호 입력 (0: 거절하고 새로고침 / 4번을 누르면 나갑니다.): ");
                 //int input = int.Parse(Console.ReadLine());
 
