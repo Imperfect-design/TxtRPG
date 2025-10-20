@@ -3,6 +3,7 @@ using TxtRPG.Data;
 using TxtRPG.Game;
 using TxtRPG.UI;
 
+
 namespace TxtRPG.Scene
 {
     public class TitleScene : Iscene
@@ -26,15 +27,20 @@ namespace TxtRPG.Scene
             string input = UIManager.ConsoleArray(() =>
             {
                 UIManager.PrintTitle("==== 시작부터 마왕나옴 ====");
+<<<<<<< HEAD
                 UIManager.PrintCenter("시작부터 마왕을 만나실 당신을 환영합니다.");
+=======
+                UIManager.PrintCenterLine("시작부터 마왕을 만나실 당신을 환영합니다.");
+                UIManager.PrintDivider("line");
+>>>>>>> NewMind
                 Console.WriteLine();
                 LogManager.Show();
                 UIManager.PrintYellow("1. 상태 보기");
                 UIManager.PrintYellow("2. 전투 시작");
                 UIManager.PrintYellow("3. 퀘스트 보기");
-                UIManager.PrintCenter("0. 게임 종료");
+                UIManager.PrintCenterLine("0. 게임 종료");
                 Console.WriteLine();
-                UIManager.PrintCenterLine(">>    ");
+                UIManager.PrintCenter(">>    ");
             });
 
             switch (input)
@@ -50,7 +56,7 @@ namespace TxtRPG.Scene
                     Environment.Exit(0);
                     break;
                 default:
-                    UIManager.PrintCenter("혹시 잘못 적으시지 않으셨습니까?.");
+                    UIManager.PrintCenterLine("혹시 잘못 적으시지 않으셨습니까?.");
                     Console.ReadKey();
                     break;
             }

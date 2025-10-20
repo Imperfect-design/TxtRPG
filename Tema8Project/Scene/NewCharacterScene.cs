@@ -53,8 +53,8 @@ namespace TxtRPG.Scene
             string inputYourName = UIManager.ConsoleArray(() =>
             {
                 UIManager.PrintTitle("이름 설정");
-                UIManager.PrintCenter("당신의 이름을 입력하세요");
-                UIManager.PrintCenter("");
+                UIManager.PrintCenterLine("당신의 이름을 입력하세요");
+                UIManager.PrintCenterLine("");
             });
             Console.WriteLine();
             UIManager.PrintYellow($"당신의 이름은 이제부터 {inputYourName}입니다!");
@@ -73,8 +73,8 @@ namespace TxtRPG.Scene
                 UIManager.PrintTitle("직업 선택");
                 UIManager.PrintYellow("당신의 직업을 선택하세요");
                 UIManager.PrintYellow("1. 전사 2. 궁수 3. 마법사");
-                UIManager.PrintCenter("");
-                UIManager.PrintCenterLine(">>");
+                UIManager.PrintCenterLine("");
+                UIManager.PrintCenter(">>");
 
                 if (!int.TryParse(Console.ReadLine(), out int chooseJob))
                 {
@@ -88,19 +88,19 @@ namespace TxtRPG.Scene
                 {
                     case 1:
                         job = "전사";
-                        UIManager.PrintDarkYellow("1. 전사 : \"전사를 고르셨습니다.\"");
+                        UIManager.PrintDarkYellow("\"전사를 고르셨습니다.\"");
                         isChoosed = true;
                         Thread.Sleep(1000);
                         break;
                     case 2:
                         job = "궁수";
-                        UIManager.PrintDarkYellow("2. 궁수 : \"궁수를 고르셨습니다.\"");
+                        UIManager.PrintDarkYellow("\"궁수를 고르셨습니다.\"");
                         isChoosed = true;
                         Thread.Sleep(1000);
                         break;
                     case 3:
                         job = "마법사";
-                        UIManager.PrintDarkYellow("3. 마법사 : \"마법사를 고르셨습니다.\"");
+                        UIManager.PrintDarkYellow("\"마법사를 고르셨습니다.\"");
                         isChoosed = true;
                         Thread.Sleep(1000);
                         break;

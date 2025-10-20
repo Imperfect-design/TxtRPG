@@ -25,10 +25,10 @@
 
 //        int showMonstersCount;
 
-//        bool cheakAllMonsterNoDead=true;
+//        bool cheakAllMonsterNoDead = true;
 
 //        string monsterList;
-        
+
 
 
 //        private void printList(GameData data)
@@ -40,8 +40,8 @@
 //                Monster monster = new Monster(data);
 //                monster.monsterIndex = i + 1;
 //                data.monsters.Add(monster);
-                
-                
+
+
 //                if (!data.monsters[i].monsterIsAlive)
 //                {
 //                    Console.ForegroundColor = ConsoleColor.DarkGray;
@@ -63,7 +63,7 @@
 //                }
 
 
-//                    Console.WriteLine(monsterList);
+//                Console.WriteLine(monsterList);
 //            }
 //        }
 
@@ -76,11 +76,11 @@
 
 //                if (!monster.monsterIsAlive)
 //                {
-//                    monsterList = $"\n\n[{i+1}] LV.{data.monsters[i].monsterLevel} {data.monsters[i].monsterName} Dead";
+//                    monsterList = $"\n\n[{i + 1}] LV.{data.monsters[i].monsterLevel} {data.monsters[i].monsterName} Dead";
 //                }
 //                else
 //                {
-//                    monsterList = $"\n\n[{i+1}] LV.{data.monsters[i].monsterLevel} {data.monsters[i].monsterName} HP {data.monsters[i].monsterHp}";
+//                    monsterList = $"\n\n[{i + 1}] LV.{data.monsters[i].monsterLevel} {data.monsters[i].monsterName} HP {data.monsters[i].monsterHp}";
 //                }
 
 //                if (monster.monsterIsAlive)
@@ -134,7 +134,7 @@
 //                }
 //            }
 //        }
-        
+
 
 //        private object PlayerTurn(GameData data)
 //        {
@@ -145,7 +145,7 @@
 //            Console.Write("\n>> ");
 //            string inputStr = Console.ReadLine();//입력값 받아서
 //            int inputInt = int.Parse(inputStr);
-//            data.PlayerInput = inputInt-1;
+//            data.PlayerInput = inputInt - 1;
 
 //            for (int i = 0; i < data.monsters.Count; i++)//리스트에 있는 몬스터를 싹 다 훑어서
 //            {
@@ -199,23 +199,23 @@
 //                }
 
 
-//                    else if (!data.monsters[i].monsterIsAlive)
-//                    {
+//                else if (!data.monsters[i].monsterIsAlive)
+//                {
 
-//                            Console.WriteLine($"잘못된 입력입니다.");
-//                            Console.ReadLine();
+//                    Console.WriteLine($"잘못된 입력입니다.");
+//                    Console.ReadLine();
 
-//                    }
-//                    if (data.monsters.All(m => !m.monsterIsAlive))
-//                    {
-//                        Console.WriteLine("\n모든 몬스터를 처치했습니다!");
-//                        Console.ReadLine();
-//                        new TitleScene().Run(data);
-//                        return;
-//                    }
+//                }
+//                if (data.monsters.All(m => !m.monsterIsAlive))
+//                {
+//                    Console.WriteLine("\n모든 몬스터를 처치했습니다!");
+//                    Console.ReadLine();
+//                    new TitleScene().Run(data);
+//                    return;
 //                }
 //            }
-        
+//        }
+
 
 //        int beforeMonsterHP;
 //        int currentMonsterHP;
@@ -235,15 +235,15 @@
 //            Console.WriteLine("몬스터의 턴!");
 
 //            foreach (Monster monster in data.monsters)
+//            {
+//                if (monster.monsterIsAlive == false)
 //                {
-//                    if (monster.monsterIsAlive == false)
-//                    {
-//                        continue;
-//                    }
+//                    continue;
+//                }
 
-//                    beforePlayerHP = data.Player.hp;
-//                    HitPlayer(data);
-//                    currentPlayerHP = data.Player.hp;
+//                beforePlayerHP = data.Player.hp;
+//                HitPlayer(data);
+//                currentPlayerHP = data.Player.hp;
 
 //                Console.WriteLine($"\nLv.{monster.monsterLevel} {monster.monsterName} 의 공격!");
 //                Console.WriteLine($"{data.Player.name}이(가) {monster.monsterAttackPower} 피해를 입었습니다!");
@@ -289,7 +289,7 @@
 //        public void HitPlayer(GameData data)
 //        {
 //            Monster attacker = data.monsters.FirstOrDefault(mbox => mbox.monsterIsAlive);
-//            if(attacker == null) return;
+//            if (attacker == null) return;
 //            data.Player.hp -= attacker.monsterAttackPower;
 //            if (data.Player.hp < 0) data.Player.hp = 0;
 
@@ -324,7 +324,7 @@
 //        {
 //            if (data.monsters.Any(m => !m.monsterIsAlive))
 //            {
-//                data.Player.inventory.AddItem(new Item("낡은 마법서",ItemType.Weapon, 1, 5, 0, 0, 0, 20));
+//                data.Player.inventory.AddItem(new Item("낡은 마법서", ItemType.Weapon, 1, 5, 0, 0, 0, 20));
 //            }
 //        }
 
