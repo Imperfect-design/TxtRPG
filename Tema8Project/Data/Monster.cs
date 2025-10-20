@@ -14,6 +14,8 @@ namespace TxtRPG
 {
     public class Monster
     {
+        public Monster() { }
+
         public string monsterName { get; set; }
         public int monsterLevel { get; set; }
         public int monsterHp { get; set; }

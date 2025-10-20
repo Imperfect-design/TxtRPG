@@ -23,7 +23,7 @@ namespace TxtRPG.Game
             {
                 if (currentScene is Iscene scene)
                 {
-                    LogManager.Clear();
+                    
                     currentScene = scene.Run(data);
                 }
                 else
@@ -41,13 +41,13 @@ namespace TxtRPG.Game
             {
                 string json = JsonSerializer.Serialize(data, new JsonSerializerOptions { WriteIndented = true });
                 File.WriteAllText(Save, json);
+                LogManager.Add("저장 성공");
             }
             catch (Exception ex)
             {
                 LogManager.Add($"저장 실패: {ex.Message}");
             }
         }
-
         public GameData Load()
         {
             try
@@ -55,13 +55,18 @@ namespace TxtRPG.Game
                 if (File.Exists(Save))
                 {
                     string json = File.ReadAllText(Save);
-                    GameData loadedData = JsonSerializer.Deserialize<GameData>(json);
+                    GameData loadedData = JsonSerializer.Deserialize<GameData>(json, new JsonSerializerOptions
+                    {
+                        IncludeFields = true, 
+                        PropertyNameCaseInsensitive = true,  
+                        WriteIndented = true
+                    }) ?? new GameData();
                     LogManager.Add("저장된 게임을 불러왔습니다.");
                     return loadedData;
                 }
                 else
                 {
-                    LogManager.Add("저장된 데이터가 없습니다. 새 게임을 시작합니다.");
+                    LogManager.Add("저장된 데이터가 없습니다.");
                     return new GameData();
                 }
             }

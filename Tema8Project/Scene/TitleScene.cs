@@ -58,7 +58,8 @@ namespace TxtRPG.Scene
 
                     if (loaded != null)
                     {
-                        data = loaded; // ★ 수정: 현재 data 덮어쓰기
+                        GameManager.data = loaded;
+                        data = GameManager.data;
                         LogManager.Add("저장된 데이터를 불러왔습니다.");
                     }
                     else
