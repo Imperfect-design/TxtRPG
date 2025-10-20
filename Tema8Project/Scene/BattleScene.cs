@@ -118,6 +118,11 @@ namespace TxtRPG.Scene
                     case 1:
                         Console.Clear();
                         ShowAtack(data);
+                        EnemyTurn(data);
+                        if (data.Player.hp <= 0)
+                        {
+                            return new TitleScene();
+                        }
                         break;
                     case 2:
                         UsePotion(data);
@@ -131,8 +136,6 @@ namespace TxtRPG.Scene
                 }
             }
         }
-
-        
 
         //공격하기 선택시 로직
         public void ShowAtack(GameData data)
@@ -205,19 +208,6 @@ namespace TxtRPG.Scene
                         target.monsterIsAlive = false;
                         LogManager.Add($"{target.monsterName}은(는) 쓰러졌다!");
                     }
-                    else
-                    {
-                        int dogeRand = rand.Next(1, 101);
-                        if (data.Player.doge >= dogeRand)
-                        {
-                            LogManager.Add($"{monsters[monsterCount].monsterName}이(가) 공격하였지만 회피하였다!");
-                        }
-                        else
-                        {
-                            data.Player.TakeDamage(monsters[monsterCount].monsterAttackPower);
-                            LogManager.Add($"{monsters[monsterCount].monsterName}에게 {monsters[monsterCount].monsterAttackPower}의 데미지를 받았다!");
-                        }
-                    }
                     break;
                 }
                 else
@@ -226,6 +216,52 @@ namespace TxtRPG.Scene
                 }
             }
         }
+
+        private void EnemyTurn(GameData data)
+        {
+            Console.Clear();
+            UIManager.PrintCenterLine("몬스터의 차례");
+            UIManager.PrintDivider("brick");
+
+            for (int i = 0; i < monsters.Count; i++)
+            {
+                var m = monsters[i];
+                if (!m.monsterIsAlive || m.monsterHp <= 0)
+                {
+                    UIManager.PrintDarkYellow($"[{m.monsterName}] 은(는) 쓰러져 있어 행동할 수 없습니다.");
+                    continue;
+                }
+                UIManager.PrintRed($"[ {m.monsterName} 이 공격합니다.]");
+                Thread.Sleep(500);
+
+                int dodgeRand = rand.Next(1, 101);
+                if (data.Player.doge >= dodgeRand)
+                {
+                    LogManager.Add($"{m.monsterName}이(가) 공격하였지만 회피하였다!");
+                }
+                else
+                {
+                    data.Player.TakeDamage(m.monsterAttackPower);
+                    LogManager.Add($"{m.monsterName}에게 {m.monsterAttackPower}의 데미지를 받았습니다!");
+                }
+
+                if (data.Player.hp <= 0)
+                {
+                    LogManager.Add("플레이어가 사망했습니다.");
+                    BattleResultLose(data);
+                    UIManager.PrintCenterLine("아무 키나 눌러 마을로 돌아갑니다.");
+                    Console.ReadKey();
+                    return;
+                }
+                Console.WriteLine();
+                Thread.Sleep(300);
+            }
+            UIManager.PrintDivider("line");
+            UIManager.PrintCenterLine("[몬스터의 차례가 끝났습니다.]");
+            UIManager.PrintCenterLine("다시 [플레이어의 차례]로 돌아갑니다.");
+            Thread.Sleep(1200);
+        }
+        
         //포션 선택시 로직
         private void UsePotion(GameData data)
         {

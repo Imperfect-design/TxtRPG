@@ -34,7 +34,7 @@ namespace TxtRPG.Data
             maxMp = 10;
             hp = maxHp;
             mp = maxMp;
-            damage = 25;
+            damage = 70;
             gold = 1000;
             doge = 30;
             critical = 50;
