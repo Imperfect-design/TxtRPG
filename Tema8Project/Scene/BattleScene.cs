@@ -25,8 +25,7 @@ namespace TxtRPG.Scene
         private object ShowBattle(GameData data)
         {
             //랜덤 몬스터 생성 및 전투 루프
-            for (int i = 0; i < rand.Next(1, 5); i++)
-            {
+            for (int i = 0; i < rand.Next(1, 5); i++)            {
                 monsters.Add(new Monster(data));
             }
             LogManager.Add("전투시작!");
@@ -36,12 +35,19 @@ namespace TxtRPG.Scene
                 if (data.Player.hp <= 0)
                 {
                     LogManager.Add("플레이어가 사망하여 마을에서 다시 태어납니다.");
+                    BattleResultLose(data);
+                    Console.WriteLine("아무 키나 입력해주세요.");
+                    Console.ReadKey();
                     return new TitleScene();
+                    
                 }
                 if (monsters.All(m => m.monsterHp <= 0))
                 {
-                    LogManager.Add("모든 몬스터가 쓰러졌습니다! 마을로 돌아갑니다!");
+                    LogManager.Add("모든 몬스터가 쓰러졌습니다! 마을로 돌아갑시다!");
                     Thread.Sleep(1000);
+                    BattleResultVictory(data);
+                    Console.WriteLine("아무 키나 입력해주세요.");
+                    Console.ReadKey();
                     return new TitleScene();
                 }
                 //인벤토리에서 포션 가져오기
@@ -86,6 +92,8 @@ namespace TxtRPG.Scene
                 }
             }
         }
+
+        
 
         //공격하기 선택시 로직
         public void ShowAtack(GameData data)
@@ -199,5 +207,46 @@ namespace TxtRPG.Scene
                 LogManager.Add("커피가 없습니다!");
             }
         }
+
+
+        public void BattleResultVictory(GameData data)
+        {
+            Console.Clear();
+            string a = $"Battle!! - Result" +
+                $"\n" +
+                $"Victory" +
+                $"\n" +
+                $"던전에서 몬스터 {monsters.Count}를 잡았습니다." +
+                $"\n" +
+                $"Lv.{data.Player.level} {data.Player.name}" +
+                $"HP {data.Player.maxHp} -> {data.Player.hp}" +
+                $"\n";
+
+            Console.WriteLine(a);
+        }
+
+        public void BattleResultLose(GameData data)
+        {
+            Console.Clear();
+            string a = $"Battle!! - Result" +
+                $"\n" +
+                $"You Lose" +
+                $"\n" +
+                $"Lv.{data.Player.level} {data.Player.name}" +
+                $"HP {data.Player.maxHp} -> {data.Player.hp}" +
+                $"\n";
+
+            Console.WriteLine(a);
+        }
     }
 }
+
+    
+    
+    
+    
+    
+    
+    
+    
+
