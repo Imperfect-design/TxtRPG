@@ -24,7 +24,7 @@ namespace TxtRPG.Scene
         //퀘스트 생성
         public QuestScene(GameData data)
         {
-            monsterName = data.monsterNames[rand.Next(data.monsterNames.Length)];
+            monsterName = data.monster.names[rand.Next(data.monster.names.Length)];
             killCount = 5 + (data.Player.level - 1) * rand.Next(1, 11);
             reward = killCount * 20;
             isAccept = false;
